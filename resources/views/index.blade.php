@@ -12,9 +12,11 @@
 
 @endsection
 
+@section('sidebars')
+  @include('partials.left-sidebar')
+@endsection
+
 
 @section('content')
-
-
 
 @endsection

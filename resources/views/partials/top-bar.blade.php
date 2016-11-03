@@ -13,11 +13,11 @@
                 <!-- #END# Call Search -->
 
                 <!-- Notifications -->
-                @include('partials.top-bar.notifications')
+                {{-- @include('partials.top-bar.notifications') --}}
                 <!-- #END# Notifications -->
 
                 <!-- Tasks -->
-                @include('partials.top-bar.tasks')
+                {{-- @include('partials.top-bar.tasks') --}}
                 <!-- #END# Tasks -->
 
                 <!-- Right menu -->

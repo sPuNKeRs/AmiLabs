@@ -35,6 +35,7 @@
             @yield('content')
         </div>
     </section>
+    @include('auth.logout-form')
     @include('partials.js')
 </body>
 </html>

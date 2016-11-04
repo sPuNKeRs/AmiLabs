@@ -13,10 +13,21 @@
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'menu']], function () {
 
     Route::get('/', function () {
         return view('index');
     });
 
 });
+
+// Работа с регистратурой
+Route::group(['middleware' => ['auth', 'menu']], function () {
+  // Страница регистратуры
+  Route::get('/registry', [
+    'as' => 'registry', 
+    'uses' => 'RegistryController@index'
+  ]);
+
+});
+

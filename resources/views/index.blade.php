@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('page_title', 'Лабораторная информация система')
+
 
 @section('body')
   <!-- Search Bar -->
@@ -7,7 +9,7 @@
   <!-- #END# Search Bar -->
 
   <!-- Top Bar -->
-  @include('partials.top-bar') --}}
+  @include('partials.top-bar') 
   <!-- #Top Bar -->
 
 @endsection
@@ -18,5 +20,7 @@
 
 
 @section('content')
-
+  
 @endsection
+
+

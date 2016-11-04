@@ -3,7 +3,7 @@
     <!-- User Info -->
     @include('partials.left-sidebar.user-info')
     <!-- #User Info -->
-    @include('partials.left-sidebar.menu')
+    @include('partials.left-sidebar.menu', ['menu' => $menu_main->roots()])
     <!-- Menu -->
     
     <!-- #Menu -->

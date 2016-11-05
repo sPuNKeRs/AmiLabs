@@ -1,7 +1,10 @@
 @extends('layouts.master')
 
+@section('page_title', 'Восстановление пароля')
+@section('page-class', 'fp-page ls-closed')
+
 @section('content')
-<div class="container">
+ <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

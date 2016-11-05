@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
-@section('page-class', 'login-page')
+@section('page_title', 'Вход в систему')
+@section('page-class', 'login-page ls-closed')
 
 @section('content')
 <!-- login form -->

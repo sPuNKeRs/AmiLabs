@@ -3,10 +3,11 @@
     <!-- User Info -->
     @include('partials.left-sidebar.user-info')
     <!-- #User Info -->
-    @include('partials.left-sidebar.menu', ['menu' => $menu_main->roots()])
+
     <!-- Menu -->
-    
+    @yield('left_menu')    
     <!-- #Menu -->
+
     <!-- Footer -->
     @include('partials.left-sidebar.footer')
     <!-- #Footer -->

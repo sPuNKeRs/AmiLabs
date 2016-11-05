@@ -18,6 +18,7 @@ class MenuMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // Главное меню
         Menu::make('main', function(Builder $menu) {
             // Страница регистратуры
             $menu->add('registry', 'registry')->data([
@@ -33,12 +34,20 @@ class MenuMiddleware
             ]);
         });
 
+        // Меню администратора
         Menu::make('admin', function(Builder $menu) {
             // Общие настройки
             $menu->add('settings', 'settings')->data([
                 'icon' => 'build',
                 'titles' => 'Общие настройки',
                 'route' => 'settings'
+            ]);
+
+             //  Профиль
+            $menu->add('profile', 'profile')->data([
+                'icon' => 'assignment_ind',
+                'titles' => 'Профиль',
+                'route' => 'profile'
             ]);
             
             // Пользователи

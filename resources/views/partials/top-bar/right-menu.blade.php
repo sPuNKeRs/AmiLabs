@@ -4,7 +4,7 @@
     <i class="material-icons">more_vert</i>
   </a>
   <ul class="dropdown-menu pull-right">
-    <li><a href="{{ route('profile') }}" class=" waves-effect waves-block">Профиль</a></li>
+    <li><a href="{{ route('profile', Auth::user()->id) }}" class=" waves-effect waves-block">Профиль</a></li>
     <li><a href="{{ route('settings') }}" class=" waves-effect waves-block">Настройки</a></li>
     <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class=" waves-effect waves-block">Выход</a></li>
   </ul>

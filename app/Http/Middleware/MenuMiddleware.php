@@ -6,6 +6,7 @@ use Closure;
 
 use Menu;
 use Caffeinated\Menus\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class MenuMiddleware
 {
@@ -44,10 +45,10 @@ class MenuMiddleware
             ]);
 
              //  Профиль
-            $menu->add('profile', 'profile')->data([
+            $menu->add('profile', 'profile/'.Auth::user()->id)->data([
                 'icon' => 'assignment_ind',
                 'titles' => 'Профиль',
-                'route' => 'profile'
+                'route' => 'profile/'
             ]);
             
             // Пользователи

@@ -72,6 +72,18 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
         'as' => 'users',
         'uses' => 'UsersController@index'
     ]);
+
+    // Страница создания пользователя
+    Route::get('/users/create', [
+        'as' => 'users.create', 
+        'uses' => 'UsersController@userCreate'
+    ]);
+
+    // Сохранение пользователя
+    Route::post('/users/create', [
+        'as' => 'users.create', 
+        'uses' => 'UsersController@create'
+    ]);
 });
 
 // -----------------------------------------------------------

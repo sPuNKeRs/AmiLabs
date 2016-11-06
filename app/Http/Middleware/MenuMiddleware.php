@@ -56,7 +56,7 @@ class MenuMiddleware
                 'icon' => 'supervisor_account',
                 'titles' => 'Пользователи',
                 'route' => 'users'
-            ]);
+            ])->active('users/*');;
 
             // Справочники
             $menu->add('reference', 'reference')->data([

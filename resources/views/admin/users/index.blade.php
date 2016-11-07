@@ -24,8 +24,16 @@
 
 
 @section('content')
+
   <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @if(session('status'))
+                <div class="alert bg-green alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                {{ session('status') }}
+                </div>
+                @endif
+
                     <div class="card">
                         <div class="header">
                             <h2>
@@ -68,6 +76,27 @@
                     </div>
                 </div>
             </div>
+@endsection
+
+@section('css')
+
+@endsection
+
+@section('js')
+  <!-- Bootstrap Notify Plugin Js -->
+  {{-- <script src="{{URL::asset('plugins/bootstrap-notify/bootstrap-notify.js')}}"></script> --}}  
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      // При двойном нажатии открыть форму редактирования
+      $('tr').on('dblclick', function(e){
+        var userid = $(this).data('user-id');
+        if (userid) {
+          window.location = '{{route('users.edit')}}/' + userid;
+        }
+      });
+    });
+  </script>
 @endsection
 
 

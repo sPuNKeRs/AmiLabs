@@ -84,6 +84,18 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
         'as' => 'users.create', 
         'uses' => 'UsersController@create'
     ]);
+
+    // Страница редактирование пользователя
+    Route::get('/users/edit/{userid?}', [
+        'as' => 'users.edit', 
+        'uses' => 'UsersController@userEdit'
+    ]);
+
+    // Редактирование пользователя
+    Route::post('/users/edit', [
+        'as' => 'users.edit', 
+        'uses' => 'UsersController@edit'
+    ]);
 });
 
 // -----------------------------------------------------------

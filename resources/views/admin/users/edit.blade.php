@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title', 'Создать пользователя')
+@section('page_title', 'Редактирование пользователя')
 @section('css')
 <!-- Bootstrap Select Css -->
 <link href="{{ URL::asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
@@ -22,12 +22,12 @@
 @endsection
 @section('content')
 <div class="row clearfix">
-  {!! Form::open(['route' => 'users.create', 'id'=>'create_user_from', 'name'=>'create_user_from'])!!}
+    {!! Form::model($user, ['route' => ['users.edit', $user->id], 'id'=>'user_edit_form'])!!}
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
         <div class="header">
           <h2>
-          СОЗДАНИЕ ПОЛЬЗОВАТЕЛЯ
+          РЕДАКТИРОВАНИЕ ПОЛЬЗОВАТЕЛЯ
           </h2>
           <ul class="header-dropdown m-r--5">
             <li class="dropdown">

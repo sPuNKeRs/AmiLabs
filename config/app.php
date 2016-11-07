@@ -171,6 +171,7 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laracasts\Generators\GeneratorsServiceProvider::class,
         Caffeinated\Menus\MenusServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         //
 
@@ -231,6 +232,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Menu' => Caffeinated\Menus\Facades\Menu::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 

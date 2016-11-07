@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.22 on 2016-11-04.
+ * Generated for Laravel 5.3.22 on 2016-11-07.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11855,6 +11855,55 @@ namespace {
          */
         public static function getNames(){
             return \Illuminate\View\Factory::getNames();
+        }
+        
+    }
+
+
+    class Menu extends \Caffeinated\Menus\Facades\Menu{
+        
+        /**
+         * Create a new menu instance.
+         *
+         * @param string $name
+         * @param callable $callback
+         * @return \Caffeinated\Menus\Builder 
+         * @static 
+         */
+        public static function make($name, $callback){
+            return \Caffeinated\Menus\Menu::make($name, $callback);
+        }
+        
+        /**
+         * Loads and merges configuration data.
+         *
+         * @param string $name
+         * @return array 
+         * @static 
+         */
+        public static function loadConfig($name){
+            return \Caffeinated\Menus\Menu::loadConfig($name);
+        }
+        
+        /**
+         * Find and return the given menu collection.
+         *
+         * @param string $key
+         * @return \Caffeinated\Menus\Collection 
+         * @static 
+         */
+        public static function get($key){
+            return \Caffeinated\Menus\Menu::get($key);
+        }
+        
+        /**
+         * Returns all menu instances.
+         *
+         * @return \Caffeinated\Menus\Collection 
+         * @static 
+         */
+        public static function all(){
+            return \Caffeinated\Menus\Menu::all();
         }
         
     }

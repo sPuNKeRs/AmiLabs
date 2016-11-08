@@ -23,6 +23,7 @@
 @section('content')
 <div class="row clearfix">
     {!! Form::model($user, ['route' => ['users.edit', $user->id], 'id'=>'user_edit_form'])!!}
+    {!! Form::hidden('userid', $user->id) !!}
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
         <div class="header">

@@ -47,6 +47,7 @@ class UsersController extends Controller
     // Редактирование пользователя
     public function edit(UserEditRequest $request)
     {
-        dd($request);
+        $user = User::find($request->userid);
+        dd($user);
     }
 }

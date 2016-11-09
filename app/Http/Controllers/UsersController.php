@@ -63,11 +63,20 @@ class UsersController extends Controller
                 'password' => 'min:6|confirmed']
             );
 
-            $input['password'] = bcrypt($input['password']);            
+            $input['password'] = bcrypt($input['password']);
         }
 
         // Сохраняем изменения
         $user->update($input);
         return redirect('users')->with(['status'=>'Данные пользователя '.$user->name.' успешно обновлены.']);
+    }
+
+    // Удаление пользователя
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect('users')->with(['status'=>'Пользователь '.$user->name.' успешно удален.']);
     }
 }

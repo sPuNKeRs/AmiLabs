@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
     ]);
 
     // Страница редактирование пользователя
-    Route::get('/users/edit/{userid?}', [
+    Route::get('/users/edit/{userid}', [
         'as' => 'users.edit', 
         'uses' => 'UsersController@userEdit'
     ]);
@@ -95,6 +95,12 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
     Route::post('/users/edit', [
         'as' => 'users.edit', 
         'uses' => 'UsersController@edit'
+    ]);
+
+    // Удаление пользователя
+    Route::get('/users/delete/{userid}', [
+        'as' => 'users.delete',
+        'uses' => 'UsersController@delete'
     ]);
 });
 

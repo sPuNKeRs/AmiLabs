@@ -112,9 +112,10 @@
           showCancelButton: true,
           confirmButtonColor: "#DD6B55",
           confirmButtonText: "Да, удалить!",
+          cancelButtonText: 'Нет',
           closeOnConfirm: false
       }, function () {
-          window.location.href = '{{route('users')}}';
+          window.location.href = '{{route('users.delete', $user->id)}}';
       });
     }
   </script>

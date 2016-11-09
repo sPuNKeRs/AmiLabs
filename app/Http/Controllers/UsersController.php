@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\User;
 
 class UsersController extends Controller
@@ -46,8 +47,27 @@ class UsersController extends Controller
 
     // Редактирование пользователя
     public function edit(UserEditRequest $request)
-    {
+    {        
+        $input = $request->all();
         $user = User::find($request->userid);
-        dd($user);
+
+        // Проверяем уникальность e-mail
+        $this->validate($request, [
+            'email' => [Rule::unique('users')->ignore($request->userid), 'required', 'max:255' ],                     
+        ]);
+
+        // Проверяем требование к паролю
+        if($request->password)
+        {
+            $this->validate($request, [
+                'password' => 'min:6|confirmed']
+            );
+
+            $input['password'] = bcrypt($input['password']);            
+        }
+
+        // Сохраняем изменения
+        $user->update($input);
+        return redirect('users')->with(['status'=>'Данные пользователя '.$user->name.' успешно обновлены.']);
     }
 }

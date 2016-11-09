@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('page_title', 'Настройки')
 @section('css')
-<!-- Bootstrap Select Css -->
-<link href="{{ URL::asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+
 @endsection
 @section('body')
 <!-- Search Bar -->
@@ -111,6 +110,5 @@
 </div>
 @endsection
 @section('js')
-<!-- Select Plugin Js -->
-<script src="{{ URL::asset('plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
+
 @endsection

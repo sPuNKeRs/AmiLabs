@@ -43,4 +43,12 @@ class User extends Authenticatable
 
         return $options;
     }
+
+    /**
+     * Get the user profile.
+     */
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
 }

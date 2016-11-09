@@ -67,6 +67,12 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
 		'as' => 'profile',
 		'uses' => 'ProfileController@index'
 	]);
+
+    // Сохранение профиля
+    Route::post('/profile/edit', [
+        'as' => 'profile',
+        'uses' => 'ProfileController@edit'
+    ]);
 });
 
 // -----------------------------------------------------------

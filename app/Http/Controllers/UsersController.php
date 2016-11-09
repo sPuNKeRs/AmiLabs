@@ -8,6 +8,7 @@ use App\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\User;
+use App\Profile;
 
 class UsersController extends Controller
 {
@@ -27,12 +28,15 @@ class UsersController extends Controller
     // Сохранение пользователя
     public function create(UserCreateRequest $request)
     {
-        User::create([
+       $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'user_type_id' => $request['user_type_id'],
             'password' => bcrypt($request['password'])
         ]);
+
+        Profile::create(['user_id'=>$user->id]);
+
 
         return redirect('users')->with(['status'=>'Пользователь '.$request->name.' успешно создан.']);
     }

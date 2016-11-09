@@ -48,22 +48,22 @@ class MenuMiddleware
             $menu->add('profile', 'profile/'.Auth::user()->id)->data([
                 'icon' => 'assignment_ind',
                 'titles' => 'Профиль',
-                'route' => 'profile/'
-            ]);
+                'route' => 'profile'
+            ])->active('profile/*');
             
             // Пользователи
             $menu->add('users', 'users')->data([
                 'icon' => 'supervisor_account',
                 'titles' => 'Пользователи',
                 'route' => 'users'
-            ])->active('users/*');;
+            ])->active('users/*');
 
             // Справочники
             $menu->add('reference', 'reference')->data([
                 'icon' => 'reorder',
                 'titles' => 'Справочники',
                 'route' => 'reference'
-            ]);
+            ])->active('reference/*');
         });
 
         return $next($request);

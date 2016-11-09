@@ -25,6 +25,12 @@
 <!-- Morris Chart Css-->
 <link href="{{ URL::asset('plugins/morrisjs/morris.css') }}" rel="stylesheet" />
 
+<!-- Sweetalert Css -->
+<link href="{{ URL::asset('plugins/sweetalert/sweetalert.css') }}" rel="stylesheet" />
+
+<!-- Bootstrap Select Css -->
+<link href="{{ URL::asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+
 <!-- Custom Css -->
 <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 

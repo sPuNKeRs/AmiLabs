@@ -33,6 +33,12 @@
 <!-- Sparkline Chart Plugin Js -->
 <script src="{{ URL::asset('plugins/jquery-sparkline/jquery.sparkline.js') }}"></script>
 
+<!-- SweetAlert Plugin Js -->
+<script src="{{ URL::asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
+
+<!-- Select Plugin Js -->
+<script src="{{ URL::asset('plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
+
 <!-- Custom Js -->
 <script src="{{ URL::asset('js/admin.js') }}"></script>
 <script src="{{ URL::asset('js/pages/index.js') }}"></script>

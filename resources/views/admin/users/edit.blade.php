@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('page_title', 'Редактирование пользователя')
 @section('css')
-<!-- Bootstrap Select Css -->
-<link href="{{ URL::asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
 @endsection
 @section('body')
 <!-- Search Bar -->
@@ -94,7 +92,8 @@
                 <label id="user_type_id-error" class="error" for="password_confirmation">{{ $errors->first('user_type_id') }}</label>
               @endif
 
-              <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button> <a href="{{ route('users')}}" class="btn btn-danger m-t-15 waves-effect">ОТМЕНА</a>
+              <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button> <a href="{{ route('users')}}" class="btn bg-deep-orange m-t-15 waves-effect">ОТМЕНА</a>
+              <a onclick="showConfirmMessage()" class="btn btn-danger m-t-15 waves-effect">УДАЛИТЬ</a>
             </div>
           </div>
         </div>
@@ -104,6 +103,19 @@
 </div>
 @endsection
 @section('js')
-<!-- Select Plugin Js -->
-<script src="{{ URL::asset('plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
+  <script type="text/javascript">
+    function showConfirmMessage() {
+      swal({
+          title: "Вы хотите удалить пользователя?",
+          text: "Пользователь будет удален из системы без возможности восстановления!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Да, удалить!",
+          closeOnConfirm: false
+      }, function () {
+          window.location.href = '{{route('users')}}';
+      });
+    }
+  </script>
 @endsection

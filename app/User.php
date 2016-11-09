@@ -26,4 +26,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get all users list.
+     *
+     * @return  array user list
+     */
+    public static function getArray()
+    {
+        $users = User::orderBy('id','ASC')->get();
+        $options = array();
+
+        foreach ($users as $user) {
+            $options[$user->id] = $user->name;
+        }
+
+        return $options;
+    }
 }

@@ -91,7 +91,6 @@
               @if ($errors->has('user_type_id'))
                 <label id="user_type_id-error" class="error" for="password_confirmation">{{ $errors->first('user_type_id') }}</label>
               @endif
-
               <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button> <a href="{{ route('users')}}" class="btn bg-deep-orange m-t-15 waves-effect">ОТМЕНА</a>
               <a onclick="showConfirmMessage()" class="btn btn-danger m-t-15 waves-effect">УДАЛИТЬ</a>
             </div>

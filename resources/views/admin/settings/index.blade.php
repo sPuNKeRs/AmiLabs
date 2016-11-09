@@ -23,6 +23,14 @@
 @section('content')
 <div class="row clearfix">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    @if(session('status'))
+      <div class="alert bg-green alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        {{ session('status') }}
+      </div>
+    @endif
+    {!! Form::model($settings, ['route' => ['settings'], 'id'=>'settings_form'])!!}
+
     <div class="card">
       <div class="header">
         <h2>
@@ -39,7 +47,7 @@
             </ul>
           </li>
         </ul>
-      </div>
+      </div>      
       <div class="body">
         <h2 class="card-inside-title">Информация об организации</h2>
         <hr>
@@ -47,43 +55,57 @@
           <div class="col-sm-12">
             <b>Наименование организации</b>
             <div class="form-group">
-              <div class="form-line">
-                <input type="text" class="form-control" placeholder="Наименование организации">
+              <div class="form-line {{ $errors->has('company_name') ? ' error' : '' }}">
+                {{ Form::text('company_name', null,['class'=>'form-control' , 'placeholder' => 'Наименование организации' ]) }}                
               </div>
+              @if ($errors->has('company_name'))
+                  <label id="company_name-error" class="error" for="company_name">{{ $errors->first('company_name') }}</label>
+              @endif
             </div>
             <b>Адрес организации</b>
             <div class="form-group">
-              <div class="form-line">
-                <input type="text" class="form-control" placeholder="Адрес организации">
+              <div class="form-line {{ $errors->has('company_address') ? ' error' : '' }}">
+                {{ Form::text('company_address', null,['class'=>'form-control' , 'placeholder' => 'Адрес организации' ]) }}
               </div>
+              @if ($errors->has('company_address'))
+                  <label id="company_address-error" class="error" for="company_address">{{ $errors->first('company_address') }}</label>
+              @endif
             </div>
             <div class="row">
               <div class="col-sm-6">
                 <b>Телефон</b>
                 <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" placeholder="8 (xxx) xxx xxxx">
+                  <div class="form-line {{ $errors->has('company_phone') ? ' error' : '' }}">
+                    {{ Form::text('company_phone', null,['class'=>'form-control' , 'placeholder' => '8 (xxx) xxx xxxx' ]) }}                    
                   </div>
+                  @if ($errors->has('company_phone'))
+                    <label id="company_phone-error" class="error" for="company_phone">{{ $errors->first('company_phone') }}</label>
+                  @endif
                 </div>
               </div>
               <div class="col-sm-6">
                 <b>Электронная почта</b>
                 <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" placeholder="email@domain.ru">
+                  <div class="form-line {{ $errors->has('company_email') ? ' error' : '' }}">
+                    {{ Form::text('company_email', null,['class'=>'form-control' , 'placeholder' => 'email@domain.ru' ]) }}                                        
                   </div>
+                  @if ($errors->has('company_email'))
+                    <label id="company_email-error" class="error" for="company_email">{{ $errors->first('company_email') }}</label>
+                  @endif
                 </div>
               </div>
             </div>
-            <b>Заведующий КДЛ</b>            
-            <select class="form-control show-tick" data-live-search="true" tabindex="-98">
-              <option>Иванов И. И.</option>
-              <option>Петров П. П.</option>
-            </select>
-            <button type="button" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button>
+            <b>Заведующий КДЛ</b>    
+            {{ Form::select('company_head_id', App\User::getArray(), null, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
+            @if ($errors->has('company_head_id'))
+              <label id="company_head_id-error" class="error" for="company_head_id">{{ $errors->first('company_head_id') }}</label>
+            @endif             
+            
+            <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button>
           </div>
         </div>
       </div>
+    {!! Form::close() !!}
     </div>
   </div>
 </div>

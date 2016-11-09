@@ -45,11 +45,17 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
 // ---------------------- НАСТРОЙКИ --------------------------
 // -----------------------------------------------------------
 Route::group(['middleware' => ['auth', 'menu']], function () {
-	// Страница отчетов
+	// Страница общих настроек
 	Route::get('/settings', [
 		'as' => 'settings',
 		'uses' => 'SettingsController@index'
 	]);
+
+    // Сохранение настроек
+    Route::post('/settings', [
+        'as' => 'settings',
+        'uses' => 'SettingsController@edit'
+    ]);
 });
 
 // -----------------------------------------------------------

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title', 'Профиль'.$user->id)
+@section('page_title', 'Профиль')
 @section('css')
 
 @endsection

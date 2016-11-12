@@ -1,7 +1,9 @@
 <!-- User Info -->
 <div class="user-info">
     <div class="image">
-        <img src="{{ URL::asset('images/user.png') }}" width="48" height="48" alt="User" />
+        <a href="{{ route('profile', Auth::user()->id) }}">
+            <img src="{{ URL::asset('images/user.png') }}" width="48" height="48" alt="User" />
+        </a>
     </div>
     <div class="info-container">
         <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>

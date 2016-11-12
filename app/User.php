@@ -51,4 +51,59 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Profile');
     }
+
+
+    /**
+     * User role relationship.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'role_id');
+    }
+
+    /**
+     * Check has any role.
+     */
+    public function hasAnyRole($roles)
+    {
+        if(is_array($roles))
+        {
+            foreach ($roles as $role) {
+                if($this->hasRole($role))
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            if($this->hasRole($roles))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check has role.
+     */
+    public function hasRole($role)
+    {
+        if($this->roles()->where('name', $role)->first())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get full name
+     */
+    public function getFullName()
+    {
+        
+        return $this->profile->first_name.' '.$this->profile->second_name.' '.$this->profile->last_name;
+    }
 }

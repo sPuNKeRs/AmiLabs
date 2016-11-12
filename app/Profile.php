@@ -31,4 +31,5 @@ class Profile extends Model
     {
     	$this->belongsTo('App\User');
     }
+
 }

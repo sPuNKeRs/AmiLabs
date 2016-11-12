@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth','roles','menu']], function () {
     Route::get('/', function () {
         return redirect('registry');
     });
@@ -22,7 +22,7 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
 // -----------------------------------------------------------
 // --------------------- РЕГИСТРАТУРА ------------------------
 // -----------------------------------------------------------
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth','roles','menu']], function () {
   // Страница регистратуры
   Route::get('/registry', [
     'as' => 'registry', 
@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
 // -----------------------------------------------------------
 // ----------------------- ОТЧЕТЫ ----------------------------
 // -----------------------------------------------------------
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth','roles','menu']], function () {
 	// Страница отчетов
 	Route::get('/reports', [
 		'as' => 'reports',
@@ -44,24 +44,26 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
 // -----------------------------------------------------------
 // ---------------------- НАСТРОЙКИ --------------------------
 // -----------------------------------------------------------
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth','roles','menu']], function () {
 	// Страница общих настроек
 	Route::get('/settings', [
 		'as' => 'settings',
-		'uses' => 'SettingsController@index'
+		'uses' => 'SettingsController@index', 
+        'roles' => ['admin']
 	]);
 
     // Сохранение настроек
     Route::post('/settings', [
         'as' => 'settings',
-        'uses' => 'SettingsController@edit'
+        'uses' => 'SettingsController@edit', 
+        'roles' => ['admin']
     ]);
 });
 
 // -----------------------------------------------------------
 // ----------------------- ПРОФИЛЬ ---------------------------
 // -----------------------------------------------------------
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth','roles','menu']], function () {
 	// Страница Профиль
 	Route::get('/profile/{userid?}', [
 		'as' => 'profile',
@@ -78,52 +80,59 @@ Route::group(['middleware' => ['auth', 'menu']], function () {
 // -----------------------------------------------------------
 // -------------------- ПОЛЬЗОВАТЕЛИ -------------------------
 // -----------------------------------------------------------
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth', 'roles', 'menu']], function () {
     // Страница Пользователи
     Route::get('/users', [
         'as' => 'users',
-        'uses' => 'UsersController@index'
+        'uses' => 'UsersController@index',
+        'roles' => ['admin']
     ]);
 
     // Страница создания пользователя
     Route::get('/users/create', [
         'as' => 'users.create', 
-        'uses' => 'UsersController@userCreate'
+        'uses' => 'UsersController@userCreate', 
+        'roles' => ['admin']
     ]);
 
     // Сохранение пользователя
     Route::post('/users/create', [
         'as' => 'users.create', 
-        'uses' => 'UsersController@create'
+        'uses' => 'UsersController@create', 
+        'roles' => ['admin']
     ]);
 
     // Страница редактирование пользователя
     Route::get('/users/edit/{userid}', [
         'as' => 'users.edit', 
-        'uses' => 'UsersController@userEdit'
+        'uses' => 'UsersController@userEdit', 
+        'roles' => ['admin']
     ]);
 
     // Редактирование пользователя
     Route::post('/users/edit', [
         'as' => 'users.edit', 
-        'uses' => 'UsersController@edit'
+        'uses' => 'UsersController@edit', 
+        'roles' => ['admin']
     ]);
 
     // Удаление пользователя
     Route::get('/users/delete/{userid}', [
         'as' => 'users.delete',
-        'uses' => 'UsersController@delete'
+        'uses' => 'UsersController@delete', 
+        'roles' => ['admin']
     ]);
 });
 
 // -----------------------------------------------------------
 // -------------------- СПРАВОЧНИКИ --------------------------
 // -----------------------------------------------------------
-Route::group(['middleware' => ['auth', 'menu']], function () {
+Route::group(['middleware' => ['auth','roles','menu']], function () {
     // Страница Справочники
     Route::get('/reference', [
         'as' => 'reference',
-        'uses' => 'ReferenceController@index'
+        'uses' => 'ReferenceController@index', 
+        'roles' => ['admin']
     ]);
 });
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddSpecialtyColumnToProfileTable extends Migration
+class CreatePivotTableUserRole extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSpecialtyColumnToProfileTable extends Migration
      */
     public function up()
     {
-        Schema::table('profiles', function (Blueprint $table) {
-            $table->integer('specialty_id')->after('address')->nulleble();
+        Schema::create('user_role', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('user_id');
+            $table->string('role_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSpecialtyColumnToProfileTable extends Migration
      */
     public function down()
     {
-        Schema::table('profiles', function (Blueprint $table) {
-            $table->dropColumn('specialty_id');
-        });
+        Schema::dropIfExists('user_role');
     }
 }

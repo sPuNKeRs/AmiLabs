@@ -12,6 +12,9 @@
 <!-- Bootstrap Core Css -->
 <link href="{{ URL::asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 
+<!-- Bootstrap-fileinput -->
+<link href="{{ URL::asset('plugins/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
+
 <!-- Waves Effect Css -->
 <link href="{{ URL::asset('plugins/node-waves/waves.css') }}" rel="stylesheet" />
 

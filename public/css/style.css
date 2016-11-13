@@ -7216,8 +7216,11 @@ fieldset[disabled] .form-control {
     background: url("../images/user-img-background.jpg") no-repeat no-repeat;
     height: 135px; }
     .sidebar .user-info .image {
-      margin-right: 12px;
-      display: inline-block; }
+      /*margin-right: 12px;*/
+      margin: -21px 4px 0px 0px;
+      display: inline-block; 
+      float: left;
+    }
       .sidebar .user-info .image img {
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
@@ -7230,6 +7233,7 @@ fieldset[disabled] .form-control {
       position: relative;
       top: 25px; }
       .sidebar .user-info .info-container .name {
+        margin-top: 10px;
         white-space: nowrap;
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;

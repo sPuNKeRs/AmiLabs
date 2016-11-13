@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Profile;
+use Image;
 
 class ProfileController extends Controller
 {
@@ -34,10 +35,25 @@ class ProfileController extends Controller
     // Сохранение профиля
     public function edit(Request $request)
     {
-        $input = $request->except(['_token']);
+        $input = $request->except(['_token', 'avatar']);
         $user = $this->user;
         $profile = $this->profile;
 
+        if($request->hasFile('avatar'))
+        {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(90, null, function ($constraint) {$constraint->aspectRatio();})->save(public_path( '/images/avatars/' . $filename));
+
+
+            // Удалить старое изображение
+            if(file_exists(public_path( 'images/avatars/' . $profile->avatar)))
+            {
+                unlink(public_path( 'images/avatars/' . $profile->avatar));    
+            }            
+        }
+
+        $input['avatar'] = $filename;
         $profile->update($input);
 
         return redirect('profile')->with(['status'=>'Профиль успешно обновлен.']);

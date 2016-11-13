@@ -21,7 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('avatar')->nullable();            
+            $table->string('avatar')->default('default_user.jpg');            
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

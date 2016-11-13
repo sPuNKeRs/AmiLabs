@@ -1,6 +1,9 @@
 <!-- Jquery Core Js -->
 <script src="{{ URL::asset('plugins/jquery/jquery.min.js') }}"></script>
 
+<!-- Bootsrap InputFile -->
+<script src="{{ URL::asset('plugins/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+
 <!-- Bootstrap Core Js -->
 <script src="{{ URL::asset('plugins/bootstrap/js/bootstrap.js') }}"></script>
 
@@ -49,6 +52,9 @@
 
 <!-- Select Plugin Js -->
 <script src="{{ URL::asset('plugins/bootstrap-select/js/bootstrap-select.js') }}"></script>
+
+<!-- jQuery Knob -->
+<script src="{{ URL::asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
 
 <!-- Custom Js -->
 <script src="{{ URL::asset('js/admin.js') }}"></script>

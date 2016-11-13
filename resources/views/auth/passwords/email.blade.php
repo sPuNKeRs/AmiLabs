@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.notop-master')
 
 @section('page_title', 'Восстановление пароля')
 @section('page-class', 'fp-page ls-closed')

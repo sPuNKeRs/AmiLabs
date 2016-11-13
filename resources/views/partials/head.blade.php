@@ -1,7 +1,6 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-{{-- <title>{{ config('app.name', 'Laravel') }} | Лабораторная информация система</title> --}}
 <title>{{ config('app.name', 'Laravel') }} | @yield('page_title')</title>
 <!-- Favicon-->
 <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -31,11 +30,15 @@
 <!-- Bootstrap Select Css -->
 <link href="{{ URL::asset('plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
 
-<!-- Custom Css -->
-<link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+<!-- JQuery DataTable Css -->
+<link href="{{ URL::asset('plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
 
 <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="{{ URL::asset('css/themes/all-themes.css') }}" rel="stylesheet" />
+
+<!-- Custom Css -->
+<link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/custom.css') }}" rel="stylesheet">
 
 @yield('css')
 

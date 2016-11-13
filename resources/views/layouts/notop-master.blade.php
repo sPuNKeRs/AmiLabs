@@ -20,7 +20,7 @@
     <!-- #END# Search Bar -->
 
     <!-- Top Bar -->
-    @include('partials.top-bar')
+    {{-- @include('partials.top-bar') --}}
     <!-- #Top Bar -->
 
     <section>

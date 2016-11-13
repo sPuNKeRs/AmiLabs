@@ -28,6 +28,12 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'as' => 'registry', 
     'uses' => 'RegistryController@index'
   ]);
+
+  // Загрузить список пациентов
+  Route::get('/registry/data', [
+    'as' => 'registry.data', 
+    'uses' => 'RegistryController@getData'
+  ]);
 });
 
 // -----------------------------------------------------------

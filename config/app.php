@@ -172,6 +172,7 @@ return [
         Laracasts\Generators\GeneratorsServiceProvider::class,
         Caffeinated\Menus\MenusServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
         //
 
@@ -234,6 +235,7 @@ return [
         'Menu' => Caffeinated\Menus\Facades\Menu::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

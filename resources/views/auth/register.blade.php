@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.notop-master')
 
 @section('page_title', 'Регистрация в системе')
 

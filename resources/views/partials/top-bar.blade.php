@@ -6,9 +6,12 @@
             <a href="javascript:void(0);" class="bars"></a>
             <a href="javascript:void(0);" class="button-bars"></a>
             <a class="navbar-brand" href="{{url('/')}}">{{ config('app.name', 'Laravel') }} | @yield('page_title')</a>
-        </div>
+        </div>               
         <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
+           
+
+            <ul class="nav navbar-nav navbar-right">     
+                @yield('top_page_nav')             
                 <!-- Call Search -->
                 <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
                 <!-- #END# Call Search -->
@@ -25,6 +28,7 @@
                 @include('partials.top-bar.right-menu')
                 <!-- #Right menu -->
                  {{-- <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li> --}}
+            
             </ul>
 
         </div>

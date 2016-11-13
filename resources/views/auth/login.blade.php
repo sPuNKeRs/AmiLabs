@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.notop-master')
 
 @section('page_title', 'Вход в систему')
 @section('page-class', 'login-page ls-closed')

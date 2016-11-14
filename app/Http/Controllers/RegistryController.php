@@ -18,4 +18,16 @@ class RegistryController extends Controller
     {
 		return Datatables::of(User::query())->make(true);
     }
+
+    // Страница регистрации нового пациента
+    public function create()
+    {
+        return view('registry.patients.create');
+    }
+
+    // Сохранение пациента
+    public function save()
+    {
+        return response('Save patient!!!');
+    }
 }

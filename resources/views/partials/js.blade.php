@@ -56,6 +56,9 @@
 <!-- jQuery Knob -->
 <script src="{{ URL::asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
 
+<!-- Input Mask Plugin Js -->
+<script src="{{ URL::asset('plugins/jquery-inputmask/jquery.inputmask.bundle.js') }}"></script>
+
 <!-- Custom Js -->
 <script src="{{ URL::asset('js/admin.js') }}"></script>
 <script src="{{ URL::asset('js/pages/index.js') }}"></script>

@@ -26,7 +26,7 @@ class MenuMiddleware
                 'icon' => 'perm_identity',
                 'titles' => 'Регистратура',
                 'route' => 'registry'
-            ]);
+            ])->active('registry/*');;
             // Страница отчетов
             $menu->add('reports', 'reports')->data([
                 'icon' => 'donut_small',

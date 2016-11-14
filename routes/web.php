@@ -34,6 +34,20 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'as' => 'registry.data', 
     'uses' => 'RegistryController@getData'
   ]);
+
+  // Страница регистрации нового пациента
+  Route::get('/registry/patients/create', [
+    'as' => 'registry.patients.create',
+    'uses' => 'RegistryController@create'
+  ]);
+
+  // Сохранить пациента
+  Route::post('/registry/patients/create', [
+    'as' => 'registry.patients.save',
+    'uses' => 'RegistryController@save'
+  ]);
+
+  
 });
 
 // -----------------------------------------------------------

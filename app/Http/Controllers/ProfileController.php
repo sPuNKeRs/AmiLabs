@@ -47,13 +47,14 @@ class ProfileController extends Controller
 
 
             // Удалить старое изображение
-            if(file_exists(public_path( 'images/avatars/' . $profile->avatar)))
+            if(file_exists(public_path( 'images/avatars/' . $profile->avatar)) && isset($profile->avatar))
             {
                 unlink(public_path( 'images/avatars/' . $profile->avatar));    
+                $input['avatar'] = $filename;
             }            
         }
 
-        $input['avatar'] = $filename;
+        
         $profile->update($input);
 
         return redirect('profile')->with(['status'=>'Профиль успешно обновлен.']);

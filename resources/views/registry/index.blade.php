@@ -6,13 +6,10 @@
 @section('top_page_nav')
 <ul class="nav navbar-nav top_page_nav">
     <li>
-        <a href="#" class="btn btn-primary btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Добавить пациента">
-            <i class="material-icons">assignment</i>
+        <a href="{{ route('registry.patients.create') }}" class="btn btn-primary btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Добавить пациента">
+            <i class="material-icons">control_point</i>
         </a>        
-    </li>   
-   {{--  <li>
-        <a class="btn btn-primary waves-effect">Добавить</a>
-    </li>   --}}  
+    </li>     
 </ul>
 @endsection 
 <!-- #Top Bar Nav-->

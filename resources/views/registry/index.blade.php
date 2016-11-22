@@ -39,7 +39,7 @@
                     <h2>
                         СПИСОК ПАЦИЕНТОВ
                     </h2>
-                    <ul class="header-dropdown m-r--5">
+                    {{-- <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">more_vert</i>
@@ -48,17 +48,18 @@
                                 <li><a href="javascript:void(0);">Action</a></li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
                 <div class="body">
                     <table class="table table-bordered table-striped table-hover dataTable js-exportable" width="100%" id="users-table">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
+                                <th>№ Карты</th>
+                                <th>Создан</th>
+                                <th>Фамилия</th>
+                                <th>Имя</th>
+                                <th>Отчество</th>
+                                <th>Дата рождения</th>
                             </tr>
                         </thead>                                                                
                     </table>
@@ -83,16 +84,16 @@ $(function() {
         serverSide: true,
         ajax: '{!! route('registry.data') !!}',
         columns: [
-            { data: 'id', name: 'id' },
-            { data: 'name', name: 'name' },
-            { data: 'email', name: 'email' },
-            { data: 'created_at', name: 'created_at' },
-            { data: 'updated_at', name: 'updated_at' }
+            { data: 'card_number', name: 'card_number' },
+            { data: 'card_date', name: 'card_date' },
+            { data: 'surname', name: 'surname' },
+            { data: 'firstname', name: 'firstname' },
+            { data: 'lastname', name: 'lastname' },
+            { data: 'birth_date', name: 'birth_date' }
         ],
         language: {
           url: '{{ URL::asset('plugins/jquery-datatable/lang/Russia.json') }}'
-        },
-        // "dom": 'ftip',
+        },        
         stateSave: true
     });
 });

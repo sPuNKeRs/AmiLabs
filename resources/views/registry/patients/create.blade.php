@@ -12,7 +12,7 @@
     </li> 
 
    <li>
-        <a href="{{ URL::previous() }}" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Отмена" data-original-title="Отмена">
+        <a href="{{ route('registry') }}" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Отмена" data-original-title="Отмена">
             <i class="material-icons">cancel</i>
         </a>        
     </li> 
@@ -61,10 +61,10 @@
                         <div class="row clearfix">
                             {{-- Номер карты --}}
                             <div class="col-sm-3 col-md-offset-6">
-                                <div class="form-group form-float">
+                                <b>Номер карты</b>
+                                <div class="form-group">                                    
                                     <div class="form-line {{ $errors->has('card_number') ? ' error' : '' }}">
-                                        {{ Form::text('card_number', null,['class'=>'form-control']) }}
-                                        <label class="form-label">Номер карты</label>
+                                        {{ Form::text('card_number', $next_id,['class'=>'form-control']) }}
                                     </div>
                                     @if ($errors->has('card_number'))
                                         <label id="card_number-error" class="error" for="card_number">{{ $errors->first('card_number') }}</label>
@@ -74,10 +74,10 @@
                             {{-- #Номер карты --}}
                             {{-- Дата создания --}}
                             <div class="col-sm-3">
-                                <div class="form-group form-float">
+                                <b>Дата создания</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('card_date') ? ' error' : '' }}">
-                                        {{ Form::text('card_date', null,['class'=>'form-control datepicker']) }}
-                                        <label class="form-label">Дата создания</label>
+                                        {{ Form::text('card_date', date('d.m.Y'),['class'=>'form-control datepicker']) }}
                                     </div>
                                     @if ($errors->has('card_date'))
                                         <label id="card_date-error" class="error" for="card_date">{{ $errors->first('card_date') }}</label>
@@ -92,10 +92,10 @@
                         <div class="row clearfix">
                             {{-- Фамилия --}}
                             <div class="col-sm-3">
-                                <div class="form-group form-float">
+                                <b>Фамилия</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('surname') ? ' error' : '' }}">
                                         {{ Form::text('surname', null,['class'=>'form-control']) }}
-                                        <label class="form-label">Фамилия</label>
                                     </div>
                                     @if ($errors->has('surname'))
                                         <label id="surname-error" class="error" for="surname">{{ $errors->first('surname') }}</label>
@@ -106,10 +106,10 @@
 
                             {{-- Имя --}}
                             <div class="col-sm-3">
-                                <div class="form-group form-float">
+                                <b>Имя</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('firstname') ? ' error' : '' }}">
-                                        {{ Form::text('firstname', null,['class'=>'form-control']) }}                                        
-                                        <label class="form-label">Имя</label>
+                                        {{ Form::text('firstname', null,['class'=>'form-control']) }}
                                     </div>
                                     @if ($errors->has('firstname'))
                                         <label id="firstname-error" class="error" for="firstname">{{ $errors->first('firstname') }}</label>
@@ -120,10 +120,10 @@
 
                             {{-- Отчество --}}
                             <div class="col-sm-3">
-                                <div class="form-group form-float">
+                                <b>Отчество</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('lastname') ? ' error' : '' }}">
                                         {{ Form::text('lastname', null,['class'=>'form-control']) }}
-                                        <label class="form-label">Отчество</label>
                                     </div>
                                     @if ($errors->has('lastname'))
                                         <label id="lastname-error" class="error" for="lastname">{{ $errors->first('lastname') }}</label>
@@ -134,8 +134,9 @@
 
                             {{-- Пол --}}
                             <div class="col-sm-1">
+                                <b>Пол</b>
                                 <div class="form-group">
-                                    <div class="form-line {{ $errors->has('gender') ? ' error' : '' }}">                                        
+                                    <div class="form-line {{ $errors->has('gender') ? ' error' : '' }}">
                                         {{ Form::select('gender', ['male'=>'М', 'female'=>'Ж'], null, ['class' => 'form-control show-tick', 'data-live-search' => 'false']) }}
                                     </div>
                                     @if ($errors->has('gender'))
@@ -147,10 +148,10 @@
 
                             {{-- Дата рождения --}}
                             <div class="col-sm-2">
-                                <div class="form-group form-float">
+                                <b>Дата рождения</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('birth_date') ? ' error' : '' }}">
                                         {{ Form::text('birth_date', null,['class'=>'form-control datepicker']) }}
-                                        <label class="form-label">Дата рождения</label>
                                     </div>
                                     @if ($errors->has('birth_date'))
                                         <label id="birth_date-error" class="error" for="birth_date">{{ $errors->first('birth_date') }}</label>
@@ -166,10 +167,10 @@
                         <div class="row clearfix">
                             {{-- Адрес --}}
                             <div class="col-sm-12">
-                                <div class="form-group form-float">
+                                <b>Адрес</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('address') ? ' error' : '' }}">
                                         {{ Form::text('address', null,['class'=>'form-control']) }}
-                                        <label class="form-label">Адрес</label>
                                     </div>
                                     @if ($errors->has('address'))
                                         <label id="address-error" class="error" for="address">{{ $errors->first('address') }}</label>
@@ -184,10 +185,10 @@
                         <div class="row clearfix">
                             {{-- Телефон --}}
                             <div class="col-md-6">
-                                <div class="form-group form-float">
+                                <b>Телефон</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('phone') ? ' error' : '' }}">
                                         {{ Form::text('phone', null,['class'=>'form-control phone-number']) }}
-                                        <label class="form-label">Телефон</label>
                                     </div>
                                     @if ($errors->has('phone'))
                                         <label id="phone-error" class="error" for="phone">{{ $errors->first('phone') }}</label>
@@ -198,10 +199,10 @@
 
                             {{-- Электронная почта --}}
                             <div class="col-md-6">
-                                <div class="form-group form-float">
+                                <b>Электронная почта</b>
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('email') ? ' error' : '' }}">
                                         {{ Form::text('email', null,['class'=>'form-control email']) }}
-                                        <label class="form-label">Электронная почта</label>
                                     </div>
                                     @if ($errors->has('email'))
                                         <label id="email-error" class="error" for="email">{{ $errors->first('email') }}</label>
@@ -232,13 +233,13 @@
 
                         {{-- Шестая строка - начало --}}
                         <div class="row clearfix">
-                            <div class="col-md-3 col-md-offset-9">
+                            <div class="col-md-2 col-md-offset-10">
                             {{-- Кнопка сохранить --}}
                             <button type="submit" class="btn btn-primary waves-effect">СОХРАНИТЬ</button>
                             {{-- #Кнопка сохранить --}}
 
                             {{-- Кнопка отмена --}}
-                            <a href="{{ URL::previous() }}" class="btn btn-danger waves-effect">ОТМЕНИТЬ</a>
+                            <a href="{{ route('registry') }}" class="btn btn-danger waves-effect">ОТМЕНИТЬ</a>
                             {{-- #Кнопка отмена --}}
                             </div>
                         </div>

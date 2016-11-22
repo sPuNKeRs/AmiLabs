@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PatientCardRequest;
 use App\User;
 use Yajra\Datatables\Datatables;
 
@@ -26,7 +27,7 @@ class RegistryController extends Controller
     }
 
     // Сохранение пациента
-    public function save()
+    public function save(PatientCardRequest $request)
     {
         return response('Save patient!!!');
     }

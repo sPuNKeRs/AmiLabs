@@ -3,14 +3,23 @@
         var $openCloseBar = $('.navbar .navbar-header .bars');
         var width = $body.width();
 
+        if($.cookie('leftsidebar') == 'true'){
+                showLeftSidebar();
+        }
+
+        if($.cookie('leftsidebar') == 'false'){        
+                closeLeftSidebar();
+        }
 
         function showLeftSidebar() {
-          $body.addClass('ls-closed'); 
-          $(this).one("click", closeLeftSidebar);
+          $body.addClass('ls-closed');
+          $('.button-bars').one("click", closeLeftSidebar);
+          $.cookie('leftsidebar', 'true');
         }
         function closeLeftSidebar() {
           $body.removeClass('ls-closed');
-          $(this).one("click", showLeftSidebar);
+          $('.button-bars').one("click", showLeftSidebar);
+          $.cookie('leftsidebar', 'false');
         }
 
         $(".button-bars").one("click", showLeftSidebar);

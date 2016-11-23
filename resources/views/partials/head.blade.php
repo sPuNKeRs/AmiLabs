@@ -36,8 +36,11 @@
 <!-- JQuery DataTable Css -->
 <link href="{{ URL::asset('plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
 
-<!-- Bootstrap Material Datetime Picker Css -->
-<link href="{{ URL::asset('plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet" />
+{{-- <!-- Bootstrap Material Datetime Picker Css -->
+<link href="{{ URL::asset('plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet" /> --}}
+
+<!-- jQuery Datepick -->
+<link href="{{ URL::asset('plugins/jquery-datepick/css/jquery.datepick.css') }}" rel="stylesheet" />
 
 <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="{{ URL::asset('css/themes/all-themes.css') }}" rel="stylesheet" />

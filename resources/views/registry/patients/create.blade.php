@@ -8,27 +8,27 @@
     <li>
         <a href="#" class="btn bg-light-blue btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Сохранить">
             <i class="material-icons">check</i>
-        </a>        
-    </li> 
+        </a>
+    </li>
 
    <li>
         <a href="{{ route('registry') }}" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Отмена" data-original-title="Отмена">
             <i class="material-icons">cancel</i>
-        </a>        
-    </li> 
+        </a>
+    </li>
 </ul>
-@endsection 
+@endsection
 <!-- #Top Bar Nav-->
 
 @section('body')
   <!-- Search Bar -->
   @include('partials.search-bar')
-  <!-- #END# Search Bar -->  
+  <!-- #END# Search Bar -->
 @endsection
 
 <!-- Menu -->
 @section('left_menu')
-  @include('partials.left-sidebar.menu', ['menu' => $menu_main->roots()])  
+  @include('partials.left-sidebar.menu', ['menu' => $menu_main->roots()])
 @endsection
 <!-- #Menu -->
 
@@ -36,7 +36,7 @@
   @include('partials.left-sidebar')
 @endsection
 
-@section('content')    
+@section('content')
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
@@ -56,13 +56,13 @@
                     </ul>
                 </div>
                 <div class="body">
-                    {!! Form::open(['route' => 'registry.patients.save' , 'id'=>'patient_form', 'name'=> 'patient_form']) !!}                    
+                    {!! Form::open(['route' => 'registry.patients.save' , 'id'=>'patient_form', 'name'=> 'patient_form']) !!}
                         {{-- Первая строка - начало --}}
                         <div class="row clearfix">
                             {{-- Номер карты --}}
                             <div class="col-sm-3 col-md-offset-6">
                                 <b>Номер карты</b>
-                                <div class="form-group">                                    
+                                <div class="form-group">
                                     <div class="form-line {{ $errors->has('card_number') ? ' error' : '' }}">
                                         {{ Form::text('card_number', $next_id,['class'=>'form-control']) }}
                                     </div>
@@ -220,7 +220,7 @@
                                 <div class="form-group">
                                     <div class="form-line {{ $errors->has('more_inform') ? ' error' : '' }}">
                                         <b>Дополнительная информация</b>
-                                        {{ Form::textarea('more_inform', null,['class'=>'form-control no-resize', 'rows' => 4]) }}                                        
+                                        {{ Form::textarea('more_inform', null,['class'=>'form-control no-resize', 'rows' => 4]) }}
                                     </div>
                                     @if ($errors->has('more_inform'))
                                         <label id="more_inform-error" class="error" for="more_inform">{{ $errors->first('more_inform') }}</label>
@@ -233,7 +233,7 @@
 
                         {{-- Шестая строка - начало --}}
                         <div class="row clearfix">
-                            <div class="col-md-2 col-md-offset-10">
+                            <div class="col-md-3 col-md-offset-9">
                             {{-- Кнопка сохранить --}}
                             <button type="submit" class="btn btn-primary waves-effect">СОХРАНИТЬ</button>
                             {{-- #Кнопка сохранить --}}
@@ -248,25 +248,29 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 @endsection
 
 @section('js')
 <script>
     $(document).ready(function(){
-        $('.datepicker').bootstrapMaterialDatePicker({
-            format: 'DD.MM.YYYY',
-            clearButton: true,
-            weekStart: 1,
-            time: false
-        }).on('change', function (e) {
-            $(e.target).focus();
-        });
 
+      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
+
+        // $('.datepicker').bootstrapMaterialDatePicker({
+        //     format: 'DD.MM.YYYY',
+        //     clearButton: true,
+        //     weekStart: 1,
+        //     time: false
+        // }).on('change', function (e) {
+        //     $(e.target).focus();
+        // });
+
+        // Date
+        $(".datepicker").inputmask('d.m.y');
         //Phone Number
         $('.phone-number').inputmask('+9 (999) 999-99-99');
+
     });
 </script>
 @endsection
-
-

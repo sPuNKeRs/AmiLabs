@@ -62,8 +62,16 @@
 <!-- Moment Plugin Js -->
 <script src="{{ URL::asset('plugins/momentjs/moment.js') }}"></script>
 
-<!-- Bootstrap Material Datetime Picker Plugin Js -->
-<script src="{{ URL::asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+<!-- jQuery Cookie -->
+<script src="{{ URL::asset('plugins/jquery-cookie/jquery.cookie.js') }}"></script>
+
+{{-- <!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="{{ URL::asset('plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script> --}}
+
+<!-- jQuery Datepick -->
+<script src="{{ URL::asset('plugins/jquery-datepick/js/jquery.plugin.js') }}"></script>
+<script src="{{ URL::asset('plugins/jquery-datepick/js/jquery.datepick.min.js') }}"></script>
+<script src="{{ URL::asset('plugins/jquery-datepick/js/jquery.datepick-ru.js') }}"></script>
 
 <!-- Custom Js -->
 <script src="{{ URL::asset('js/admin.js') }}"></script>

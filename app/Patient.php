@@ -23,19 +23,19 @@ class Patient extends Model
 
 
     /**
-     * Получить последний следующий ID 
+     * Получить последний следующий ID
      */
     public static function getNextId()
-    {           
+    {
         if($next = static::orderBy('id', 'desc')->first())
         {
             return $next->id+1;
         }
-        return 1;        
+        return 1;
     }
 
     /**
-     * Конвертация даты создания карты 
+     * Конвертация даты создания карты
      */
     public function setCardDateAttribute($date)
     {
@@ -43,10 +43,11 @@ class Patient extends Model
     }
 
     /**
-     * Конвертация даты рождения 
+     * Конвертация даты рождения
      */
     public function setBirthDateAttribute($date)
     {
         $this->attributes['birth_date'] = Carbon::createFromFormat('d.m.Y',$date);
     }
+
 }

@@ -35,19 +35,53 @@ class Patient extends Model
     }
 
     /**
-     * Конвертация даты создания карты
+     * Получить ФИО пациента
+     */
+    public function getFio($upper = false)
+    {
+        $surname = (isset($this->surname)) ? $this->surname : '';
+        $firstname = (isset($this->firstname)) ? $this->firstname : '';
+        $lastname = (isset($this->lastname)) ? $this->lastname : '';
+        
+        $fio = $surname.' '.$firstname.' '.$lastname;
+        
+        if($upper == true)
+        {
+            $fio = mb_strtoupper($fio);
+        }
+
+        return $fio;
+    }
+
+    /**
+     * Конвертация даты создания карты при сохранении
      */
     public function setCardDateAttribute($date)
     {
         $this->attributes['card_date'] = Carbon::createFromFormat('d.m.Y',$date);
     }
 
-    /**
-     * Конвертация даты рождения
+     /**
+     * Конвертация даты создания карты при сохранении
      */
     public function setBirthDateAttribute($date)
     {
         $this->attributes['birth_date'] = Carbon::createFromFormat('d.m.Y',$date);
     }
 
+    /**
+     * Конвертация даты создания карты при выборке
+     */
+    public function getCardDateAttribute($date)
+    {
+        return date('d.m.Y', strtotime($date));
+    }
+
+    /**
+     * Конвертация даты рождения при выборке
+     */
+    public function getBirthDateAttribute($date)
+    {
+        return date('d.m.Y', strtotime($date));
+    }
 }

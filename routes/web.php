@@ -47,7 +47,24 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'uses' => 'RegistryController@save'
   ]);
 
-  
+  // Страница редактирования пациента
+  Route::get('/registry/patients/edit/{patient_id?}', [
+    'as' => 'registry.patients.edit', 
+    'uses' => 'RegistryController@edit'
+  ]);
+
+
+});
+
+// -----------------------------------------------------------
+// ----------------------- АНАЛИЗЫ ---------------------------
+// -----------------------------------------------------------
+Route::group(['middleware' => ['auth','roles','menu']], function () {
+  // Страница с анализами пациента
+  Route::get('/registry/patients/analyzes/{patient_id?}',[
+    'as' => 'registry.patients.analyzes.list', 
+    'uses' => 'AnalyzesController@list'
+  ]);
 });
 
 // -----------------------------------------------------------
@@ -69,7 +86,7 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 	Route::get('/settings', [
 		'as' => 'settings',
 		'uses' => 'SettingsController@index', 
-        'roles' => ['admin']
+    'roles' => ['admin']
 	]);
 
     // Сохранение настроек

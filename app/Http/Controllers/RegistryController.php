@@ -35,6 +35,13 @@ class RegistryController extends Controller
             ->filterColumn('birth_date', function ($query, $keyword) {
                 $query->whereRaw("DATE_FORMAT(birth_date,'%d.%m.%Y') like ?", ["%$keyword%"]);
             })
+            ->addColumn('action', function ($patients) {
+                return '<div class="action-btn-center">
+                            <a href="'.route('registry.patients.analyzes.list', $patients->id).'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn btn-warning waves-effect">
+                                    <i class="material-icons">assignment</i>
+                            </a>
+                        </div>';
+            })
             ->make(true);
     }
 
@@ -51,8 +58,28 @@ class RegistryController extends Controller
     public function save(PatientCardRequest $request)
     {
         $input = $request->all();
+
+        if(isset($input['patient_id']) && $input['patient_id'] > 0)
+        {
+            $patient = Patient::findOrFail($input['patient_id']);
+
+            $patient->update($input);
+
+            return view('registry.index');
+        }
+
         Patient::create($input);
 
         return view('registry.index');
+    }
+
+    // Страница редактирования данных пациента
+    public function edit($patient_id)
+    {
+        $patient = Patient::findOrFail($patient_id);
+
+        //dd($patient);
+
+        return view('registry.patients.edit', compact('patient'));
     }
 }

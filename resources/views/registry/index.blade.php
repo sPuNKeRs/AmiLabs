@@ -10,6 +10,12 @@
             <i class="material-icons">control_point</i>
         </a>
     </li>
+
+    {{-- <li>
+        <a href="#" id="test-btn" class="btn btn-primary btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Добавить пациента">
+            TEST
+        </a>
+    </li> --}}
 </ul>
 @endsection
 <!-- #Top Bar Nav-->
@@ -50,6 +56,7 @@
                                 <th>Отчество</th>
                                 <th>Дата рождения</th>
                                 <th>Дата карты</th>
+                                <th>Действия</th>
                             </tr>
                         </thead>
                     </table>
@@ -58,16 +65,15 @@
         </div>
     </div>
     <!-- #END# Exportable Table -->
+    {{ csrf_field() }}
 @endsection
 
 @section('js')
 <script>
 $(function() {
 
-    //Tooltip
-    $('[data-toggle="tooltip"]').tooltip({
-        container: 'body'
-    });
+    // Инициализиция переменных
+    var selectedRow = '';
 
     $('#patients-table').DataTable({
         processing: true,
@@ -79,13 +85,41 @@ $(function() {
             { data: 'firstname', name: 'firstname' },
             { data: 'lastname', name: 'lastname' },
             { width: '15%', data: 'birth_date', name: 'birth_date' },
-            { width: '15%', data: 'card_date', name: 'card_date' }
+            { width: '15%', data: 'card_date', name: 'card_date' },
+            { width: '5%', data: 'action', name: 'action', orderable: false, searchable: false }
         ],        
         language: {
           url: '{{ URL::asset('plugins/jquery-datatable/lang/Russia.json') }}'
         },
-        stateSave: true
+        stateSave: true,
+        initComplete: function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: 'body'
+            });
+        }
     });
+
+    // Клик по строке
+    $('#patients-table').on('click', 'tr', function(e){
+        var self = e.currentTarget;
+        $('table tr.selected').removeClass('selected');
+        selectedRow = $(self).data('patient_id');
+        $(self).addClass('selected');
+    });
+
+    // Двойной клик по строке
+    $('#patients-table').on('dblclick', 'tr', function(e){
+        var self = e.currentTarget;
+        editPatient($(self).data('patient_id'));
+        console.log($(self).data());
+    });
+
+    // Функция отправки формы приказа
+    function editPatient(patient_id)
+    {
+        var editLink = '{{ route('registry.patients.edit')}}/' + patient_id;
+        window.location.href = editLink;
+    }
 });
 </script>
 @endsection

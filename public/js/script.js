@@ -23,4 +23,8 @@
         }
 
         $(".button-bars").one("click", showLeftSidebar);
+
+        $('[data-toggle="tooltip"]').tooltip({
+                container: 'body'
+        });
 });

@@ -18,7 +18,8 @@ class Patient extends Model
             'address',
             'phone',
             'email',
-            'more_inform'
+            'more_inform',
+            'author_id'
     ];
 
 

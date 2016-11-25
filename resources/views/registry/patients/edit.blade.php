@@ -234,7 +234,7 @@
 
                         {{-- Шестая строка - начало --}}
                         <div class="row clearfix">
-                            <div class="col-md-3 col-md-offset-9">
+                            <div class="col-md-3 col-md-offset-9 text-right">
                             {{-- Кнопка сохранить --}}
                             <button type="submit" class="btn btn-primary waves-effect">СОХРАНИТЬ</button>
                             {{-- #Кнопка сохранить --}}
@@ -255,6 +255,9 @@
 @section('js')
 <script>
     $(document).ready(function(){
+      $('#save_btn').on('click', function(){
+        $('#patient_form').submit();
+      });
 
       $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
 

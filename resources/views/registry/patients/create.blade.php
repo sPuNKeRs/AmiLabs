@@ -6,7 +6,7 @@
 @section('top_page_nav')
 <ul class="nav navbar-nav top_page_nav">
     <li>
-        <a href="#" class="btn bg-light-blue btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Сохранить">
+        <a href="#" id="save_btn" class="btn bg-light-blue btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Сохранить" data-original-title="Сохранить">
             <i class="material-icons">check</i>
         </a>
     </li>
@@ -233,7 +233,7 @@
 
                         {{-- Шестая строка - начало --}}
                         <div class="row clearfix">
-                            <div class="col-md-3 col-md-offset-9">
+                            <div class="col-md-3 col-md-offset-9 text-right">
                             {{-- Кнопка сохранить --}}
                             <button type="submit" class="btn btn-primary waves-effect">СОХРАНИТЬ</button>
                             {{-- #Кнопка сохранить --}}
@@ -254,23 +254,16 @@
 @section('js')
 <script>
     $(document).ready(function(){
+      $('#save_btn').on('click', function(){
+        $('#patient_form').submit();
+      });
 
-      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
-
-        // $('.datepicker').bootstrapMaterialDatePicker({
-        //     format: 'DD.MM.YYYY',
-        //     clearButton: true,
-        //     weekStart: 1,
-        //     time: false
-        // }).on('change', function (e) {
-        //     $(e.target).focus();
-        // });
-
-        // Date
-        $(".datepicker").inputmask('d.m.y');
-        //Phone Number
-        $('.phone-number').inputmask('+9 (999) 999-99-99');
-
+      // Set Datepicker
+      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});     
+      // Date
+      $(".datepicker").inputmask('d.m.y');
+      //Phone Number
+      $('.phone-number').inputmask('+9 (999) 999-99-99');         
     });
 </script>
 @endsection

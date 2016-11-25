@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PatientCardRequest;
 use App\Patient;
 use Yajra\Datatables\Datatables;
+use Auth;
 
 class RegistryController extends Controller
 {
@@ -58,6 +59,7 @@ class RegistryController extends Controller
     public function save(PatientCardRequest $request)
     {
         $input = $request->all();
+        $input['author_id'] = Auth::user()->id;        
 
         if(isset($input['patient_id']) && $input['patient_id'] > 0)
         {
@@ -77,9 +79,7 @@ class RegistryController extends Controller
     public function edit($patient_id)
     {
         $patient = Patient::findOrFail($patient_id);
-
-        //dd($patient);
-
+        
         return view('registry.patients.edit', compact('patient'));
     }
 }

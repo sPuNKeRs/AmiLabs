@@ -1,4 +1,5 @@
 {!! Form::open(['id'=>'add_types_form', 'name'=> 'add_types_form']) !!}
+{!! Form::hidden('type_id')!!}
 <div class="row clearfix">
     <div class="col-md-12">
         <b>Наименование</b>

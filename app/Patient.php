@@ -43,9 +43,9 @@ class Patient extends Model
         $surname = (isset($this->surname)) ? $this->surname : '';
         $firstname = (isset($this->firstname)) ? $this->firstname : '';
         $lastname = (isset($this->lastname)) ? $this->lastname : '';
-        
+
         $fio = $surname.' '.$firstname.' '.$lastname;
-        
+
         if($upper == true)
         {
             $fio = mb_strtoupper($fio);

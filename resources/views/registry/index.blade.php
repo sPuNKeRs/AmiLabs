@@ -87,7 +87,7 @@ $(function() {
             { width: '15%', data: 'birth_date', name: 'birth_date' },
             { width: '15%', data: 'card_date', name: 'card_date' },
             { width: '5%', data: 'action', name: 'action', orderable: false, searchable: false }
-        ],        
+        ],
         language: {
           url: '{{ URL::asset('plugins/jquery-datatable/lang/Russia.json') }}'
         },

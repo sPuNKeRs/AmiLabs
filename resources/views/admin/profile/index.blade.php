@@ -73,7 +73,7 @@
             </ul>
           </li>
         </ul>
-      </div>      
+      </div>
       <div class="body">
         <h2 class="card-inside-title">Общая информация</h2>
         <hr>
@@ -84,7 +84,7 @@
               <b>Фамилия</b>
               <div class="form-group">
                 <div class="form-line {{ $errors->has('last_name') ? ' error' : '' }}">
-                  {{ Form::text('last_name', null,['class'=>'form-control' , 'placeholder' => 'Иванов' ]) }}                
+                  {{ Form::text('last_name', null,['class'=>'form-control' , 'placeholder' => 'Иванов' ]) }}
                 </div>
                 @if ($errors->has('last_name'))
                     <label id="last_name-error" class="error" for="last_name">{{ $errors->first('last_name') }}</label>
@@ -96,12 +96,12 @@
               <b>Имя</b>
               <div class="form-group">
                 <div class="form-line {{ $errors->has('first_name') ? ' error' : '' }}">
-                  {{ Form::text('first_name', null,['class'=>'form-control' , 'placeholder' => 'Иван' ]) }}                
+                  {{ Form::text('first_name', null,['class'=>'form-control' , 'placeholder' => 'Иван' ]) }}
                 </div>
                 @if ($errors->has('first_name'))
                     <label id="first_name-error" class="error" for="first_name">{{ $errors->first('first_name') }}</label>
                 @endif
-              </div>            
+              </div>
             </div>
             <div class="col-sm-4">
               <b>Отчество</b>
@@ -131,7 +131,7 @@
               <b>Электронная почта</b>
               <div class="form-group">
                 <div class="form-line {{ $errors->has('email') ? ' error' : '' }}">
-                  {{ Form::text('email', null,['class'=>'form-control' , 'placeholder' => 'email@domain.ru' ]) }}                                        
+                  {{ Form::text('email', null,['class'=>'form-control' , 'placeholder' => 'email@domain.ru' ]) }}
                 </div>
                 @if ($errors->has('email'))
                   <label id="email-error" class="error" for="email">{{ $errors->first('email') }}</label>
@@ -139,14 +139,14 @@
               </div>
             </div>
           </div>
-        </div>      
-        <div class="col-sm-3">        
+        </div>
+        <div class="col-sm-3">
           <div class="row">
             <div class="col-sm-12">
               {{-- <div class="image text-center">
                 <a href="#">
                     <img src="{{ URL::asset('images/avatars/'.Auth::user()->profile->avatar) }}" width="150" alt="User" />
-                </a>            
+                </a>
               </div>  --}}
               <!-- the avatar markup -->
               <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
@@ -157,10 +157,10 @@
                   <!-- include other inputs if needed and include a form submit (save) button -->
               {{-- </form> --}}
             </div>
-          </div>                     
-        </div>      
-        </div> 
-        
+          </div>
+        </div>
+        </div>
+
         <div class="row clearfix">
           <div class="col-sm-12">
             <b>Адрес</b>
@@ -176,15 +176,15 @@
         </div>
         <div class="row clearfix">
           <div class="col-sm-12">
-            <b>Специальность</b>    
+            <b>Специальность</b>
             {{ Form::select('specialty_id', ['1'=>'Врач', '2'=>'Администратор'], null, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
             @if ($errors->has('specialty_id'))
               <label id="specialty_id-error" class="error" for="specialty_id">{{ $errors->first('specialty_id') }}</label>
-            @endif             
-            
+            @endif
+
             <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button>
           </div>
-        </div>        
+        </div>
       </div>
     {!! Form::close() !!}
     </div>

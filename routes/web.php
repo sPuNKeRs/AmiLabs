@@ -25,13 +25,13 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 Route::group(['middleware' => ['auth','roles','menu']], function () {
   // Страница регистратуры
   Route::get('/registry', [
-    'as' => 'registry', 
+    'as' => 'registry',
     'uses' => 'RegistryController@index'
   ]);
 
   // Загрузить список пациентов
   Route::get('/registry/data', [
-    'as' => 'registry.data', 
+    'as' => 'registry.data',
     'uses' => 'RegistryController@getData'
   ]);
 
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 
   // Страница редактирования пациента
   Route::get('/registry/patients/edit/{patient_id?}', [
-    'as' => 'registry.patients.edit', 
+    'as' => 'registry.patients.edit',
     'uses' => 'RegistryController@edit'
   ]);
 
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 Route::group(['middleware' => ['auth','roles','menu']], function () {
   // Страница с анализами пациента
   Route::get('/registry/patients/analyzis/{patient_id?}',[
-    'as' => 'registry.patients.analyzis.list', 
+    'as' => 'registry.patients.analyzis.list',
     'uses' => 'AnalyzesController@list'
   ]);
 });
@@ -85,14 +85,14 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 	// Страница общих настроек
 	Route::get('/settings', [
 		'as' => 'settings',
-		'uses' => 'SettingsController@index', 
+		'uses' => 'SettingsController@index',
     'roles' => ['admin']
 	]);
 
     // Сохранение настроек
     Route::post('/settings', [
         'as' => 'settings',
-        'uses' => 'SettingsController@edit', 
+        'uses' => 'SettingsController@edit',
         'roles' => ['admin']
     ]);
 });
@@ -127,36 +127,36 @@ Route::group(['middleware' => ['auth', 'roles', 'menu']], function () {
 
     // Страница создания пользователя
     Route::get('/users/create', [
-        'as' => 'users.create', 
-        'uses' => 'UsersController@userCreate', 
+        'as' => 'users.create',
+        'uses' => 'UsersController@userCreate',
         'roles' => ['admin']
     ]);
 
     // Сохранение пользователя
     Route::post('/users/create', [
-        'as' => 'users.create', 
-        'uses' => 'UsersController@create', 
+        'as' => 'users.create',
+        'uses' => 'UsersController@create',
         'roles' => ['admin']
     ]);
 
     // Страница редактирование пользователя
     Route::get('/users/edit/{userid}', [
-        'as' => 'users.edit', 
-        'uses' => 'UsersController@userEdit', 
+        'as' => 'users.edit',
+        'uses' => 'UsersController@userEdit',
         'roles' => ['admin']
     ]);
 
     // Редактирование пользователя
     Route::post('/users/edit', [
-        'as' => 'users.edit', 
-        'uses' => 'UsersController@edit', 
+        'as' => 'users.edit',
+        'uses' => 'UsersController@edit',
         'roles' => ['admin']
     ]);
 
     // Удаление пользователя
     Route::get('/users/delete/{userid}', [
         'as' => 'users.delete',
-        'uses' => 'UsersController@delete', 
+        'uses' => 'UsersController@delete',
         'roles' => ['admin']
     ]);
 });
@@ -168,14 +168,32 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     // Страница Справочники
     Route::get('/reference', [
         'as' => 'reference',
-        'uses' => 'ReferenceController@index', 
+        'uses' => 'ReferenceController@index',
         'roles' => ['admin']
     ]);
 
     // Добавить вид исследования
     Route::post('/reference/analyzistype/add', [
-      'as' => 'reference.analyzistype.add', 
+      'as' => 'reference.analyzistype.add',
       'uses' => 'ReferenceController@addAnalyzisType'
+    ]);
+
+    // Получить данные вида исследования по ID
+    Route::get('/reference/analyzistype/edit/{type_id?}', [
+      'as' => 'reference.analyzistype.edit',
+      'uses' => 'ReferenceController@getAnalyzisTypeById'
+    ]);
+
+    // Обновить данные вида исследования
+    Route::post('/reference/analyzistype/update', [
+      'as' => 'reference.analyzistype.update',
+      'uses' => 'ReferenceController@updateAnalyzisTypeById'
+    ]);
+
+    // Удалить вид исследования
+    Route::post('/reference/analyzistype/delete', [
+      'as' => 'reference.analyzistype.delete',
+      'uses' => 'ReferenceController@deleteAnalyzisTypeById'
     ]);
 });
 

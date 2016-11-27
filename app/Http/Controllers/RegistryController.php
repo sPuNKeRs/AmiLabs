@@ -59,7 +59,7 @@ class RegistryController extends Controller
     public function save(PatientCardRequest $request)
     {
         $input = $request->all();
-        $input['author_id'] = Auth::user()->id;        
+        $input['author_id'] = Auth::user()->id;
 
         if(isset($input['patient_id']) && $input['patient_id'] > 0)
         {
@@ -79,7 +79,7 @@ class RegistryController extends Controller
     public function edit($patient_id)
     {
         $patient = Patient::findOrFail($patient_id);
-        
+
         return view('registry.patients.edit', compact('patient'));
     }
 }

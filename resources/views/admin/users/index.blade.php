@@ -8,13 +8,13 @@
   <!-- #END# Search Bar -->
 
   <!-- Top Bar -->
-  @include('partials.top-bar') 
+  @include('partials.top-bar')
   <!-- #Top Bar -->
 @endsection
 
  <!-- Menu -->
 @section('left_menu')
-  @include('partials.left-sidebar.menu', ['menu' => $menu_admin->roots()])  
+  @include('partials.left-sidebar.menu', ['menu' => $menu_admin->roots()])
 @endsection
  <!-- #Menu -->
 
@@ -84,7 +84,7 @@
 
 @section('js')
   <!-- Bootstrap Notify Plugin Js -->
-  {{-- <script src="{{URL::asset('plugins/bootstrap-notify/bootstrap-notify.js')}}"></script> --}}  
+  {{-- <script src="{{URL::asset('plugins/bootstrap-notify/bootstrap-notify.js')}}"></script> --}}
 
   <script type="text/javascript">
     $(document).ready(function(){

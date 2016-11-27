@@ -61,8 +61,8 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 // -----------------------------------------------------------
 Route::group(['middleware' => ['auth','roles','menu']], function () {
   // Страница с анализами пациента
-  Route::get('/registry/patients/analyzes/{patient_id?}',[
-    'as' => 'registry.patients.analyzes.list', 
+  Route::get('/registry/patients/analyzis/{patient_id?}',[
+    'as' => 'registry.patients.analyzis.list', 
     'uses' => 'AnalyzesController@list'
   ]);
 });
@@ -170,6 +170,12 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
         'as' => 'reference',
         'uses' => 'ReferenceController@index', 
         'roles' => ['admin']
+    ]);
+
+    // Добавить вид исследования
+    Route::post('/reference/analyzistype/add', [
+      'as' => 'reference.analyzistype.add', 
+      'uses' => 'ReferenceController@addAnalyzisType'
     ]);
 });
 

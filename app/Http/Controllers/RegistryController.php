@@ -38,7 +38,7 @@ class RegistryController extends Controller
             })
             ->addColumn('action', function ($patients) {
                 return '<div class="action-btn-center">
-                            <a href="'.route('registry.patients.analyzes.list', $patients->id).'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn btn-warning waves-effect">
+                            <a href="'.route('registry.patients.analyzis.list', $patients->id).'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn btn-warning waves-effect">
                                     <i class="material-icons">assignment</i>
                             </a>
                         </div>';

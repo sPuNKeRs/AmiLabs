@@ -12,6 +12,6 @@ class AnalyzesController extends Controller
     {
         $patient = Patient::findOrFail($patient_id);
 
-        return view('registry.analyzes.list', compact('patient'));
+        return view('registry.analyzis.list', compact('patient'));
     }
 }

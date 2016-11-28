@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\AnalyzisTypeRequest;
+use App\Http\Requests\ResearchTypeRequest;
 
-use App\AnalysisType;
+use App\ResearchType;
 
 class ReferenceController extends Controller
 {
     // Начальная страница Справочники
     public function index(Request $request)
     {
-        $analysisTypes = AnalysisType::all();
+        $researchTypes = ResearchType::all();
 
         $modal_create = [
             'modal_id' => 'modal_create',
@@ -28,30 +28,30 @@ class ReferenceController extends Controller
             'modal_action' => '<button id="btn-update" type="button" class="btn btn-link waves-effect">СОХРАНИТЬ</button>'
         ];
 
-        return view('admin.reference.index', compact('analysisTypes', 'modal_create', 'modal_edit'));
+        return view('admin.reference.index', compact('researchTypes', 'modal_create', 'modal_edit'));
     }
 
     // Добавление вида исследования
-    public function addAnalyzisType(AnalyzisTypeRequest $request)
+    public function addResearchType(ResearchTypeRequest $request)
     {
-        $type = AnalysisType::create($request->all());
+        $type = ResearchType::create($request->all());
 
         return response($type);
     }
 
     // Получить данные вида исследования по ID
-    public function getAnalyzisTypeById($type_id)
+    public function getResearchTypeById($type_id)
     {
-        $type = AnalysisType::findOrFail($type_id);
+        $type = ResearchType::findOrFail($type_id);
 
         return response($type);
     }
 
     // Обновить данные вида исселодования по ID
-    public function updateAnalyzisTypeById(AnalyzisTypeRequest $request)
+    public function updateResearchTypeById(ResearchTypeRequest $request)
     {
         $input = $request->all();
-        $type = AnalysisType::findOrFail($input['type_id']);
+        $type = ResearchType::findOrFail($input['type_id']);
 
         if($type->update($input))
         {
@@ -62,9 +62,9 @@ class ReferenceController extends Controller
     }
 
     // Удалить вид исследования по ID
-    public function deleteAnalyzisTypeById(Request $request)
+    public function deleteResearchTypeById(Request $request)
     {
-        $type = AnalysisType::findOrFail($request->type_id);
+        $type = ResearchType::findOrFail($request->type_id);
 
         if($type->delete())
         {

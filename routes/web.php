@@ -61,9 +61,9 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
 // -----------------------------------------------------------
 Route::group(['middleware' => ['auth','roles','menu']], function () {
   // Страница с анализами пациента
-  Route::get('/registry/patients/analyzis/{patient_id?}',[
-    'as' => 'registry.patients.analyzis.list',
-    'uses' => 'AnalyzesController@list'
+  Route::get('/registry/patients/research/{patient_id?}',[
+    'as' => 'registry.patients.research.list',
+    'uses' => 'ResearchController@list'
   ]);
 });
 
@@ -173,27 +173,27 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     ]);
 
     // Добавить вид исследования
-    Route::post('/reference/analyzistype/add', [
-      'as' => 'reference.analyzistype.add',
-      'uses' => 'ReferenceController@addAnalyzisType'
+    Route::post('/reference/researchtype/add', [
+      'as' => 'reference.researchtype.add',
+      'uses' => 'ReferenceController@addResearchType'
     ]);
 
     // Получить данные вида исследования по ID
-    Route::get('/reference/analyzistype/edit/{type_id?}', [
-      'as' => 'reference.analyzistype.edit',
-      'uses' => 'ReferenceController@getAnalyzisTypeById'
+    Route::get('/reference/researchtype/edit/{type_id?}', [
+      'as' => 'reference.researchtype.edit',
+      'uses' => 'ReferenceController@getResearchTypeById'
     ]);
 
     // Обновить данные вида исследования
-    Route::post('/reference/analyzistype/update', [
-      'as' => 'reference.analyzistype.update',
-      'uses' => 'ReferenceController@updateAnalyzisTypeById'
+    Route::post('/reference/researchtype/update', [
+      'as' => 'reference.researchtype.update',
+      'uses' => 'ReferenceController@updateResearchTypeById'
     ]);
 
     // Удалить вид исследования
-    Route::post('/reference/analyzistype/delete', [
-      'as' => 'reference.analyzistype.delete',
-      'uses' => 'ReferenceController@deleteAnalyzisTypeById'
+    Route::post('/reference/researchtype/delete', [
+      'as' => 'reference.researchtype.delete',
+      'uses' => 'ReferenceController@deleteResearchTypeById'
     ]);
 });
 

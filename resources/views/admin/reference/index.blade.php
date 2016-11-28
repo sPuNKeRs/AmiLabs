@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($analysisTypes as $type)
+            @foreach($researchTypes as $type)
                 <tr id="type_{{$type->id}}" data-typeid="{{ $type->id }}">
                     <td>{{ $type->name }}</td>
                     <td>{{ $type->description }}</td>
@@ -107,13 +107,13 @@
         var self = e.currentTarget;
         selectedType = $(self).data('typeid');
         console.log(selectedType);
-        getAnalyzisTypeById(selectedType);
+        getResearchTypeById(selectedType);
       });
 
       // Клик по кнопке Сохранить
       $("#btn-update").on('click', function(e){
          var type_id = $('#modal_edit input[name="type_id"]').val();
-         updateAnalyzisTypeById(type_id);
+         updateResearchTypeById(type_id);
       });
 
       //Добавить вид исследования
@@ -132,7 +132,7 @@
         //TODO: Вынести отправку данных на сервер в отдельную функцию
 
         $.ajax({
-          url: '{{ route('reference.analyzistype.add') }}',
+          url: '{{ route('reference.researchtype.add') }}',
           headers: {'X-CSRF-TOKEN': token},
           processData: false,
           contentType: false,
@@ -177,12 +177,12 @@
         cancelButtonText: 'Нет',
         closeOnConfirm: true
     }, function () {
-        deleteAnalyzisTypeById(type_id);
+        deleteResearchTypeById(type_id);
     });
   }
 
   // Удалить вид исследования по ID
-  function deleteAnalyzisTypeById(type_id)
+  function deleteResearchTypeById(type_id)
   {
     // Инициализация переменных
     var token = $('meta[name="_token"]').attr('content');
@@ -190,7 +190,7 @@
     console.log('DELETE: '+ type_id);
 
     $.ajax({
-      url: '{{ route('reference.analyzistype.delete') }}',
+      url: '{{ route('reference.researchtype.delete') }}',
       type: 'POST',
       headers: {'X-CSRF-TOKEN': token},
       data: {type_id: type_id},
@@ -205,7 +205,7 @@
   }
 
   // Получить данные вида исследования по ID
-  function getAnalyzisTypeById(type_id)
+  function getResearchTypeById(type_id)
   {
     // Инициализация переменных
     var modal = $('#modal_edit');
@@ -214,7 +214,7 @@
     var input_description = $('#modal_edit #add_types_form #description');
 
     $.ajax({
-      url: '{{ route('reference.analyzistype.edit') }}/' + type_id,
+      url: '{{ route('reference.researchtype.edit') }}/' + type_id,
       type: 'GET',
       success: function (response) {
         input_typeid.val(response.id);
@@ -232,7 +232,7 @@
   }
 
   // Сохранить изменения вида исследовния
-  function updateAnalyzisTypeById(type_id)
+  function updateResearchTypeById(type_id)
   {
     // Инициализация переменных
     var token = $('meta[name="_token"]').attr('content');
@@ -240,7 +240,7 @@
     var formData = new FormData(form);
 
     $.ajax({
-      url: '{{ route('reference.analyzistype.update') }}',
+      url: '{{ route('reference.researchtype.update') }}',
       headers: {'X-CSRF-TOKEN': token},
       processData: false,
       contentType: false,

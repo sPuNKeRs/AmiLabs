@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AnalyzisTypeRequest extends FormRequest
+class ResearchTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,7 +35,7 @@ class AnalyzisTypeRequest extends FormRequest
      */
     public function messages()
     {
-        return [         
+        return [
             'name.required' => 'Наименование вида анализа обязательно для заполнения'
         ];
     }

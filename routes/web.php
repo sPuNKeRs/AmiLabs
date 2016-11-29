@@ -195,5 +195,11 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
       'as' => 'reference.researchtype.delete',
       'uses' => 'ReferenceController@deleteResearchTypeById'
     ]);
+
+    // Список анализов исследования
+    Route::get('/reference/research/analyzes/{research_id?}',[
+      'as' => 'reference.research.analyzes',
+      'uses' => 'ReferenceController@analyzesList'
+    ]);
 });
 

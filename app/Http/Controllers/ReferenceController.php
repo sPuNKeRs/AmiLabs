@@ -75,4 +75,10 @@ class ReferenceController extends Controller
             return response(['staus'=>false]);
         }
     }
+
+    // Страница со списком анализов исследования
+    public function analyzesList($research_id)
+    {
+        return view('admin.reference.analyzes.list');
+    }
 }

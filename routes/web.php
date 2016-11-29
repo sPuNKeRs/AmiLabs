@@ -173,27 +173,27 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     ]);
 
     // Добавить вид исследования
-    Route::post('/reference/researchtype/add', [
-      'as' => 'reference.researchtype.add',
-      'uses' => 'ReferenceController@addResearchType'
+    Route::post('/reference/research/add', [
+      'as' => 'reference.research.add',
+      'uses' => 'ReferenceController@addResearch'
     ]);
 
     // Получить данные вида исследования по ID
-    Route::get('/reference/researchtype/edit/{type_id?}', [
-      'as' => 'reference.researchtype.edit',
-      'uses' => 'ReferenceController@getResearchTypeById'
+    Route::get('/reference/research/edit/{type_id?}', [
+      'as' => 'reference.research.edit',
+      'uses' => 'ReferenceController@getResearchById'
     ]);
 
     // Обновить данные вида исследования
-    Route::post('/reference/researchtype/update', [
-      'as' => 'reference.researchtype.update',
-      'uses' => 'ReferenceController@updateResearchTypeById'
+    Route::post('/reference/research/update', [
+      'as' => 'reference.research.update',
+      'uses' => 'ReferenceController@updateResearchById'
     ]);
 
     // Удалить вид исследования
-    Route::post('/reference/researchtype/delete', [
-      'as' => 'reference.researchtype.delete',
-      'uses' => 'ReferenceController@deleteResearchTypeById'
+    Route::post('/reference/research/delete', [
+      'as' => 'reference.research.delete',
+      'uses' => 'ReferenceController@deleteResearchById'
     ]);
 
     // Список анализов исследования

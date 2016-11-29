@@ -13,7 +13,7 @@ class CreateAnalysisTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('research_types', function (Blueprint $table) {
+        Schema::create('researches', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('description')->nullable();
@@ -28,6 +28,6 @@ class CreateAnalysisTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('research_types');
+        Schema::dropIfExists('researches');
     }
 }

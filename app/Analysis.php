@@ -9,6 +9,7 @@ class Analysis extends Model
     protected $fillable = [
         'name',
         'unit',
-        'r_range'
+        'r_range',
+        'research_id'
     ];
 }

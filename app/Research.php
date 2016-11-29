@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ResearchType extends Model
+class Research extends Model
 {
     protected $fillable = [
         'name',

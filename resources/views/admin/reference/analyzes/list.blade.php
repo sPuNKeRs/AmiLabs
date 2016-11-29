@@ -58,6 +58,7 @@
                     <table class="table table-bordered table-striped table-hover" width="100%" id="analyzes-table">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Наименование</th>
                                 <th>Eдиница измерения</th>
                                 <th>Референсные значения</th>
@@ -65,12 +66,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Эстрадиол (ИФА)</td>
-                                <td>нмоль/л</td>
-                                <td>Мужчины 0.029 - 0.3</td>
-                                <td></td>
+                        @foreach($analyzes as $analysis)
+                            <tr id="analysis-{{ $analysis->id }}" data-iteration="{{ $loop->iteration }}" data-analysis-id="{{ $analysis->id }}">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $analysis->name }}</td>
+                                <td>{{ $analysis->unit }}</td>
+                                <td>{{ $analysis->r_range }}</td>
+                                <td>
+                                    <a href="#" data-analysis-id="{{ $analysis->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Редактировать" class="btn action-btn edit-analysis btn-warning waves-effect">
+                                        <i class="material-icons">mode_edit</i>
+                                    </a>
+
+                                    <a href="#" data-analysis-id="{{ $analysis->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Удалить" class="btn action-btn delete-analysis btn-danger waves-effect">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <!-- #END# Exportable Table -->
@@ -81,6 +93,7 @@
     {{ csrf_field() }}
     {{-- {{ Form::hidden('research_id', $research->id) }} --}}
     @include('modals.default', $modal_create)
+    @include('modals.default', $modal_edit)
 @endsection
 
 @section('js')
@@ -88,16 +101,36 @@
 $(function() {
     // Инициализация переменных
     var research_id = $('input[name="research_id"]').val();
-    var token = $('meta[name="_token"]').attr('content');
+    var token = $('input[name="_token"]').val();
+    var selected_analysis = '';
 
     // Клик по кнопке добавить
     $('#add_analysis').on('click', function(e){
         $('#modal_create').modal('show');
     });
 
-    // Клик по кнопке Добавить
+    // Клик по кнопке Добавить (Сохранить)
     $('#btn-save').on('click', function(e){
         add_analysis(research_id);
+    });
+
+    // Клик по кнопку Сохранить (Обновить)
+    $('#btn-update').on('click', function(e){
+        update_analysis(selected_analysis);
+    });
+
+    // Клик по кнопке Удалить
+    $('#analyzes-table').on('click', '.delete-analysis', function(e){
+        var self = e.currentTarget;
+        selected_analysis = $(self).data('analysis-id');
+        showConfirmMessage(selected_analysis);
+    });
+
+    // Клик по кнопке редактировать
+    $('#analyzes-table').on('click', '.edit-analysis', function(e){
+        var self = e.currentTarget;
+        selected_analysis = $(self).data('analysis-id');
+        edit_analysis(selected_analysis);
     });
 
     // Клик по строке таблицы
@@ -108,10 +141,112 @@ $(function() {
     });
 
     // ============  ФУНКЦИИ ========================================
+    // Обновить анализ
+    function update_analysis(analysis_id)
+    {
+        console.log('Сохраняем изменения анализа ID: ' + analysis_id);
+
+        var form = $('#modal_edit #add_analysis_form')[0];
+        var formData = new FormData(form);
+
+        $.ajax({
+            url: '{{ route('reference.research.analysis.update') }}',
+            headers: {'X-CSRF-TOKEN': token},
+            processData: false,
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+               console.log(response);
+               $('#analysis-' + analysis_id).after(response);
+               $('#analysis-' + analysis_id).remove();
+
+               clearForm();
+               clearErrorMsg();
+               $("[data-toggle='tooltip']").tooltip();
+               $('#modal_edit').modal('hide');
+            },
+            error: function(errors){
+                clearErrorMsg();
+                console.log(errors);
+                showError(JSON.parse(errors.responseText));
+            }
+        });
+    }
+
+    // Окно редактирование анализа
+    function edit_analysis(analysis_id)
+    {
+        console.log('Редактируем анализ ID:' + analysis_id);
+
+        $('#modal_edit #add_analysis_form #iteration').val($('#analysis-' + analysis_id).data('iteration'));
+
+        var input_id = $('#modal_edit #add_analysis_form #analysis_id');
+        var input_name = $('#modal_edit #add_analysis_form #name');
+        var input_unit = $('#modal_edit #add_analysis_form #unit');
+        var input_r_range = $('#modal_edit #add_analysis_form #r_range');
+
+        $.ajax({
+            url: '{{ route('reference.research.analysis.get') }}',
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
+            data: {analysis_id: analysis_id},
+            success: function (response) {
+                console.log(response);
+                input_id.val(response.id);
+                input_name.val(response.name);
+                input_unit.val(response.unit);
+                input_r_range.val(response.r_range);
+                $('#modal_edit').modal('show');
+            },
+            error: function(errors){
+                console.log(errors);
+            }
+        });
+
+    }
+
+    // Подтверждение удаления вида исследования
+    function showConfirmMessage(analysis_id) {
+        swal({
+            title: "Вы хотите удалить выбранный анализ?",
+            text: "Внимание! Будьте осторожны при удалении, возможно есть связанные данные!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Да, удалить!",
+            cancelButtonText: 'Нет',
+            closeOnConfirm: true
+        }, function () {
+            delete_analysis(selected_analysis);
+        });
+    }
+
+    // Удаление анализа
+    function delete_analysis(analysis_id)
+    {
+        console.log('Удаляем анализ ID: '+ analysis_id);
+
+        $.ajax({
+            url: '{{ route('reference.research.analysis.delete') }}',
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': token},
+            data: {analysis_id: analysis_id},
+            success: function (response) {
+                console.log(response);
+                $("[data-toggle='tooltip']").tooltip('hide');
+                $('#analysis-' + analysis_id).remove();
+            },
+            error: function(errors){
+                console.log(errors);
+            }
+        });
+    }
+
     function add_analysis(research_id)
     {
       console.log('Добавляем анализ к иссдедованию с ID: ' + research_id);
-      var form = $('#add_analysis_form')[0];
+      var form = $('#modal_create #add_analysis_form')[0];
       var formData = new FormData(form);
 
       $.ajax({
@@ -122,10 +257,10 @@ $(function() {
         data: formData,
         type: 'POST',
         success: function (response) {
-          console.log(response);
-
+          $('#analyzes-table tbody').append(response);
           clearForm();
           clearErrorMsg();
+          $("[data-toggle='tooltip']").tooltip();
         },
         error: function(errors){
           clearErrorMsg();
@@ -139,7 +274,7 @@ $(function() {
     function clearForm()
     {
       $('#modal_create').modal('hide');
-      $('#add_analysis_form').trigger("reset");
+      $('#modal_create #add_analysis_form').trigger("reset");
     }
 
     // Очистить сообщения об ощибках

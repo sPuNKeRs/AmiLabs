@@ -10,4 +10,10 @@ class Research extends Model
         'name',
         'description'
     ];
+
+    // Связь один ко многим - АНАЛИЗЫ
+    public function analyses()
+    {
+        return $this->hasMany('App\Analysis');
+    }
 }

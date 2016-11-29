@@ -207,5 +207,23 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
       'as' => 'reference.research.analysis.add',
       'uses' => 'ReferenceController@analysisAdd'
     ]);
+
+    // Удаление анализа
+    Route::post('/reference/research/analysis/delete',[
+      'as' => 'reference.research.analysis.delete',
+      'uses' => 'ReferenceController@analysisDelete'
+    ]);
+
+    // Получить анализ по ID
+    Route::post('/reference/research/analysis/get',[
+      'as' => 'reference.research.analysis.get',
+      'uses' => 'ReferenceController@getAnalysisByID'
+    ]);
+
+    // Обновить данные анализа по ID
+    Route::post('/reference/research/analysis/update',[
+      'as' => 'reference.research.analysis.update',
+      'uses' => 'ReferenceController@updateAnalysisByID'
+    ]);
 });
 

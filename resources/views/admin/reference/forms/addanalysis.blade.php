@@ -1,5 +1,7 @@
 {!! Form::open(['id'=>'add_analysis_form', 'name'=> 'add_analysis_form']) !!}
 {{ Form::hidden('research_id', $research_id) }}
+{{ Form::hidden('analysis_id', null, ['id'=>'analysis_id']) }}
+{{ Form::hidden('iteration', null, ['id'=>'iteration']) }}
 <div class="row clearfix">
     <div class="col-md-12">
         <b>Наименование</b>

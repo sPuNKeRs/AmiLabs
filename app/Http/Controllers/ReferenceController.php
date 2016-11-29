@@ -84,7 +84,8 @@ class ReferenceController extends Controller
     public function analyzesList($research_id)
     {
         $research = Research::findOrFail($research_id);
-        // $analyzes = $resea
+
+        $analyzes = $research->analyses;
 
         $modal_create = [
             'modal_id' => 'modal_create',
@@ -93,7 +94,14 @@ class ReferenceController extends Controller
             'modal_action' => '<button id="btn-save" type="button" class="btn btn-link waves-effect">ДОБАВИТЬ</button>'
         ];
 
-        return view('admin.reference.analyzes.list', compact('research', 'modal_create'));
+        $modal_edit = [
+            'modal_id' => 'modal_edit',
+            'modal_title'=> 'РЕДАКТИРОВАТЬ АНАЛИЗ',
+            'modal_body' => view('admin.reference.forms.addanalysis', ['research_id' => $research->id]),
+            'modal_action' => '<button id="btn-update" type="button" class="btn btn-link waves-effect">СОХРАНИТЬ</button>'
+        ];
+
+        return view('admin.reference.analyzes.list', compact('research', 'modal_create', 'modal_edit', 'analyzes'));
     }
 
     // Добавление анализа к исследованию
@@ -101,9 +109,49 @@ class ReferenceController extends Controller
     {
         $research = Research::findOrFail($request->research_id);
 
-        $analisis = Analysis::create($request->all());
+        $analysis = Analysis::create($request->all());
 
-        //return response($research);
-        return response($analisis);
+        $iteration = Analysis::where('research_id','=',$request->research_id)->count();
+
+        $list_row = view('admin.reference.analyzes.list-row', compact('analysis', 'iteration'));
+
+        return response($list_row);
+    }
+
+    // Удаление анализа
+    public function analysisDelete(Request $request)
+    {
+        $analysis_id = $request->analysis_id;
+        $analysis = Analysis::findOrFail($analysis_id);
+
+        if($analysis->delete())
+        {
+            return response(['staus'=>true]);
+        }
+        else
+        {
+            return response(['staus'=>false]);
+        }
+    }
+
+    // Получить анализ по ID
+    public function getAnalysisByID(Request $request)
+    {
+        $analysis = Analysis::findOrFail($request->analysis_id);
+
+        return response($analysis);
+    }
+
+    // Обновить данные анализа по ID
+    public function updateAnalysisByID(AnalysisRequest $request)
+    {
+        $input = $request->all();
+        $analysis = Analysis::findOrFail($request->analysis_id);
+        $iteration = $input['iteration'];
+        $analysis->update($input);
+
+        $list_row = view('admin.reference.analyzes.list-row', compact('analysis', 'iteration'));
+
+        return response($list_row);
     }
 }

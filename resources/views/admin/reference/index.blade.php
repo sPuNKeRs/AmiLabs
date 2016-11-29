@@ -155,6 +155,7 @@
             $('#add_types_form').trigger("reset");
             $('#add_types_form').find('.error').removeClass('error');
             $('#add_types_form').find('label').remove();
+            $("[data-toggle='tooltip']").tooltip();
           },
           error: function(errors){
             var err = JSON.parse(errors.responseText);
@@ -202,6 +203,7 @@
       data: {type_id: type_id},
       success: function (response) {
         //console.log(response);
+        $("[data-toggle='tooltip']").tooltip('hide');
         $('#type_' + type_id).remove();
       },
       error: function(errors){
@@ -264,6 +266,7 @@
         $('#modal_edit #add_types_form').trigger("reset");
         $('#modal_edit #add_types_form').find('.error').removeClass('error');
         $('#modal_edit #add_types_form').find('label').remove();
+        $("[data-toggle='tooltip']").tooltip();
       },
       error: function(errors){
         var err = JSON.parse(errors.responseText);

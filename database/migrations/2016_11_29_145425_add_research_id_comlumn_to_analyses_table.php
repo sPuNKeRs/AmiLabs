@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnalysesTable extends Migration
+class AddResearchIdComlumnToAnalysesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateAnalysesTable extends Migration
      */
     public function up()
     {
-        Schema::create('analyses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('unit');
-            $table->string('r_range');
-            $table->timestamps();
+        Schema::table('analyses', function (Blueprint $table) {
+            $table->integer('research_id')->after('r_range');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateAnalysesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('analyses');
+        Schema::table('analyses', function (Blueprint $table) {
+            $table->dropColumn('research_id');
+        });
     }
 }

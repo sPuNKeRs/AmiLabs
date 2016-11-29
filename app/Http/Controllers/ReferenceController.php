@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ResearchTypeRequest;
+use App\Http\Requests\AnalysisRequest;
+
 
 use App\ResearchType;
 
@@ -79,6 +81,26 @@ class ReferenceController extends Controller
     // Страница со списком анализов исследования
     public function analyzesList($research_id)
     {
-        return view('admin.reference.analyzes.list');
+        $research = ResearchType::findOrFail($research_id);
+
+        $modal_create = [
+            'modal_id' => 'modal_create',
+            'modal_title'=> 'ДОБАВИТЬ АНАЛИЗ',
+            'modal_body' => view('admin.reference.forms.addanalysis', ['research_id' => $research->id]),
+            'modal_action' => '<button id="btn-save" type="button" class="btn btn-link waves-effect">ДОБАВИТЬ</button>'
+        ];
+
+        return view('admin.reference.analyzes.list', compact('research', 'modal_create'));
+    }
+
+    // Добавление анализа к исследованию
+    public function analysisAdd(AnalysisRequest $request)
+    {
+        $research = ResearchType::findOrFail($request->research_id);
+
+        $analisis = Analysis::create($request->all());
+
+        //return response($research);
+        return response($analisis);
     }
 }

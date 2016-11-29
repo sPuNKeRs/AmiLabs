@@ -201,5 +201,11 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
       'as' => 'reference.research.analyzes',
       'uses' => 'ReferenceController@analyzesList'
     ]);
+
+    // Добавить анализ к исследованию
+    Route::post('/reference/research/analysis/add',[
+      'as' => 'reference.research.analysis.add',
+      'uses' => 'ReferenceController@analysisAdd'
+    ]);
 });
 

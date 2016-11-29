@@ -10,7 +10,7 @@
 
 table tr.selected td {
     background-color: #a9d7aa !important;
-} 
+}
 
 .action-btn-center{
     text-align: center;
@@ -18,4 +18,10 @@ table tr.selected td {
 
 .btn.action-btn{
     padding: 0px 3px 0px 3px;
+}
+
+.action-btn-panel {
+    position: relative;
+    top: -30px;
+    z-index: 9;
 }

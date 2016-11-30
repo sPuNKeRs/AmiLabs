@@ -65,6 +65,14 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'as' => 'registry.patients.research.list',
     'uses' => 'ResearchController@list'
   ]);
+
+  // Страница исследования пациента
+  Route::post('/registry/patients/research/add',[
+    'as' => 'registry.patients.research.add',
+    'uses' => 'ResearchController@addPatientResearch'
+  ]);
+
+
 });
 
 // -----------------------------------------------------------

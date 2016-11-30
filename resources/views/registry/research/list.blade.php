@@ -6,10 +6,15 @@
 @section('top_page_nav')
 <ul class="nav navbar-nav top_page_nav">
     <li>
+        <a href="#" id="add_research" class="btn btn-primary btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Добавить исследование" data-original-title="Добавить исследование">
+            <i class="material-icons">add</i>
+        </a>
+    </li>
+    <li>
         <a href="{{ route('registry') }}" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Назад" data-original-title="Назад">
             <i class="material-icons">reply</i>
         </a>
-    </li>   
+    </li>
 </ul>
 @endsection
 <!-- #Top Bar Nav-->
@@ -30,7 +35,7 @@
   @include('partials.left-sidebar')
 @endsection
 
-@section('content')    
+@section('content')
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
@@ -46,7 +51,7 @@
                         <thead>
                             <tr>
                                 <th>№ Исследования</th>
-                                <th>Тип исследования</th>
+                                <th>Вид исследования</th>
                                 <th>Дата</th>
                                 <th>Статус</th>
                                 <th>Действия</th>
@@ -57,62 +62,33 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
     {{ csrf_field() }}
+    @include('modals.default', $modal_choose_research)
 @endsection
 
 @section('js')
 <script>
 $(function() {
+    // Инициализация переменных
+    var patient_id = '';
+    var research_id = '';
 
-    // // Инициализиция переменных
-    // var selectedRow = '';
+    // Клик по кнопке добавить исследование
+    $('#add_research').on('click', function(e){
+        chooseResearchModal();
+    });
 
-    // //Tooltip
-    // $('[data-toggle="tooltip"]').tooltip({
-    //     container: 'body'
-    // });
+    // Клик по кнопке Добавить модального окна
+     $('#btn-save').on('click', function(e){
+         $('#choose_research_form').submit();
+     });
 
-    // $('#patients-table').DataTable({
-    //     processing: true,
-    //     serverSide: true,
-    //     ajax: '{!! route('registry.data') !!}',
-    //     columns: [
-    //         { width: '10%', data: 'card_number', name: 'card_number' },
-    //         { data: 'surname', name: 'surname' },
-    //         { data: 'firstname', name: 'firstname' },
-    //         { data: 'lastname', name: 'lastname' },
-    //         { width: '15%', data: 'birth_date', name: 'birth_date' },
-    //         { width: '15%', data: 'card_date', name: 'card_date' },
-    //         { width: '5%', data: 'action', name: 'action', orderable: false, searchable: false }
-    //     ],        
-    //     language: {
-    //       url: '{{ URL::asset('plugins/jquery-datatable/lang/Russia.json') }}'
-    //     },
-    //     stateSave: true
-    // });
-
-    // // Клик по строке
-    // $('#patients-table').on('click', 'tr', function(e){
-    //     var self = e.currentTarget;
-    //     $('table tr.selected').removeClass('selected');
-    //     selectedRow = $(self).data('patient_id');        
-    //     $(self).addClass('selected');
-    // });
-
-    // // Двойной клик по строке
-    // $('#patients-table').on('dblclick', 'tr', function(e){
-    //     var self = e.currentTarget;
-    //     editPatient($(self).data('patient_id'));
-    //     console.log($(self).data());
-    // });
-
-    // // Функция отправки формы приказа
-    // function editPatient(patient_id)
-    // {
-    //     var editLink = '{{ route('registry.patients.edit')}}/' + patient_id;
-    //     window.location.href = editLink;
-    // }
+    //======================= ФУНКЦИИ ======================
+    function chooseResearchModal()
+    {
+        $('#modal_choose_research').modal('show');
+    }
 });
 </script>
 @endsection

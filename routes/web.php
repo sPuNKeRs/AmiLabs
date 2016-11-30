@@ -72,6 +72,17 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'uses' => 'ResearchController@addPatientResearch'
   ]);
 
+  // Сохранение исследования пациента
+  Route::post('/registry/patients/research/save',[
+    'as' => 'registry.patients.research.save',
+    'uses' => 'ResearchController@savePatientResearch'
+  ]);
+
+  // Получить данные исследований пациента
+  Route::post('/registry/patients/research/get',[
+    'as' => 'registry.patients.research.get',
+    'uses' => 'ResearchController@getPatientResearch'
+  ]);
 
 });
 

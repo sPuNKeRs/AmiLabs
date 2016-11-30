@@ -47,14 +47,13 @@
                 </div>
                 <div class="body">
                     <!-- Exportable Table -->
-                    <table class="table table-bordered table-striped table-hover dataTable js-exportable" width="100%" id="patients-table">
+                    <table class="table table-bordered table-striped table-hover" width="100%" id="researches-table">
                         <thead>
                             <tr>
                                 <th>№ Исследования</th>
                                 <th>Вид исследования</th>
                                 <th>Дата</th>
                                 <th>Статус</th>
-                                <th>Действия</th>
                             </tr>
                         </thead>
                     </table>
@@ -71,8 +70,7 @@
 <script>
 $(function() {
     // Инициализация переменных
-    var patient_id = '';
-    var research_id = '';
+    var patient_id = '{{$patient->id}}';
 
     // Клик по кнопке добавить исследование
     $('#add_research').on('click', function(e){
@@ -89,6 +87,39 @@ $(function() {
     {
         $('#modal_choose_research').modal('show');
     }
+    //======================= DATATABLES ======================
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('input[name="_token"]').val()
+        }
+    });
+
+    $('#researches-table').DataTable({
+        processing: true,
+        serverSide: true,
+         ajax: {
+            url: '{{ route('registry.patients.research.get') }}',
+            method: 'POST',
+            data: {patient_id: patient_id}
+        },
+        columns: [
+            { width: '10%',data: 'id', name: 'id' },
+            { data: 'research_id', name: 'research_id' },
+            { data: 'create_date', name: 'create_date' },
+            { data: 'status', name: 'status' },
+
+            {{-- { width: '5%', data: 'action', name: 'action', orderable: false, searchable: false } --}}
+        ],
+        language: {
+          url: '{{ URL::asset('plugins/jquery-datatable/lang/Russia.json') }}'
+        },
+        stateSave: true,
+        initComplete: function () {
+            $('[data-toggle="tooltip"]').tooltip({
+                container: 'body'
+            });
+        }
+    });
 });
 </script>
 @endsection

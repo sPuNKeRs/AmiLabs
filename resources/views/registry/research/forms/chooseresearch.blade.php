@@ -3,8 +3,8 @@
 <ul class="research-list-ul">
   @foreach($research_list as $research)
   <li class="">
-    <input name="research_id" type="radio" id="research_{{ $research->id }}" class="research_type with-gap radio-col-red" value="{{ $research->id }}"  {{ $loop->first ? 'checked="checked"' : '' }}>
-    <label for="research_{{ $research->id }}">{{ $research->name }}</label>
+    <input name="research_id" type="radio" id="research_id_{{ $research->id }}" class="research_type with-gap radio-col-red" value="{{ $research->id }}"  {{ $loop->first ? 'checked="checked"' : '' }}>
+    <label for="research_id_{{ $research->id }}">{{ $research->name }}</label>
   </li>
   @endforeach
 </ul>

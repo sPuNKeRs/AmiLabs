@@ -73,6 +73,9 @@
 <script src="{{ URL::asset('plugins/jquery-datepick/js/jquery.datepick.min.js') }}"></script>
 <script src="{{ URL::asset('plugins/jquery-datepick/js/jquery.datepick-ru.js') }}"></script>
 
+{{-- <!-- Editable Table Plugin Js -->
+<script src="{{ URL::asset('plugins/editable-table/mindmup-editabletable.js') }}"></script> --}}
+
 <!-- Custom Js -->
 <script src="{{ URL::asset('js/admin.js') }}"></script>
 <script src="{{ URL::asset('js/pages/index.js') }}"></script>

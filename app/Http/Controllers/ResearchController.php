@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Http\Requests\PatientResearhRequest;
 use App\Patient;
 use App\Research;
+use App\PatientResearh;
 
 class ResearchController extends Controller
 {
@@ -32,5 +34,41 @@ class ResearchController extends Controller
         $research = Research::findOrFail($request->research_id);
 
         return view('registry.research.blank.default', compact('patient', 'research'));
+    }
+
+    // Сохранение исследования пациента
+    public function savePatientResearch(Request $request)
+    {
+        $input = $request->all();
+        $patientResearh = PatientResearh::create($input);
+
+        return redirect()->route('registry.patients.research.list', $request->patient_id);
+    }
+
+    // Получить список исследований пациента (Datatable)
+    public function getPatientResearch(Request $request)
+    {
+        $patient = Patient::findOrFail($request->patient_id);
+
+        //TODO: Допилить фильтры по таблицам со связями
+        return Datatables::of($patient->researches)
+            ->setRowId('research_{{$id}}')
+            ->setRowData(['research_id' => '{{$id}}'])
+            ->editColumn('research_id', function ($p_research) {
+                return $p_research->research->name;
+            })
+             ->editColumn('status', function ($p_research) {
+                return $p_research->status == 'on' ? 'Готов' : 'Не готов';
+            })
+            // ->editColumn('birth_date', function ($patients) {
+            //     return $patients->birth_date ? with(new Carbon($patients->birth_date))->format('d.m.Y') : '';
+            // })
+            // ->filterColumn('card_date', function ($query, $keyword) {
+            //     $query->whereRaw("DATE_FORMAT(card_date,'%d.%m.%Y') like ?", ["%$keyword%"]);
+            // })
+            // ->filterColumn('birth_date', function ($query, $keyword) {
+            //     $query->whereRaw("DATE_FORMAT(birth_date,'%d.%m.%Y') like ?", ["%$keyword%"]);
+            // })
+            ->make(true);
     }
 }

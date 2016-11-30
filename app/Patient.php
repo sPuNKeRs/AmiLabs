@@ -85,4 +85,10 @@ class Patient extends Model
     {
         return date('d.m.Y', strtotime($date));
     }
+
+    // Получить исследования пациента
+    public function researches()
+    {
+        return $this->hasMany('App\PatientResearh');
+    }
 }

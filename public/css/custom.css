@@ -29,3 +29,8 @@ table tr.selected td {
 #choose_research_form .research-list-ul {
     list-style: none;
 }
+
+input.no-border {
+    outline: none; 
+    border: none
+}

@@ -85,7 +85,7 @@ class ReferenceController extends Controller
     {
         $research = Research::findOrFail($research_id);
 
-        $analyzes = $research->analyses;
+        $analyzes = $research->analyzes;
 
         $modal_create = [
             'modal_id' => 'modal_create',

@@ -39,6 +39,13 @@ class PatientResearh extends Model
     // Получить пациента
     public function patient()
     {
-        return $this->hasOne('App\Patient', 'id', 'patient_id');
+        return $this->belongsTo('App\Patient');
+    }
+
+    // Получить результаты
+    public function results()
+    {
+        return $this->hasMany('App\ResearchResult');
+        //return $this->belongsToMany('App\ResearchResult', 'research_results', 'research_id', 'analysis_id');
     }
 }

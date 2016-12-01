@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('page_title', 'Бланк "'.$research->name.'" - '.$patient->getFio().' | <small>Дата рождения: '.$patient->birth_date.'</small>')
+@section('page_title', 'Редактирование "'.$patient_research->research->name.'" - '.$patient->getFio().' | <small>Дата рождения: '.$patient->birth_date.'</small>')
 
 <!-- Top Bar Nav-->
 @section('top_page_nav')
@@ -41,16 +41,13 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        {{ mb_strtoupper($research->name) }}
-                        {{-- - {{ $patient->getFio(true) }} --}}
+                        {{ mb_strtoupper($patient_research->research->name) }} №{{ $patient_research->id }} от {{$patient_research->create_date}}
                     </h2>
-                    {{-- <small>Дата рождения: {{ $patient->birth_date }}</small> --}}
                 </div>
                 <div class="body">
                     {!! Form::open(['id'=>'patient_research_form', 'name'=> 'patient_research_form', 'method'=>'POST', 'route' => 'registry.patients.research.save']) !!}
                     {!! Form::hidden('patient_id', $patient->id ) !!}
-                    {!! Form::hidden('research_id', $research->id) !!}
-                    {{-- <h2 class="card-inside-title">Общие данные</h2> --}}
+                    {!! Form::hidden('research_id', $patient_research->research->id) !!}
                     <div class="row clearfix">
                         <div class="col-md-6">
                              <ul class="list-group">
@@ -66,11 +63,11 @@
                                 <li class="list-group-item"><b>Номер карты:</b> {{ $patient->card_number }} | <b>Дата карты:</b> {{ $patient->card_date }}</li>
                                 <li class="list-group-item"><b>Телефон:</b> {{ $patient->phone }}</li>
                                 <li class="list-group-item"><b>Электронная почта:</b> {{ $patient->email }}</li>
-                                <li class="list-group-item"><b>Дата исследования:</b> <input type="text" name="create_date" class="datepicker no-border" value="{{date('d.m.Y')}}"></li>
+                                <li class="list-group-item"><b>Дата исследования:</b> <input type="text" name="create_date" class="datepicker no-border" value="{{$patient_research->create_date}}"></li>
                                 <li class="list-group-item">
                                     <b>Статус:</b>
                                     <div class="switch" style="display: inline-block;">
-                                        <label><input type="checkbox" name="status"><span class="lever switch-col-green"></span></label>
+                                        <label><input type="checkbox" name="status" {{$patient_research->status ? 'checked' : ''}}><span class="lever switch-col-green"></span></label>
                                     </div>
                                  </li>
                             </ul>
@@ -87,14 +84,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($research->analyzes as $analysis)
+                        @foreach($patient_research->results as $result)
                             <tr>
-                                <td>{{ $analysis->name }}</td>
+                                <td>{{ $result->analysis->name }}</td>
                                 <td>
-                                    <input name="analyzes[{{ $analysis->id }}]" id="analysis_{{ $analysis->id }}" type="text" class="form-control" placeholder="Введите результат">
+                                    <input name="analyzes[{{ $result->analysis->id }}]" value="{{ $result->result }}" id="analysis_{{ $result->analysis->id }}" type="text" class="form-control" placeholder="Введите результат">
                                 </td>
-                                <td>{{ $analysis->unit }}</td>
-                                <td>{{ $analysis->r_range }}</td>
+                                <td>{{ $result->analysis->unit }}</td>
+                                <td>{{ $result->analysis->r_range }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -116,7 +113,7 @@ $(function() {
     });
 
     // Set Datepicker
-      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});     
+      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
       // Date
       $(".datepicker").inputmask('d.m.y');
 });

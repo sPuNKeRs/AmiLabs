@@ -8,6 +8,7 @@ use App\Http\Requests\PatientResearhRequest;
 use App\Patient;
 use App\Research;
 use App\PatientResearh;
+use App\ResearchResult;
 
 class ResearchController extends Controller
 {
@@ -39,8 +40,22 @@ class ResearchController extends Controller
     // Сохранение исследования пациента
     public function savePatientResearch(Request $request)
     {
+        //dd($request->get('analyzes'));
         $input = $request->all();
-        $patientResearh = PatientResearh::create($input);
+        $patient_researh = PatientResearh::create($input);
+
+        // Сохраняем результаты анализов
+        foreach($request->get('analyzes') as $key => $result)
+        {
+            //if(trim($result) == '') continue;
+
+            $analysis_result = new ResearchResult([
+                'analysis_id' => $key,
+                'result'=> $result,
+                'pay' => null
+            ]);
+            $patient_researh->results()->save($analysis_result);
+        }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);
     }
@@ -48,10 +63,12 @@ class ResearchController extends Controller
     // Открыть на редактирование исследование
     public function editPatientResearch($research_id)
     {
-        $research = PatientResearh::findOrFail($research_id);
-        $patient = $research->patient;
+        $patient_research = PatientResearh::findOrFail($research_id);
+        $patient = $patient_research->patient;
+        //$results = $patient_research->results;
+        //dd($patient_research->research->analyzes);
 
-        dd($patient);
+        return view('registry.research.blank.edit', compact('patient', 'patient_research'));
     }
 
     // Удалить исследование
@@ -75,22 +92,12 @@ class ResearchController extends Controller
              ->editColumn('status', function ($p_research) {
                 return $p_research->status == 'on' ? 'Готов' : 'Не готов';
             })
-            // ->editColumn('birth_date', function ($patients) {
-            //     return $patients->birth_date ? with(new Carbon($patients->birth_date))->format('d.m.Y') : '';
-            // })
-            // ->filterColumn('card_date', function ($query, $keyword) {
-            //     $query->whereRaw("DATE_FORMAT(card_date,'%d.%m.%Y') like ?", ["%$keyword%"]);
-            // })
-            // ->filterColumn('birth_date', function ($query, $keyword) {
-            //     $query->whereRaw("DATE_FORMAT(birth_date,'%d.%m.%Y') like ?", ["%$keyword%"]);
-            // })
              ->addColumn('action', function ($p_research) {
                 return '<div class="action-btn-center">
                             <a href="'.route('registry.patients.research.edit', $p_research->id).'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn btn-warning waves-effect">
                                     <i class="material-icons">assignment</i>
                             </a>
                         </div>';
-            })
-            ->make(true);
+            })->make(true);
     }
 }

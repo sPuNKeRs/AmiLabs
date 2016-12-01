@@ -84,6 +84,17 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'uses' => 'ResearchController@getPatientResearch'
   ]);
 
+  // Открыть на редактирование исследование
+  Route::get('/registry/patients/research/edit/{research_id?}',[
+    'as' => 'registry.patients.research.edit',
+    'uses' => 'ResearchController@editPatientResearch'
+  ]);
+
+  // Удалить исследование
+  Route::post('/registry/patients/research/delete',[
+    'as' => 'registry.patients.research.delete',
+    'uses' => 'ResearchController@deletePatientResearch'
+  ]);
 });
 
 // -----------------------------------------------------------

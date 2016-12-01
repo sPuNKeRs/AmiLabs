@@ -7,7 +7,7 @@
 <ul class="nav navbar-nav top_page_nav">
     <li>
         <a href="#" id="save_research" class="btn btn-primary btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Сохранить исследование" data-original-title="Сохранить исследование">
-            <i class="material-icons">add</i>
+            <i class="material-icons">done</i>
         </a>
     </li>
     <li>

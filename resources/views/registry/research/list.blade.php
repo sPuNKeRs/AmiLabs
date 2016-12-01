@@ -50,10 +50,11 @@
                     <table class="table table-bordered table-striped table-hover" width="100%" id="researches-table">
                         <thead>
                             <tr>
-                                <th>№ Исследования</th>
+                                <th>№</th>
                                 <th>Вид исследования</th>
                                 <th>Дата</th>
                                 <th>Статус</th>
+                                <th>Действия</th>
                             </tr>
                         </thead>
                     </table>
@@ -71,6 +72,15 @@
 $(function() {
     // Инициализация переменных
     var patient_id = '{{$patient->id}}';
+
+    // Клик по строке
+    $('#researches-table').on('click', 'tr', function(e){
+        var self = e.currentTarget;
+        $('table tr.selected').removeClass('selected');
+        selectedRow = $(self).data('research_id');
+        console.log(selectedRow);
+        $(self).addClass('selected');
+    });
 
     // Клик по кнопке добавить исследование
     $('#add_research').on('click', function(e){
@@ -103,12 +113,11 @@ $(function() {
             data: {patient_id: patient_id}
         },
         columns: [
-            { width: '10%',data: 'id', name: 'id' },
+            { width: '5%',data: 'id', name: 'id' },
             { data: 'research_id', name: 'research_id' },
             { data: 'create_date', name: 'create_date' },
             { data: 'status', name: 'status' },
-
-            {{-- { width: '5%', data: 'action', name: 'action', orderable: false, searchable: false } --}}
+            { width: '5%', data: 'action', name: 'action', orderable: false, searchable: false }
         ],
         language: {
           url: '{{ URL::asset('plugins/jquery-datatable/lang/Russia.json') }}'

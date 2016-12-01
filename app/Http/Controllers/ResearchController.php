@@ -45,6 +45,21 @@ class ResearchController extends Controller
         return redirect()->route('registry.patients.research.list', $request->patient_id);
     }
 
+    // Открыть на редактирование исследование
+    public function editPatientResearch($research_id)
+    {
+        $research = PatientResearh::findOrFail($research_id);
+        $patient = $research->patient;
+
+        dd($patient);
+    }
+
+    // Удалить исследование
+    public function deletePatientResearch(Request $request)
+    {
+        dd($request->all());
+    }
+
     // Получить список исследований пациента (Datatable)
     public function getPatientResearch(Request $request)
     {
@@ -69,6 +84,13 @@ class ResearchController extends Controller
             // ->filterColumn('birth_date', function ($query, $keyword) {
             //     $query->whereRaw("DATE_FORMAT(birth_date,'%d.%m.%Y') like ?", ["%$keyword%"]);
             // })
+             ->addColumn('action', function ($p_research) {
+                return '<div class="action-btn-center">
+                            <a href="'.route('registry.patients.research.edit', $p_research->id).'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn btn-warning waves-effect">
+                                    <i class="material-icons">assignment</i>
+                            </a>
+                        </div>';
+            })
             ->make(true);
     }
 }

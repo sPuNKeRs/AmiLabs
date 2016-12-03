@@ -90,6 +90,12 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'uses' => 'ResearchController@editPatientResearch'
   ]);
 
+  // Сохранить отредактированное исследование
+  Route::post('/registry/patients/research/update',[
+    'as' => 'registry.patients.research.update',
+  'uses' => 'ResearchController@updatePatientResearch'
+  ]);
+
   // Удалить исследование
   Route::post('/registry/patients/research/delete',[
     'as' => 'registry.patients.research.delete',
@@ -97,6 +103,16 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
   ]);
 });
 
+// -----------------------------------------------------------
+// ----------------------- ПЕЧАТЬ ----------------------------
+// -----------------------------------------------------------
+Route::group(['middleware' => ['auth','roles','menu']], function () {
+	// Страница печати результатов исследования
+	Route::get('/print/research/{patient_research_id?}', [
+		'as' => 'print.research',
+		'uses' => 'PrintController@printResearch'
+	]);
+});
 // -----------------------------------------------------------
 // ----------------------- ОТЧЕТЫ ----------------------------
 // -----------------------------------------------------------

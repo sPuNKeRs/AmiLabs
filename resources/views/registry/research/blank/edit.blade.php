@@ -11,6 +11,11 @@
         </a>
     </li>
     <li>
+        <a href="#" id="save_print_research" class="btn bg-deep-orange btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Печать исследования" data-original-title="Печать исследования">
+            <i class="material-icons">print</i>
+        </a>
+    </li>
+    <li>
         <a href="{{ route('registry.patients.research.list', ['patient_id'=>$patient->id]) }}" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Назад" data-original-title="Назад">
             <i class="material-icons">reply</i>
         </a>
@@ -36,6 +41,8 @@
 @endsection
 
 @section('content')
+@include('partials.errors')
+
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
@@ -45,9 +52,10 @@
                     </h2>
                 </div>
                 <div class="body">
-                    {!! Form::open(['id'=>'patient_research_form', 'name'=> 'patient_research_form', 'method'=>'POST', 'route' => 'registry.patients.research.save']) !!}
+                    {!! Form::open(['id'=>'patient_research_form', 'name'=> 'patient_research_form', 'method'=>'POST', 'route' => 'registry.patients.research.update']) !!}
                     {!! Form::hidden('patient_id', $patient->id ) !!}
                     {!! Form::hidden('research_id', $patient_research->research->id) !!}
+                    {!! Form::hidden('patient_research_id', $patient_research->id) !!}
                     <div class="row clearfix">
                         <div class="col-md-6">
                              <ul class="list-group">
@@ -88,7 +96,7 @@
                             <tr>
                                 <td>{{ $result->analysis->name }}</td>
                                 <td>
-                                    <input name="analyzes[{{ $result->analysis->id }}]" value="{{ $result->result }}" id="analysis_{{ $result->analysis->id }}" type="text" class="form-control" placeholder="Введите результат">
+                                    <input name="analyzes[{{ $result->id }}]" value="{{ $result->result }}" id="analysis_{{ $result->analysis->id }}" type="text" class="form-control" placeholder="Введите результат">
                                 </td>
                                 <td>{{ $result->analysis->unit }}</td>
                                 <td>{{ $result->analysis->r_range }}</td>
@@ -107,15 +115,27 @@
 @section('js')
 <script>
 $(function() {
+    // Клик по кнопке Печать исследования
+    $('#save_print_research').on('click', function(e){
+        // Инициализация переменных
+        var patient_research_id = '{{ $patient_research->id }}';
+        var print_href = '{{ route('print.research') }}/' + patient_research_id;
+        console.log(print_href);
+        // Переход на страницу печати
+        location.href = print_href;
+    });
     // Клик по кнопке сохранить исследование
     $('#save_research').on('click', function(e){
         $('#patient_research_form').submit();
     });
 
     // Set Datepicker
-      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
-      // Date
-      $(".datepicker").inputmask('d.m.y');
+    $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
+    // Date
+    $(".datepicker").inputmask('d.m.y');
+
+    //================== ФУНКЦИИ ===================
+
 });
 </script>
 @endsection

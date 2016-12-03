@@ -40,7 +40,6 @@ class ResearchController extends Controller
     // Сохранение исследования пациента
     public function savePatientResearch(Request $request)
     {
-        //dd($request->get('analyzes'));
         $input = $request->all();
         $patient_researh = PatientResearh::create($input);
 
@@ -65,15 +64,31 @@ class ResearchController extends Controller
     {
         $patient_research = PatientResearh::findOrFail($research_id);
         $patient = $patient_research->patient;
-        //$results = $patient_research->results;
-        //dd($patient_research->research->analyzes);
 
         return view('registry.research.blank.edit', compact('patient', 'patient_research'));
+    }
+
+    // Сохранить отредактированное исследование
+    public function updatePatientResearch(PatientResearhRequest $request)
+    {
+        $input = $request->all();
+        $input['status'] = isset($input['status']) ? $input['status'] : '';
+
+        PatientResearh::find($request->patient_research_id)->update($input);
+
+        $analyzes = $request->get('analyzes');
+        foreach($analyzes as $key => $analysis)
+        {
+            ResearchResult::find($key)->update(['result' => $analysis]);
+        }
+
+        return redirect()->route('registry.patients.research.list', $request->patient_id);
     }
 
     // Удалить исследование
     public function deletePatientResearch(Request $request)
     {
+        //TODO: Удалить исследование и входящие в него анализы
         dd($request->all());
     }
 

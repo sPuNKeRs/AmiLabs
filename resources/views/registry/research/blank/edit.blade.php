@@ -122,7 +122,8 @@ $(function() {
         var print_href = '{{ route('print.research') }}/' + patient_research_id;
         console.log(print_href);
         // Переход на страницу печати
-        location.href = print_href;
+        //location.href = print_href;
+        window.open(print_href);
     });
     // Клик по кнопке сохранить исследование
     $('#save_research').on('click', function(e){

@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
   // Страница с анализами пациента
   Route::get('/registry/patients/research/{patient_id?}',[
     'as' => 'registry.patients.research.list',
-    'uses' => 'ResearchController@list'
+    'uses' => 'ResearchController@researchs_list'
   ]);
 
   // Страница исследования пациента

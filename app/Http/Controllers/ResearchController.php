@@ -13,7 +13,7 @@ use App\ResearchResult;
 class ResearchController extends Controller
 {
     // Показать страницу с исследованиями пациента
-    public function list($patient_id)
+    public function researchs_list($patient_id)
     {
         $patient = Patient::findOrFail($patient_id);
         $research_list = Research::all();

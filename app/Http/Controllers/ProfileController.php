@@ -43,7 +43,7 @@ class ProfileController extends Controller
         {
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(90, null, function ($constraint) {$constraint->aspectRatio();})->save(public_path( '/images/avatars/' . $filename));
+            Image::make($avatar)->resize(90, null, function ($constraint) {$constraint->aspectRatio();})->save(public_path( 'images/avatars/' . $filename));
 
 
             // Удалить старое изображение

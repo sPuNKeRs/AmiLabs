@@ -36,7 +36,7 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         $input = $request->except(['_token', 'avatar']);
-        dd($input);
+        //dd($input);
         $user = $this->user;
         $profile = $this->profile;
 
@@ -45,6 +45,7 @@ class ProfileController extends Controller
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->resize(90, null, function ($constraint) {$constraint->aspectRatio();})->save(public_path( 'images/avatars/' . $filename));
+            $input['avatar'] = $filename;
 
 
             // Удалить старое изображение

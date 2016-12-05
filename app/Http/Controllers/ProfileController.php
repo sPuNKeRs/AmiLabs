@@ -36,6 +36,7 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         $input = $request->except(['_token', 'avatar']);
+        dd($input);
         $user = $this->user;
         $profile = $this->profile;
 

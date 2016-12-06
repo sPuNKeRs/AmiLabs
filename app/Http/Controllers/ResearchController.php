@@ -109,7 +109,12 @@ class ResearchController extends Controller
                 return $p_research->research->name;
             })
              ->editColumn('status', function ($p_research) {
-                return $p_research->status == 'on' ? 'Готов' : 'Не готов';
+                if($p_research->issue_date){
+                    $issue_date = '('.$p_research->issue_date.')';
+                }else{
+                    $issue_date = '';
+                }
+                return $p_research->status == 'on' ? 'Выдан '.$issue_date : 'Не выдан';
             })
              ->addColumn('action', function ($p_research) {
                 return '<div class="action-btn-center">

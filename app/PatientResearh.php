@@ -21,7 +21,9 @@ class PatientResearh extends Model
         'patient_id',
         'research_id',
         'create_date',
-        'status'
+        'status',
+        'issue_date',
+        'comment'
     ];
 
     /**
@@ -29,7 +31,20 @@ class PatientResearh extends Model
     */
     public function setCreateDateAttribute($date)
     {
-        $this->attributes['create_date'] = Carbon::createFromFormat('d.m.Y',$date);
+        if($date == null){
+            $this->attributes['create_date'] = null;
+        }else{
+            $this->attributes['create_date'] = Carbon::createFromFormat('d.m.Y',$date);
+        }
+    }
+
+    public function setIssueDateAttribute($date)
+    {
+        if($date == null){
+            $this->attributes['issue_date'] = null;
+        }else{
+            $this->attributes['issue_date'] = Carbon::createFromFormat('d.m.Y',$date);
+        }
     }
 
     /**
@@ -37,6 +52,13 @@ class PatientResearh extends Model
      */
     public function getCreateDateAttribute($date)
     {
+        if($date == null) return null;
+        return date('d.m.Y', strtotime($date));
+    }
+
+    public function getIssueDateAttribute($date)
+    {
+        if($date == null) return null;
         return date('d.m.Y', strtotime($date));
     }
 
@@ -56,6 +78,5 @@ class PatientResearh extends Model
     public function results()
     {
         return $this->hasMany('App\ResearchResult');
-        //return $this->belongsToMany('App\ResearchResult', 'research_results', 'research_id', 'analysis_id');
     }
 }

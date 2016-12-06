@@ -57,22 +57,24 @@
                                 <li class="list-group-item"><b>Пациент:</b> {{ $patient->getFio() }}</li>
                                 <li class="list-group-item"><b>Пол:</b> {{ $patient->gender == 'male' ? 'Мужской':'Женский' }}</li>
                                 <li class="list-group-item"><b>Дата рождения:</b> {{ $patient->birth_date }}</li>
-                                <li class="list-group-item"><b>Врач:</b> Иванов Иван Иванович</li>
+                                <li class="list-group-item"><b>Телефон:</b> {{ $patient->phone }}</li>
+                                <li class="list-group-item"><b>Электронная почта:</b> {{ $patient->email }}</li>
                                 <li class="list-group-item"><b>Дополнительные сведения:</b> {{ $patient->more_inform }}</li>
                             </ul>
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group">
                                 <li class="list-group-item"><b>Номер карты:</b> {{ $patient->card_number }} | <b>Дата карты:</b> {{ $patient->card_date }}</li>
-                                <li class="list-group-item"><b>Телефон:</b> {{ $patient->phone }}</li>
-                                <li class="list-group-item"><b>Электронная почта:</b> {{ $patient->email }}</li>
+                                <li class="list-group-item"><b>Врач:</b> Иванов Иван Иванович</li>
                                 <li class="list-group-item"><b>Дата исследования:</b> <input type="text" name="create_date" class="datepicker no-border" value="{{date('d.m.Y')}}"></li>
                                 <li class="list-group-item">
-                                    <b>Статус:</b>
+                                    <b>Выдан:</b>
                                     <div class="switch" style="display: inline-block;">
                                         <label><input type="checkbox" name="status"><span class="lever switch-col-green"></span></label>
+                                        <input type="text" name="issue_date" class="datepicker no-border" placeholder="Дата выдачи">
                                     </div>
                                  </li>
+                                 <li class="list-group-item"><b>Комментарии:</b><br> {{ Form::textarea('comment', null, ['class'=> 'form-control' , 'rows'=>'2']) }}</li>
                             </ul>
                         </div>
                     </div>

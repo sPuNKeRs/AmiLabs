@@ -88,7 +88,8 @@
                                 <th width="30%">НАИМЕНОВАНИЕ ИССЛЕДОВАНИЯ</th>
                                 <th width="15%">РЕЗУЛЬТАТ</th>
                                 <th width="15%">ЕД. ИЗМ.</th>
-                                <th width="40%">РЕФЕР. ЗНАЧЕНИЯ</th>
+                                <th width="30%">РЕФЕР. ЗНАЧЕНИЯ</th>
+                                <th width="10%">ПЛАТНЫЕ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,6 +101,11 @@
                                 </td>
                                 <td>{{ $result->analysis->unit }}</td>
                                 <td>{{ $result->analysis->r_range }}</td>
+                                <td>
+                                    <div class="switch" style="display: inline-block;">
+                                        <label><input type="checkbox" name="pay[{{ $result->id }}]" {{$result->pay ? 'checked' : ''}}><span class="lever switch-col-green"></span></label>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

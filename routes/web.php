@@ -53,7 +53,6 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'uses' => 'RegistryController@edit'
   ]);
 
-
 });
 
 // -----------------------------------------------------------

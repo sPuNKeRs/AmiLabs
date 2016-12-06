@@ -42,16 +42,17 @@ class ResearchController extends Controller
     {
         $input = $request->all();
         $patient_researh = PatientResearh::create($input);
+        $pays = $request->get('pay');
 
         // Сохраняем результаты анализов
         foreach($request->get('analyzes') as $key => $result)
         {
-            //if(trim($result) == '') continue;
+            $pay = (isset($pays[$key])) ? $pays[$key] : null;
 
             $analysis_result = new ResearchResult([
                 'analysis_id' => $key,
                 'result'=> $result,
-                'pay' => null
+                'pay' => $pay
             ]);
             $patient_researh->results()->save($analysis_result);
         }
@@ -72,14 +73,17 @@ class ResearchController extends Controller
     public function updatePatientResearch(PatientResearhRequest $request)
     {
         $input = $request->all();
+        //dd($input);
         $input['status'] = isset($input['status']) ? $input['status'] : '';
 
         PatientResearh::find($request->patient_research_id)->update($input);
-
+        $pays = $request->get('pay');
         $analyzes = $request->get('analyzes');
         foreach($analyzes as $key => $analysis)
         {
-            ResearchResult::find($key)->update(['result' => $analysis]);
+
+            $pay = (isset($pays[$key])) ? $pays[$key] : null;
+            ResearchResult::find($key)->update(['result' => $analysis, 'pay'=>$pay ]);
         }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);

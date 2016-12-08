@@ -65,7 +65,7 @@
                                 <tbody>
                                   @foreach($users as $user)
                                     <tr data-user-id="{{ $user->id }}">
-                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>

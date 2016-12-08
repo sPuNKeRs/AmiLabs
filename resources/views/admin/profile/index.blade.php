@@ -176,11 +176,12 @@
         </div>
         <div class="row clearfix">
           <div class="col-sm-12">
-            <b>Специальность</b>
-            {{ Form::select('specialty_id', ['1'=>'Врач', '2'=>'Администратор'], null, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
-            @if ($errors->has('specialty_id'))
+            <b>Тип пользователя</b>
+            <p>{{ $user->role->description }}</p>
+            {{-- {{ Form::select('user_type_id', $user_types, $user->role->id, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }} --}}
+            {{-- @if ($errors->has('specialty_id'))
               <label id="specialty_id-error" class="error" for="specialty_id">{{ $errors->first('specialty_id') }}</label>
-            @endif
+            @endif --}}
 
             <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button>
           </div>
@@ -208,7 +209,7 @@
           removeTitle: 'Cбросить изменения',
           elErrorContainer: '#kv-avatar-errors-2',
           msgErrorClass: 'alert alert-block alert-danger',
-          defaultPreviewContent: '<img src="{{ URL::asset('images/avatars/'.Auth::user()->profile->avatar) }}" alt="ФОТО" style="width:150px">',
+          defaultPreviewContent: '<img src="{{ URL::asset('images/avatars/'.(isset(Auth::user()->profile->avatar) ? Auth::user()->profile->avatar : 'default_user.jpg' )) }}" alt="ФОТО" style="width:150px">',
           layoutTemplates: {main2: '{preview} {remove}'},
           allowedFileExtensions: ["jpg", "png", "gif"]
       });

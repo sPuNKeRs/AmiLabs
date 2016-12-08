@@ -4,7 +4,7 @@
     <div class="info-container">
     <div class="image">
         <a href="{{ route('profile', Auth::user()->id) }}">
-            <img src="{{ URL::asset('images/avatars/'.Auth::user()->profile->avatar) }}" width="80" height="80" alt="User" />
+            <img src="{{ URL::asset('images/avatars/'.(isset(Auth::user()->profile->avatar) ? Auth::user()->profile->avatar : 'default_user.jpg' )) }}" width="80" height="80" alt="User" />
         </a>
     </div>
         <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>

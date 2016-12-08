@@ -59,6 +59,7 @@ class UsersController extends Controller
     public function edit(UserEditRequest $request)
     {
         $input = $request->all();
+        //dd($input);
         $user = User::find($request->userid);
 
         // Проверяем уникальность e-mail
@@ -67,7 +68,7 @@ class UsersController extends Controller
         ]);
 
         // Проверяем требование к паролю
-        if($request->password)
+        if($request->password && $request->password != '')
         {
             $this->validate($request, [
                 'password' => 'min:6|confirmed']
@@ -75,9 +76,17 @@ class UsersController extends Controller
 
             $input['password'] = bcrypt($input['password']);
         }
+        else
+        {
+            unset($input['password']);
+        }
 
         // Сохраняем изменения
         $user->update($input);
+
+        // Обновляем роли
+        $user->roles()->sync([$input['user_type_id']]);
+
         return redirect('users')->with(['status'=>'Данные пользователя '.$user->name.' успешно обновлены.']);
     }
 

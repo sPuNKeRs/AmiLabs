@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\Profile;
+use App\Role;
 use Image;
 
 class ProfileController extends Controller
@@ -25,11 +26,12 @@ class ProfileController extends Controller
 
     // Начальная страница Профиль
     public function index(Request $request)
-    {      	
+    {
         $user = $this->user;
         $profile = $this->profile;
+        $user_types = Role::getArray();
 
-        return view('admin.profile.index', compact('user', 'profile'));
+        return view('admin.profile.index', compact('user', 'profile', 'user_types'));
     }
 
     // Сохранение профиля
@@ -38,6 +40,8 @@ class ProfileController extends Controller
         $input = $request->except(['_token', 'avatar']);
         //dd($input);
         $user = $this->user;
+        //$user->roles->sync([$input['user_type_id']]);
+
         $profile = $this->profile;
 
         if($request->hasFile('avatar'))
@@ -51,12 +55,12 @@ class ProfileController extends Controller
             // Удалить старое изображение
             if(file_exists(public_path( 'images/avatars/' . $profile->avatar)) && isset($profile->avatar))
             {
-                unlink(public_path( 'images/avatars/' . $profile->avatar));    
+                unlink(public_path( 'images/avatars/' . $profile->avatar));
                 $input['avatar'] = $filename;
-            }            
+            }
         }
 
-        
+
         $profile->update($input);
 
         return redirect('profile')->with(['status'=>'Профиль успешно обновлен.']);

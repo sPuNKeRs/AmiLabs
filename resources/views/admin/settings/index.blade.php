@@ -46,7 +46,7 @@
             </ul>
           </li>
         </ul>
-      </div>      
+      </div>
       <div class="body">
         <h2 class="card-inside-title">Информация об организации</h2>
         <hr>
@@ -55,7 +55,7 @@
             <b>Наименование организации</b>
             <div class="form-group">
               <div class="form-line {{ $errors->has('company_name') ? ' error' : '' }}">
-                {{ Form::text('company_name', null,['class'=>'form-control' , 'placeholder' => 'Наименование организации' ]) }}                
+                {{ Form::text('company_name', null,['class'=>'form-control' , 'placeholder' => 'Наименование организации' ]) }}
               </div>
               @if ($errors->has('company_name'))
                   <label id="company_name-error" class="error" for="company_name">{{ $errors->first('company_name') }}</label>
@@ -75,7 +75,7 @@
                 <b>Телефон</b>
                 <div class="form-group">
                   <div class="form-line {{ $errors->has('company_phone') ? ' error' : '' }}">
-                    {{ Form::text('company_phone', null,['class'=>'form-control' , 'placeholder' => '8 (xxx) xxx xxxx' ]) }}                    
+                    {{ Form::text('company_phone', null,['class'=>'form-control' , 'placeholder' => '8 (xxx) xxx xxxx' ]) }}
                   </div>
                   @if ($errors->has('company_phone'))
                     <label id="company_phone-error" class="error" for="company_phone">{{ $errors->first('company_phone') }}</label>
@@ -86,7 +86,7 @@
                 <b>Электронная почта</b>
                 <div class="form-group">
                   <div class="form-line {{ $errors->has('company_email') ? ' error' : '' }}">
-                    {{ Form::text('company_email', null,['class'=>'form-control' , 'placeholder' => 'email@domain.ru' ]) }}                                        
+                    {{ Form::text('company_email', null,['class'=>'form-control' , 'placeholder' => 'email@domain.ru' ]) }}
                   </div>
                   @if ($errors->has('company_email'))
                     <label id="company_email-error" class="error" for="company_email">{{ $errors->first('company_email') }}</label>
@@ -94,12 +94,12 @@
                 </div>
               </div>
             </div>
-            <b>Заведующий КДЛ</b>    
-            {{ Form::select('company_head_id', App\User::getArray(), null, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
+            <b>Заведующий КДЛ</b>
+            {{ Form::select('company_head_id', App\User::getArray(true), null, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
             @if ($errors->has('company_head_id'))
               <label id="company_head_id-error" class="error" for="company_head_id">{{ $errors->first('company_head_id') }}</label>
-            @endif             
-            
+            @endif
+
             <button type="submit" class="btn btn-primary m-t-15 waves-effect">СОХРАНИТЬ</button>
           </div>
         </div>

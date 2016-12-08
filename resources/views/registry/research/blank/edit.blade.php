@@ -70,7 +70,7 @@
                         <div class="col-md-6">
                             <ul class="list-group">
                                 <li class="list-group-item"><b>Номер карты:</b> {{ $patient->card_number }} | <b>Дата карты:</b> {{ $patient->card_date }}</li>
-                                <li class="list-group-item"><b>Врач:</b> Иванов Иван Иванович</li>
+                                <li class="list-group-item"><b>Врач:</b> {{ Form::select('doctor_id', App\User::getArray(true), null, ['data-width'=>'50%', 'class' => 'form-control show-tick', 'data-live-search' => 'true']) }}</li>
                                 <li class="list-group-item"><b>Дата исследования:</b> <input type="text" name="create_date" class="datepicker no-border" value="{{$patient_research->create_date}}"></li>
                                 <li class="list-group-item">
                                     <b>Выдан:</b>

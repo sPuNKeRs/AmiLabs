@@ -87,7 +87,7 @@
                 </div>
               </div>
               <b>Тип пользователя</b>
-              {{ Form::select('user_type_id', $user_types, null, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
+              {{ Form::select('user_type_id', $user_types, $user->role->id, ['class' => 'form-control show-tick', 'data-live-search' => 'true']) }}
               @if ($errors->has('user_type_id'))
                 <label id="user_type_id-error" class="error" for="password_confirmation">{{ $errors->first('user_type_id') }}</label>
               @endif

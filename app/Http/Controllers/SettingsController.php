@@ -25,9 +25,9 @@ class SettingsController extends Controller
 
     	if(!Setting::first())
     	{
-    		Setting::create($input);	
+    		Setting::create($input);
     	}
-    	
+
     	Setting::first()->update($input);
 
     	//dd(Setting::first());

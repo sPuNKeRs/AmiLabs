@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Role;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -15,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'user_type_id'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -27,14 +29,28 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // Получить первую роль пользователя
+    public function getRoleAttribute()
+    {
+        return $this->roles->first();
+    }
+
     /**
      * Get all users list.
      *
      * @return  array user list
      */
-    public static function getArray()
+    public static function getArray($doctor = false)
     {
-        $users = User::orderBy('id','ASC')->get();
+        if($doctor)
+        {
+            $users = User::whereHas('roles', function($q){ $q->where('name', 'doctor'); })->get();
+        }
+        else
+        {
+            $users = User::orderBy('id','ASC')->get();
+        }
+
         $options = array();
 
         foreach ($users as $user) {

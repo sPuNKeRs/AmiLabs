@@ -52,22 +52,35 @@
                             </ul>
                         </div>
                         <div class="body table-responsive">
-                            <table class="table table-hover">
+                            <table id="users-table" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>ФИО</th>
                                         <th>Электронная почта</th>
                                         <th>Тип пользователя</th>
+                                        <th>Действия</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                   @foreach($users as $user)
                                     <tr data-user-id="{{ $user->id }}">
-                                        <th scope="row">{{ $user->id }}</th>
+                                        <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->user_type_id }}</td>
+                                        <td>
+                                            @foreach($user->roles as $role)
+                                                {{ $role->description }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a data-user-id="{{ $user->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Редактировать" class="btn action-btn user-edit btn-warning waves-effect">
+                                                <i class="material-icons">mode_edit</i>
+                                            </a>
+                                            <a data-user-id="{{ $user->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Удалить" class="btn action-btn user-delete btn-danger waves-effect">
+                                                <i class="material-icons">delete</i>
+                                            </a>
+                                        </td>
                                     </tr>
                                   @endforeach
                                 </tbody>
@@ -83,20 +96,68 @@
 @endsection
 
 @section('js')
-  <!-- Bootstrap Notify Plugin Js -->
-  {{-- <script src="{{URL::asset('plugins/bootstrap-notify/bootstrap-notify.js')}}"></script> --}}
+<script>
+$(function() {
 
-  <script type="text/javascript">
-    $(document).ready(function(){
-      // При двойном нажатии открыть форму редактирования
-      $('tr').on('dblclick', function(e){
-        var userid = $(this).data('user-id');
-        if (userid) {
-          window.location = '{{route('users.edit')}}/' + userid;
-        }
-      });
+    // Инициализиция переменных
+    var selectedRow = '';
+
+    // Клик по строке
+    $('#users-table').on('click', 'tr', function(e){
+        var self = e.currentTarget;
+        $('table tr.selected').removeClass('selected');
+        selectedRow = $(self).data('patient_id');
+        $(self).addClass('selected');
     });
-  </script>
+
+    // Удалить пользователя
+    $('#users-table').on('click', '.user-delete', function(e){
+        showConfirmMessage();
+    });
+
+    // Редактировать пользователя
+    $('#users-table').on('click', '.user-edit', function(e){
+        var userid = $(this).data('user-id');
+        editUser(userid);
+    });
+
+    // При двойном нажатии открыть форму редактирования
+    $('tr').on('dblclick', function(e){
+        var userid = $(this).data('user-id');
+        editUser(userid);
+    });
+
+    // Функция отправки формы приказа
+    function editPatient(patient_id)
+    {
+        var editLink = '{{ route('registry.patients.edit')}}/' + patient_id;
+        window.location.href = editLink;
+    }
+    //============ ФУНКЦИИ ==========
+    // Редактировать пользователя
+    function editUser(userid){
+        if (userid) {
+            window.location = '{{route('users.edit')}}/' + userid;
+        }
+    }
+
+    // Вопрос на удаление пользователя
+    function showConfirmMessage() {
+        swal({
+            title: "Вы хотите удалить пользователя?",
+            text: "Пользователь будет удален из системы без возможности восстановления!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Да, удалить!",
+            cancelButtonText: 'Нет',
+            closeOnConfirm: false
+        }, function () {
+            window.location.href = '{{route('users.delete', $user->id)}}';
+        });
+    }
+});
+</script>
 @endsection
 
 

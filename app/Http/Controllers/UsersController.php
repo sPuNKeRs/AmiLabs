@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\User;
 use App\Profile;
+use App\Role;
 
 class UsersController extends Controller
 {
@@ -22,7 +23,9 @@ class UsersController extends Controller
     // Страница создания пользователя
     public function userCreate()
     {
-        return view('admin.users.create');
+        $user_types = Role::getArray();
+
+        return view('admin.users.create', compact('user_types'));
     }
 
     // Сохранение пользователя
@@ -35,6 +38,8 @@ class UsersController extends Controller
             'password' => bcrypt($request['password'])
         ]);
 
+        $user->roles()->save(Role::findOrFail($request['user_type_id']));
+
         Profile::create(['user_id'=>$user->id]);
 
 
@@ -45,19 +50,20 @@ class UsersController extends Controller
     public function userEdit($userid)
     {
         $user = User::find($userid);
+        $user_types = Role::getArray();
 
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', compact('user', 'user_types'));
     }
 
     // Редактирование пользователя
     public function edit(UserEditRequest $request)
-    {        
+    {
         $input = $request->all();
         $user = User::find($request->userid);
 
         // Проверяем уникальность e-mail
         $this->validate($request, [
-            'email' => [Rule::unique('users')->ignore($request->userid), 'required', 'max:255' ],                     
+            'email' => [Rule::unique('users')->ignore($request->userid), 'required', 'max:255' ],
         ]);
 
         // Проверяем требование к паролю
@@ -79,6 +85,8 @@ class UsersController extends Controller
     public function delete($id)
     {
         $user = User::findOrFail($id);
+        $user->roles()->detach();
+        $user->profile->delete();
         $user->delete();
 
         return redirect('users')->with(['status'=>'Пользователь '.$user->name.' успешно удален.']);

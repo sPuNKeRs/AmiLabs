@@ -52,7 +52,6 @@ class User extends Authenticatable
         return $this->hasOne('App\Profile');
     }
 
-
     /**
      * User role relationship.
      */

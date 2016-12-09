@@ -76,8 +76,8 @@
                                 <li class="list-group-item">
                                     <b>Выдан:</b>
                                     <div class="switch" style="display: inline-block;">
-                                        <label><input type="checkbox" name="status" {{$patient_research->status ? 'checked' : ''}}><span class="lever switch-col-green"></span></label>
-                                        <input type="text" name="issue_date" class="datepicker no-border" placeholder="Дата выдачи" value="{{$patient_research->issue_date}}">
+                                        <label><input type="checkbox" name="status" id="status" {{$patient_research->status ? 'checked' : ''}}><span class="lever switch-col-green"></span></label>
+                                        <input type="text" name="issue_date" style="{{ !isset($patient_research->issue_date) ? 'display: none;' : '' }}" id="issue_date" class="datepicker no-border" placeholder="Дата выдачи" value="{{$patient_research->issue_date}}">
                                     </div>
                                  </li>
                                  <li class="list-group-item"><b>Комментарии:</b><br> {{ Form::textarea('comment', $patient_research->comment, ['class'=> 'form-control' , 'rows'=>'2']) }}</li>
@@ -124,6 +124,22 @@
 @section('js')
 <script>
 $(function() {
+    // Изменение статуса выдачи
+    $('#status').on('change', function(e){
+        var status = $( "#status" ).prop( "checked");
+        if(status == true)
+        {
+            $('#issue_date').show();
+        }
+        else
+        {
+            $('#issue_date').val('');
+            $('#issue_date').hide();
+        }
+
+    });
+
+
     // Клик по кнопке Печать исследования
     $('#save_print_research').on('click', function(e){
         // Инициализация переменных

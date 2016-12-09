@@ -12,10 +12,16 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = [
-        'company_name', 
-        'company_address', 
-        'company_phone', 
-        'company_email', 
+        'company_name',
+        'company_address',
+        'company_phone',
+        'company_email',
         'company_head_id'
     ];
+
+    // Связь с врачем
+    public function doctor()
+    {
+        return $this->hasOne('App\User', 'id', 'company_head_id');
+    }
 }

@@ -14,11 +14,11 @@ class Role extends Model
         return $this->belongsToMany('App\User', 'user_role', 'role_id', 'user_id');
     }
 
-     /**
-     * Get all user role list.
-     *
-     * @return  array user role list
-     */
+    /**
+    * Get all user role list.
+    *
+    * @return  array user role list
+    */
     public static function getArray()
     {
         $user_type = Role::orderBy('id','ASC')->get();

@@ -33,11 +33,11 @@
     </div>
     <div class="row">
       <div class="col-xs-5">
-        354000, г. Сочи, ул. Конституции, 24<br>
-        г. Сочи, ул. Конституции, 24<br>
-        г. Сочи, ул. Пирогова, 10<br>
-        г. Сочи, ул. Абрикосовая, 21А<br>
-        г. Сочи, ул. Донская, 62
+        <b>Юридический адрес:</b><br>
+        354000, г. Сочи, ул. Конституции, 24<br><br>
+        <b>Место забора анализа:</b><br>
+        {{ $patient_research->unit->address }}
+
       </div>
       <div class="col-xs-3"></div>
       <div class="col-xs-4">
@@ -58,9 +58,11 @@
         </div>
       </div>
     </div>
+    <br>
     <div class="row">
       <div class="col-xs-12 text-center gray-back" ><h4>{{$patient_research->research->name}}</h4></div>
     </div>
+    <br>
     <div class="row">
       <div class="col-xs-4"><b>Пациент:</b></div>
       <div class="col-xs-8">{{$patient_research->patient->getFio()}}</div>
@@ -75,7 +77,7 @@
     </div>
     <div class="row">
       <div class="col-xs-4"><b>Врач:</b></div>
-      <div class="col-xs-8">Н. Б. Быкова</div>
+      <div class="col-xs-8">{{ $patient_research->doctor->getFullName() }}</div>
     </div>
     <div class="row">
       <div class="col-xs-4"><b>Дополнительные сведения:</b></div>
@@ -109,16 +111,20 @@
         </table>
       </div>
     </div>
-    <br>
+    <div class="row">
+      <div class="col-xs-12">
+        <p><b>Комментарии: </b> {{ $patient_research->comment }}</p>
+      </div>
+    </div>
 
     <br>
     <div class="row">
       <div class="col-xs-6"><b>Заведующая КДЛ</b></div>
-      <div class="col-xs-6"><b>_______________ Н.Б. Быкова</b></div>
+      <div class="col-xs-6 text-right"><b>_______________ {{ SettingsHelper::get()->doctor->getFullName() }}</b></div>
     </div>
     <br>
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-8"><b>22.10.2016</b></div>
+      <div class="col-xs-4 col-xs-offset-8 text-right"><b>{{ isset($patient_research->issue_date) ? $patient_research->issue_date : '' }}</b></div>
     </div>
   </div>
 @endsection

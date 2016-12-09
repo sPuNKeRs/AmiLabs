@@ -54,6 +54,7 @@
                     <div class="row clearfix">
                         <div class="col-md-6">
                              <ul class="list-group">
+                                <li class="list-group-item"><b>Номер карты:</b> {{ $patient->card_number }} | <b>Дата карты:</b> {{ $patient->card_date }}</li>
                                 <li class="list-group-item"><b>Пациент:</b> {{ $patient->getFio() }}</li>
                                 <li class="list-group-item"><b>Пол:</b> {{ $patient->gender == 'male' ? 'Мужской':'Женский' }}</li>
                                 <li class="list-group-item"><b>Дата рождения:</b> {{ $patient->birth_date }}</li>
@@ -64,8 +65,8 @@
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group">
-                                <li class="list-group-item"><b>Номер карты:</b> {{ $patient->card_number }} | <b>Дата карты:</b> {{ $patient->card_date }}</li>
-                                <li class="list-group-item"><b>Врач:</b> Иванов Иван Иванович</li>
+                                <li class="list-group-item"><b>Место забора анализа:</b> {{ Form::select('unit_id', App\Unit::getArray(), null, ['data-width'=>'50%', 'class' => 'form-control show-tick', 'data-live-search' => 'true']) }}</li>
+                                <li class="list-group-item"><b>Врач:</b> {{ Form::select('doctor_id', App\User::getArray(true), null, ['data-width'=>'50%', 'class' => 'form-control show-tick', 'data-live-search' => 'true']) }}</li>
                                 <li class="list-group-item"><b>Дата исследования:</b> <input type="text" name="create_date" class="datepicker no-border" value="{{date('d.m.Y')}}"></li>
                                 <li class="list-group-item">
                                     <b>Выдан:</b>

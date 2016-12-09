@@ -239,6 +239,9 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
+
+        'SettingsHelper' => App\Helpers\SettingsHelper::class,
+
     ],
 
 ];

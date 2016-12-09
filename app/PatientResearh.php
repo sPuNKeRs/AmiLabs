@@ -20,6 +20,8 @@ class PatientResearh extends Model
     protected $fillable = [
         'patient_id',
         'research_id',
+        'unit_id',
+        'doctor_id',
         'create_date',
         'status',
         'issue_date',
@@ -78,5 +80,17 @@ class PatientResearh extends Model
     public function results()
     {
         return $this->hasMany('App\ResearchResult');
+    }
+
+    // Связь с подразделением
+    public function unit()
+    {
+        return $this->hasOne('App\Unit', 'id', 'unit_id');
+    }
+
+    // Связь с доктором
+    public function doctor()
+    {
+        return $this->hasOne('App\User', 'id', 'doctor_id');
     }
 }

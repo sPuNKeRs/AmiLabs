@@ -10,6 +10,11 @@
             <i class="material-icons">done</i>
         </a>
     </li>
+     <li>
+        <a href="#" id="save_print_research" class="btn bg-deep-orange btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Печать исследования" data-original-title="Печать исследования">
+            <i class="material-icons">print</i>
+        </a>
+    </li>
     <li>
         <a href="{{ route('registry.patients.research.list', ['patient_id'=>$patient->id]) }}" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Назад" data-original-title="Назад">
             <i class="material-icons">reply</i>
@@ -71,8 +76,8 @@
                                 <li class="list-group-item">
                                     <b>Выдан:</b>
                                     <div class="switch" style="display: inline-block;">
-                                        <label><input type="checkbox" name="status"><span class="lever switch-col-green"></span></label>
-                                        <input type="text" name="issue_date" class="datepicker no-border" placeholder="Дата выдачи">
+                                        <label><input type="checkbox" name="status" id="status"><span class="lever switch-col-green"></span></label>
+                                        <input type="text" name="issue_date" id="issue_date" style="display: none" class="datepicker no-border" placeholder="Дата выдачи">
                                     </div>
                                  </li>
                                  <li class="list-group-item"><b>Комментарии:</b><br> {{ Form::textarea('comment', null, ['class'=> 'form-control' , 'rows'=>'2']) }}</li>
@@ -119,13 +124,28 @@
 @section('js')
 <script>
 $(function() {
+    // Изменение статуса выдачи
+    $('#status').on('change', function(e){
+        var status = $( "#status" ).prop( "checked");
+        if(status == true)
+        {
+            $('#issue_date').datepick('setDate', 'today');
+            $('#issue_date').show();
+        }
+        else
+        {
+            $('#issue_date').val('');
+            $('#issue_date').hide();
+        }
+    });
+
     // Клик по кнопке сохранить исследование
     $('#save_research').on('click', function(e){
         $('#patient_research_form').submit();
     });
 
     // Set Datepicker
-      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});     
+      $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
       // Date
       $(".datepicker").inputmask('d.m.y');
 });

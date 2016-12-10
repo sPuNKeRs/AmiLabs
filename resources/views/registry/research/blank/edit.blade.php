@@ -10,6 +10,11 @@
             <i class="material-icons">done</i>
         </a>
     </li>
+     <li>
+        <a href="#" id="save_alert_research" class="btn btn-warning btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Отправить уведомление" data-original-title="Печать исследования">
+            <i class="material-icons">add_alert</i>
+        </a>
+    </li>
     <li>
         <a href="#" id="save_print_research" class="btn bg-deep-orange btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Печать исследования" data-original-title="Печать исследования">
             <i class="material-icons">print</i>
@@ -119,16 +124,31 @@
         </div>
     </div>
     {{ csrf_field() }}
+    @include('modals.default', $modal_choose_alert)
 @endsection
 
 @section('js')
 <script>
 $(function() {
+    // Инициализация переменных
+    var patient_research_id = '{{ $patient_research->id }}';
+
+    // Клик по кнопке уведомление
+    $('#save_alert_research').on('click', function(){
+        $('#modal_choose_alert').modal('show');
+    });
+
+    // Клик по кнопке отправить
+    $('#btn-alert').on('click', function(e){
+        notify();
+    });
+
     // Изменение статуса выдачи
     $('#status').on('change', function(e){
         var status = $( "#status" ).prop( "checked");
         if(status == true)
         {
+            $('#issue_date').datepick('setDate', 'today');
             $('#issue_date').show();
         }
         else
@@ -136,18 +156,14 @@ $(function() {
             $('#issue_date').val('');
             $('#issue_date').hide();
         }
-
     });
-
 
     // Клик по кнопке Печать исследования
     $('#save_print_research').on('click', function(e){
         // Инициализация переменных
-        var patient_research_id = '{{ $patient_research->id }}';
         var print_href = '{{ route('print.research') }}/' + patient_research_id;
         console.log(print_href);
         // Переход на страницу печати
-        //location.href = print_href;
         window.open(print_href);
     });
     // Клик по кнопке сохранить исследование
@@ -161,7 +177,29 @@ $(function() {
     $(".datepicker").inputmask('d.m.y');
 
     //================== ФУНКЦИИ ===================
+    // Сохранить изменения вида исследовния
+    function notify()
+    {
+        // Инициализация переменных
+        var token = $('input[name="_token"]').val();
+        var form = $('#choose_research_alert')[0];
+        var formData = new FormData(form);
 
+        $.ajax({
+            url: '{{ route('notify') }}',
+            headers: {'X-CSRF-TOKEN': token},
+            processData: false,
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+            },
+            error: function(errors){
+               console.log(errors);
+            }
+        });
+  }
 });
 </script>
 @endsection

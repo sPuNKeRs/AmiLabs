@@ -176,6 +176,9 @@ return [
         Intervention\Image\ImageServiceProvider::class,
 
         //
+        //Barryvdh\DomPDF\ServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -241,7 +244,8 @@ return [
 
 
         'SettingsHelper' => App\Helpers\SettingsHelper::class,
-
+        //'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
     ],
 
 ];

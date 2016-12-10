@@ -20,7 +20,7 @@ class ResearchController extends Controller
 
         $modal_choose_research = [
             'modal_id' => 'modal_choose_research',
-            'modal_title'=> 'ВЫБЕРИТИ ВИД ИССЛЕДОВАНИЯ',
+            'modal_title'=> 'ВЫБЕРИТЕ ВИД ИССЛЕДОВАНИЯ',
             'modal_body' => view('registry.research.forms.chooseresearch', compact('research_list', 'patient_id')),
             'modal_action' => '<button id="btn-save" type="submit" class="btn btn-link waves-effect">ДОБАВИТЬ</button>'
         ];
@@ -65,8 +65,14 @@ class ResearchController extends Controller
     {
         $patient_research = PatientResearh::findOrFail($research_id);
         $patient = $patient_research->patient;
+        $modal_choose_alert = [
+            'modal_id' => 'modal_choose_alert',
+            'modal_title'=> 'ВЫБЕРИТЕ ВИД УВЕДОМЛЕНИЯ ',
+            'modal_body' => view('notify.forms.choosealert', compact('patient_research', 'patient')),
+            'modal_action' => '<button id="btn-alert" type="submit" class="btn btn-link waves-effect">ОТПРАВИТЬ</button>'
+        ];
 
-        return view('registry.research.blank.edit', compact('patient', 'patient_research'));
+        return view('registry.research.blank.edit', compact('patient', 'patient_research', 'modal_choose_alert'));
     }
 
     // Сохранить отредактированное исследование

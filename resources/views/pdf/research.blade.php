@@ -21,6 +21,17 @@
  .gray-back{
     background-color: #ccc;
     border-bottom: 2px solid black;
+    text-transform: uppercase;
+ }
+
+ td {
+   padding: 10px;
+ }
+
+ thead tr th {
+   text-align: center;
+   text-transform: uppercase;
+   padding: 10px;
  }
 @endsection
 
@@ -68,20 +79,20 @@
     </div>
     <br>
     <div class="row">
-      <div class="col-xs-4"><b>Пациент:</b></div>
-      <div class="col-xs-8">{{$patient_research->patient->getFio()}}</div>
+      <div class="col-xs-3"><b>Пациент:</b></div>
+      <div class="col-xs-6">{{$patient_research->patient->getFio()}}</div>
     </div>
     <div class="row">
-      <div class="col-xs-4"><b>Пол:</b></div>
-      <div class="col-xs-8">{{$patient_research->patient->gender == 'male' ? 'Мужской':'Женский'}}</div>
+      <div class="col-xs-3"><b>Пол:</b></div>
+      <div class="col-xs-6">{{$patient_research->patient->gender == 'male' ? 'Мужской':'Женский'}}</div>
     </div>
     <div class="row">
-      <div class="col-xs-4"><b>Год рождения:</b></div>
-      <div class="col-xs-8">{{$patient_research->patient->birth_date}}</div>
+      <div class="col-xs-3"><b>Год рождения:</b></div>
+      <div class="col-xs-6">{{$patient_research->patient->birth_date}}</div>
     </div>
     <div class="row">
-      <div class="col-xs-4"><b>Врач:</b></div>
-      <div class="col-xs-8">{{ $patient_research->doctor->getFullName() }}</div>
+      <div class="col-xs-3"><b>Врач:</b></div>
+      <div class="col-xs-6">{{ $patient_research->doctor->getFullName() }}</div>
     </div>
     <div class="row">
       <div class="col-xs-4"><b>Дополнительные сведения:</b></div>
@@ -90,7 +101,7 @@
     <hr>
     <div class="row">
       <div class="col-xs-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered" cellspacing="5" cellpadding="10" border="1" width="100%">
           <thead>
             <tr>
               <th>Наименование исследования</th>
@@ -123,13 +134,13 @@
 
     <br>
     <div class="row">
-      <div class="col-xs-6"><b>Заведующая КДЛ</b></div>
-      <div class="col-xs-6 text-right"><b>_______________ {{ SettingsHelper::get()->doctor->getFullName() }}</b></div>
+      <div class="col-xs-3"><b>Заведующая КДЛ</b></div>
+      <div class="col-xs-7 text-right"><b>_______________ {{ SettingsHelper::get()->doctor->getFullName() }}</b></div>
     </div>
     <br>
-    <div class="row">
-      <div class="col-xs-4 col-xs-offset-8 text-right"><b>{{ isset($patient_research->issue_date) ? $patient_research->issue_date : '' }}</b></div>
-    </div>
+    {{-- <div class="row">
+      <div class="col-xs-3 col-xs-offset-7 text-right"><b>{{ isset($patient_research->issue_date) ? $patient_research->issue_date : '' }}</b></div>
+    </div> --}}
   </div>
 @endsection
 

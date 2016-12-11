@@ -121,6 +121,11 @@ Route::group(['middleware' => ['auth','roles','menu']], function () {
     'as' => 'notify',
     'uses' => 'NotifyController@sendNotify'
   ]);
+
+  Route::post('/notify/email',[
+    'as' => 'notify.email',
+    'uses' => 'NotifyController@sendEmail'
+  ]);
 });
 
 // -----------------------------------------------------------

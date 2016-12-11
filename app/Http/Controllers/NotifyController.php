@@ -13,6 +13,7 @@ class NotifyController extends Controller
 {
     public function sendNotify(Request $request)
     {
+        define('_MPDF_TTFONTDATAPATH',$temp_dir);
         $alert_type = $request->alert_type;
         $patient_research = PatientResearh::findOrFail($request->patient_research_id);
         $pdf = PDF::loadView('pdf.research', compact('patient_research'));

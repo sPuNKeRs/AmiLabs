@@ -194,6 +194,7 @@ $(function() {
             type: 'POST',
             success: function (response) {
                 console.log(response);
+                $('#modal_choose_alert').modal('hide');
             },
             error: function(errors){
                console.log(errors);

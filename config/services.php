@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'smscru' => [
+        'login'  => env('SMSCRU_LOGIN'),
+        'secret' => env('SMSCRU_SECRET'),
+        'sender' => 'AmiLabs GP1'
+    ],
 
 ];

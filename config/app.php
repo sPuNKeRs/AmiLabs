@@ -178,6 +178,7 @@ return [
         //
         //Barryvdh\DomPDF\ServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        NotificationChannels\SmscRu\SmscRuServiceProvider::class,
 
 
         /*

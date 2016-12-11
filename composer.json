@@ -16,7 +16,8 @@
         "yajra/laravel-datatables-oracle": "~6.0",
         "intervention/image": "^2.3",
         "barryvdh/laravel-dompdf": "^0.7.0",
-        "niklasravnsborg/laravel-pdf": "^1.1"
+        "niklasravnsborg/laravel-pdf": "^1.1",
+        "laravel-notification-channels/smsc-ru": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

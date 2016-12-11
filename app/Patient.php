@@ -5,10 +5,12 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Patient extends Model
 {
     use SoftDeletes;
+    use Notifiable;
 
     /**
      * The attributes that should be mutated to dates.
@@ -31,6 +33,16 @@ class Patient extends Model
             'more_inform',
             'author_id'
     ];
+
+     public function routeNotificationForMail()
+     {
+        return $this->email;
+     }
+
+     public function routeNotificationForSmscRu()
+     {
+        return $this->phone;
+     }
 
 
     /**

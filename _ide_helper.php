@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.22 on 2016-12-10.
+ * Generated for Laravel 5.3.22 on 2016-12-11.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12946,51 +12946,17 @@ namespace {
     }
 
 
-    class PDF extends \Barryvdh\DomPDF\Facade{
-        
-        /**
-         * Get the DomPDF instance
-         *
-         * @return \Barryvdh\DomPDF\Dompdf 
-         * @static 
-         */
-        public static function getDomPDF(){
-            return \Barryvdh\DomPDF\PDF::getDomPDF();
-        }
-        
-        /**
-         * Set the paper size (default A4)
-         *
-         * @param string $paper
-         * @param string $orientation
-         * @return $this 
-         * @static 
-         */
-        public static function setPaper($paper, $orientation = 'portrait'){
-            return \Barryvdh\DomPDF\PDF::setPaper($paper, $orientation);
-        }
-        
-        /**
-         * Show or hide warnings
-         *
-         * @param bool $warnings
-         * @return $this 
-         * @static 
-         */
-        public static function setWarnings($warnings){
-            return \Barryvdh\DomPDF\PDF::setWarnings($warnings);
-        }
+    class PDF extends \niklasravnsborg\LaravelPdf\Facades\Pdf{
         
         /**
          * Load a HTML string
          *
          * @param string $string
-         * @param string $encoding Not used yet
          * @return static 
          * @static 
          */
-        public static function loadHTML($string, $encoding = null){
-            return \Barryvdh\DomPDF\PDF::loadHTML($string, $encoding);
+        public static function loadHTML($string, $mode = 0){
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::loadHTML($string, $mode);
         }
         
         /**
@@ -13001,7 +12967,7 @@ namespace {
          * @static 
          */
         public static function loadFile($file){
-            return \Barryvdh\DomPDF\PDF::loadFile($file);
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::loadFile($file);
         }
         
         /**
@@ -13010,12 +12976,11 @@ namespace {
          * @param string $view
          * @param array $data
          * @param array $mergeData
-         * @param string $encoding Not used yet
          * @return static 
          * @static 
          */
-        public static function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
-            return \Barryvdh\DomPDF\PDF::loadView($view, $data, $mergeData, $encoding);
+        public static function loadView($view, $data = array(), $mergeData = array()){
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::loadView($view, $data, $mergeData);
         }
         
         /**
@@ -13025,7 +12990,7 @@ namespace {
          * @static 
          */
         public static function output(){
-            return \Barryvdh\DomPDF\PDF::output();
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::output();
         }
         
         /**
@@ -13036,29 +13001,29 @@ namespace {
          * @static 
          */
         public static function save($filename){
-            return \Barryvdh\DomPDF\PDF::save($filename);
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::save($filename);
         }
         
         /**
          * Make the PDF downloadable by the user
          *
          * @param string $filename
-         * @return \Illuminate\Http\Response 
+         * @return \Symfony\Component\HttpFoundation\Response 
          * @static 
          */
         public static function download($filename = 'document.pdf'){
-            return \Barryvdh\DomPDF\PDF::download($filename);
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::download($filename);
         }
         
         /**
          * Return a response with the PDF to show in the browser
          *
          * @param string $filename
-         * @return \Illuminate\Http\Response 
+         * @return \Symfony\Component\HttpFoundation\Response 
          * @static 
          */
         public static function stream($filename = 'document.pdf'){
-            return \Barryvdh\DomPDF\PDF::stream($filename);
+            return \niklasravnsborg\LaravelPdf\PdfWrapper::stream($filename);
         }
         
     }

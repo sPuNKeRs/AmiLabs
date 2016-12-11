@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-12-10.
+    * Generated on 2016-12-11.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -56,8 +56,7 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
-            'dompdf' instanceof \Dompdf\Dompdf,
-            'dompdf.wrapper' instanceof \Barryvdh\DomPDF\PDF,
+            'mpdf.wrapper' instanceof \niklasravnsborg\LaravelPdf\PdfWrapper,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -191,8 +190,7 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
-            'dompdf' instanceof \Dompdf\Dompdf,
-            'dompdf.wrapper' instanceof \Barryvdh\DomPDF\PDF,
+            'mpdf.wrapper' instanceof \niklasravnsborg\LaravelPdf\PdfWrapper,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -326,8 +324,7 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
-            'dompdf' instanceof \Dompdf\Dompdf,
-            'dompdf.wrapper' instanceof \Barryvdh\DomPDF\PDF,
+            'mpdf.wrapper' instanceof \niklasravnsborg\LaravelPdf\PdfWrapper,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -461,8 +458,7 @@ namespace PHPSTORM_META {
             'datatables' instanceof \Yajra\Datatables\Datatables,
             'datatables.fractal' instanceof \League\Fractal\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
-            'dompdf' instanceof \Dompdf\Dompdf,
-            'dompdf.wrapper' instanceof \Barryvdh\DomPDF\PDF,
+            'mpdf.wrapper' instanceof \niklasravnsborg\LaravelPdf\PdfWrapper,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,

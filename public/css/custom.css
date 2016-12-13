@@ -34,3 +34,10 @@ input.no-border {
     outline: none; 
     border: none
 }
+
+.research-save-status {
+    font-size: 12px;
+    vertical-align: middle;
+    color: #c5c3c3;
+    padding-left: 10px;
+}

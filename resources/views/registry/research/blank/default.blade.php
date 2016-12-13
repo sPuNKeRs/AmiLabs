@@ -10,6 +10,11 @@
             <i class="material-icons">done</i>
         </a>
     </li>
+    <li>
+        <a href="#" id="save_alert_research" class="btn btn-warning btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Отправить уведомление" data-original-title="Печать исследования">
+            <i class="material-icons">add_alert</i>
+        </a>
+    </li>
      <li>
         <a href="#" id="save_print_research" class="btn bg-deep-orange btn-circle waves-effect waves-circle waves-float" data-toggle="tooltip" data-placement="bottom" title="Печать исследования" data-original-title="Печать исследования">
             <i class="material-icons">print</i>
@@ -46,16 +51,22 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        {{ mb_strtoupper($research->name) }}
-                        {{-- - {{ $patient->getFio(true) }} --}}
+                        {{ mb_strtoupper($research->name) }} <div class="md-preloader pl-size-xs" style="width: 15px; display: none;">
+                            <svg viewBox="0 0 75 75">
+                                <circle cx="37.5" cy="37.5" r="33.5" class="pl-green" stroke-width="5"></circle>
+                            </svg>
+                        </div>
+                        <span class="research-save-status"></span>
                     </h2>
-                    {{-- <small>Дата рождения: {{ $patient->birth_date }}</small> --}}
                 </div>
                 <div class="body">
                     {!! Form::open(['id'=>'patient_research_form', 'name'=> 'patient_research_form', 'method'=>'POST', 'route' => 'registry.patients.research.save']) !!}
                     {!! Form::hidden('patient_id', $patient->id ) !!}
                     {!! Form::hidden('research_id', $research->id) !!}
-                    {{-- <h2 class="card-inside-title">Общие данные</h2> --}}
+                    {!! Form::hidden('patient_research_id', null, ['id'=>'patient-research-id']) !!}
+                    {!! Form::hidden('notify_status', null, ['id'=>'notify-status']) !!}
+                    {!! Form::hidden('save_status', null, ['id'=>'save-status']) !!}
+
                     <div class="row clearfix">
                         <div class="col-md-6">
                              <ul class="list-group">
@@ -119,11 +130,15 @@
         </div>
     </div>
     {{ csrf_field() }}
+    @include('modals.default', $modal_choose_alert)
 @endsection
 
 @section('js')
 <script>
 $(function() {
+    // Инициализация переменных
+    var token = $('input[name="_token"]').val();
+
     // Изменение статуса выдачи
     $('#status').on('change', function(e){
         var status = $( "#status" ).prop( "checked");
@@ -141,13 +156,113 @@ $(function() {
 
     // Клик по кнопке сохранить исследование
     $('#save_research').on('click', function(e){
-        $('#patient_research_form').submit();
+        saveResearch();
+        //$('#patient_research_form').submit();
     });
 
     // Set Datepicker
       $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
       // Date
       $(".datepicker").inputmask('d.m.y');
+
+    // ==================== ФУНКЦИИ ======================
+    // Сохранить исследование
+    function saveResearch(event){
+        var form = $('#patient_research_form')[0];
+        var formData = new FormData(form);
+
+        var saveRoute = '{{ route('registry.patients.research.save') }}';
+        var updateRoute = '{{ route('registry.patients.research.update') }}';
+
+        $.ajax({
+            url: updateRoute ,
+            headers: {'X-CSRF-TOKEN': token},
+            processData: false,
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+                if(response.status == true)
+                {
+                    $('.research-save-status').html('(Сохранено в '+ getCurrentTime() +')');
+                    $('#save-status').val(1);
+                    $('#patient-research-id').val(response.patient_research_id);
+
+                    if(event == 'print') printResearch(response.patient_research_id);
+
+                    if(event == 'notify') notify(response.patient_research_id);
+
+                    hideTooltip();
+                }
+            },
+            error: function(errors){
+                console.log(errors);
+            }
+        });
+    }
+
+    // Печать исследования
+    function printResearch(patient_research_id)
+    {
+        // Инициализация переменных
+        var print_href = '{{ route('print.research') }}/' + patient_research_id;
+        // Переход на страницу печати
+        window.open(print_href);
+    }
+
+    // Отправить уведомление
+    function notify()
+    {
+        // Инициализация переменных
+        var form = $('#choose_research_alert')[0];
+        var formData = new FormData(form);
+
+        $.ajax({
+            url: '{{ route('notify') }}',
+            headers: {'X-CSRF-TOKEN': token},
+            processData: false,
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+                $('#notify-status').val(1);
+
+                $('#modal_choose_alert').modal('hide');
+            },
+            error: function(errors){
+               console.log(errors);
+            }
+        });
+  }
+
+  // Получить текущее время
+  function getCurrentTime()
+  {
+      var date = new Date();
+      var hours = date.getHours();
+      var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+      var secs = date.getSeconds();
+      var currentTime = hours+':'+minutes+':'+secs;
+
+      return currentTime;
+  }
+
+  // Скрыть высплывающие подсказки
+  function hideTooltip()
+  {
+      $('[data-toggle="tooltip"]').tooltip('hide');
+  }
+
+  // Анимация AJAX
+    $(document).ajaxStart(function() {
+        $(".md-preloader").show();
+    });
+
+    $(document).ajaxStop(function() {
+        $(".md-preloader").hide();
+    });
 });
 </script>
 @endsection

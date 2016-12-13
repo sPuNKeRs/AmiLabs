@@ -1,6 +1,6 @@
 {!! Form::open(['id'=>'choose_research_alert', 'name'=> 'choose_research_alert', 'method'=>'POST']) !!}
 {{ Form::hidden('patient_id', $patient->id, ['id'=>'patient-id']) }}
-{{ Form::hidden('patient_research_id', $patient_research->id, ['id'=>'patient-research-id']) }}
+{{ Form::hidden('patient_research_id', isset($patient_research->id) ? $patient_research->id : null, ['id'=>'patient-research-id']) }}
 <ul class="alert-list-ul">
   <li class="">
     <input name="alert_type" type="radio" id="alert-type-1" class="alert-type with-gap radio-col-red" value="1" checked>

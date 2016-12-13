@@ -34,13 +34,25 @@ class ResearchController extends Controller
         $patient = Patient::findOrFail($request->patient_id);
         $research = Research::findOrFail($request->research_id);
 
-        return view('registry.research.blank.default', compact('patient', 'research'));
+        $modal_choose_alert = [
+            'modal_id' => 'modal_choose_alert',
+            'modal_title'=> 'ВЫБЕРИТЕ ВИД УВЕДОМЛЕНИЯ ',
+            'modal_body' => view('notify.forms.choosealert', compact('patient_research', 'patient')),
+            'modal_action' => '<div class="md-preloader pl-size-xs" style="vertical-align: middle; display: none;">
+                            <svg viewBox="0 0 75 75">
+                                <circle cx="37.5" cy="37.5" r="33.5" class="pl-green" stroke-width="5"></circle>
+                            </svg>
+                        </div><button id="btn-alert" type="submit" class="btn btn-link waves-effect">ОТПРАВИТЬ</button>'
+        ];
+
+        return view('registry.research.blank.default', compact('patient', 'research', 'modal_choose_alert'));
     }
 
     // Сохранение исследования пациента
     public function savePatientResearch(Request $request)
     {
         $input = $request->all();
+        dd($input);
         $patient_researh = PatientResearh::create($input);
         $pays = $request->get('pay');
 
@@ -57,6 +69,12 @@ class ResearchController extends Controller
             $patient_researh->results()->save($analysis_result);
         }
 
+
+        if($request->ajax())
+        {
+            return response(['status'=>true, 'patient_research_id' => $patient_researh->id ]);
+        }
+
         return redirect()->route('registry.patients.research.list', $request->patient_id);
     }
 
@@ -69,7 +87,11 @@ class ResearchController extends Controller
             'modal_id' => 'modal_choose_alert',
             'modal_title'=> 'ВЫБЕРИТЕ ВИД УВЕДОМЛЕНИЯ ',
             'modal_body' => view('notify.forms.choosealert', compact('patient_research', 'patient')),
-            'modal_action' => '<button id="btn-alert" type="submit" class="btn btn-link waves-effect">ОТПРАВИТЬ</button>'
+            'modal_action' => '<div class="md-preloader pl-size-xs" style="vertical-align: middle; display: none;">
+                            <svg viewBox="0 0 75 75">
+                                <circle cx="37.5" cy="37.5" r="33.5" class="pl-green" stroke-width="5"></circle>
+                            </svg>
+                        </div><button id="btn-alert" type="submit" class="btn btn-link waves-effect">ОТПРАВИТЬ</button>'
         ];
 
         return view('registry.research.blank.edit', compact('patient', 'patient_research', 'modal_choose_alert'));
@@ -82,14 +104,18 @@ class ResearchController extends Controller
         //dd($input);
         $input['status'] = isset($input['status']) ? $input['status'] : '';
 
-        PatientResearh::find($request->patient_research_id)->update($input);
+        PatientResearh::findOrFail($request->patient_research_id)->update($input);
         $pays = $request->get('pay');
         $analyzes = $request->get('analyzes');
         foreach($analyzes as $key => $analysis)
         {
-
             $pay = (isset($pays[$key])) ? $pays[$key] : null;
             ResearchResult::find($key)->update(['result' => $analysis, 'pay'=>$pay ]);
+        }
+
+        if($request->ajax())
+        {
+            return response(['status' => true, 'patient_id' => $request->patient_id]);
         }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);

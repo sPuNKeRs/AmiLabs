@@ -53,7 +53,13 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        {{ mb_strtoupper($patient_research->research->name) }} №{{ $patient_research->id }} от {{$patient_research->create_date}}
+                        {{ mb_strtoupper($patient_research->research->name) }} №{{ $patient_research->id }} от {{$patient_research->create_date}} 
+                        <div class="md-preloader pl-size-xs" style="width: 15px; display: none;">
+                            <svg viewBox="0 0 75 75">
+                                <circle cx="37.5" cy="37.5" r="33.5" class="pl-green" stroke-width="5"></circle>
+                            </svg>
+                        </div>
+                        <span class="research-save-status"></span>
                     </h2>
                 </div>
                 <div class="body">
@@ -61,6 +67,8 @@
                     {!! Form::hidden('patient_id', $patient->id ) !!}
                     {!! Form::hidden('research_id', $patient_research->research->id) !!}
                     {!! Form::hidden('patient_research_id', $patient_research->id) !!}
+                    {!! Form::hidden('notify_status', null, ['id'=>'notify-status']) !!}
+                    {!! Form::hidden('save_status', null, ['id'=>'save-status']) !!}
                     <div class="row clearfix">
                         <div class="col-md-6">
                              <ul class="list-group">
@@ -131,6 +139,7 @@
 <script>
 $(function() {
     // Инициализация переменных
+    var token = $('input[name="_token"]').val();
     var patient_research_id = '{{ $patient_research->id }}';
 
     // Клик по кнопке уведомление
@@ -140,7 +149,7 @@ $(function() {
 
     // Клик по кнопке отправить
     $('#btn-alert').on('click', function(e){
-        notify();
+        saveResearch('notify');
     });
 
     // Изменение статуса выдачи
@@ -160,28 +169,66 @@ $(function() {
 
     // Клик по кнопке Печать исследования
     $('#save_print_research').on('click', function(e){
-        // Инициализация переменных
-        var print_href = '{{ route('print.research') }}/' + patient_research_id;
-        console.log(print_href);
-        // Переход на страницу печати
-        window.open(print_href);
+        saveResearch('print');
     });
+
     // Клик по кнопке сохранить исследование
     $('#save_research').on('click', function(e){
-        $('#patient_research_form').submit();
+        saveResearch();
     });
 
     // Set Datepicker
     $(".datepicker").datepick({dateFormat: 'dd.mm.yyyy'});
+
     // Date
     $(".datepicker").inputmask('d.m.y');
 
     //================== ФУНКЦИИ ===================
-    // Сохранить изменения вида исследовния
+    // Сохранить исследование
+    function saveResearch(event){
+        var form = $('#patient_research_form')[0];
+        var formData = new FormData(form);
+
+        $.ajax({
+            url: '{{ route('registry.patients.research.update') }}',
+            headers: {'X-CSRF-TOKEN': token},
+            processData: false,
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+                console.log(response);
+                if(response.status == true)
+                {
+                    $('.research-save-status').html('(Сохранено в '+ getCurrentTime() +')');
+                    $('#save-status').val(1);
+
+                    if(event == 'print') printResearch();
+
+                    if(event == 'notify') notify();
+
+                    hideTooltip();
+                }
+            },
+            error: function(errors){
+                console.log(errors);
+            }
+        });
+    }
+
+    // Печать исследования
+    function printResearch()
+    {
+        // Инициализация переменных
+        var print_href = '{{ route('print.research') }}/' + patient_research_id;
+        // Переход на страницу печати
+        window.open(print_href);
+    }
+
+    // Отправить уведомление
     function notify()
     {
         // Инициализация переменных
-        var token = $('input[name="_token"]').val();
         var form = $('#choose_research_alert')[0];
         var formData = new FormData(form);
 
@@ -194,6 +241,8 @@ $(function() {
             type: 'POST',
             success: function (response) {
                 console.log(response);
+                $('#notify-status').val(1);
+
                 $('#modal_choose_alert').modal('hide');
             },
             error: function(errors){
@@ -201,6 +250,33 @@ $(function() {
             }
         });
   }
+
+  // Получить текущее время
+  function getCurrentTime()
+  {
+      var date = new Date();
+      var hours = date.getHours();
+      var minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+      var secs = date.getSeconds();
+      var currentTime = hours+':'+minutes+':'+secs;
+
+      return currentTime;
+  }
+
+  // Скрыть высплывающие подсказки
+  function hideTooltip()
+  {
+      $('[data-toggle="tooltip"]').tooltip('hide');
+  }
+
+  // Анимация AJAX
+    $(document).ajaxStart(function() {
+        $(".md-preloader").show();
+    });
+
+    $(document).ajaxStop(function() {
+        $(".md-preloader").hide();
+    });
 });
 </script>
 @endsection

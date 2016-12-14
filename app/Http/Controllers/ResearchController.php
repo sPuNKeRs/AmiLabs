@@ -103,14 +103,17 @@ class ResearchController extends Controller
     public function updatePatientResearch(PatientResearhRequest $request)
     {
         $input = $request->all();
+        $input['status'] = isset($input['status']) ? $input['status'] : '';
+
+        //dd($input);
+
         // Создаем новое исследование
         if($input['patient_research_id'] == '')
         {
-            //return response('Нет исследования');
-            //dd($input);
-
             $patient_research = PatientResearh::create($input);
             $pays = $request->get('pay');
+
+            $analyzes_results_id = array();
 
             // Сохраняем результаты анализов
             foreach($request->get('analyzes') as $key => $result)
@@ -122,19 +125,20 @@ class ResearchController extends Controller
                     'result'=> $result,
                     'pay' => $pay
                 ]);
+
                 $patient_research->results()->save($analysis_result);
+                array_push($analyzes_results_id, $analysis_result->id);
             }
+
             $input['patient_research_id'] = $patient_research->id;
         }
         else
         {
-            //return response('Есть исследования');
-            //dd($input);
             PatientResearh::findOrFail($request->patient_research_id)->update($input);
-            $input['status'] = isset($input['status']) ? $input['status'] : '';
 
             $pays = $request->get('pay');
             $analyzes = $request->get('analyzes');
+
             foreach($analyzes as $key => $analysis)
             {
                 $pay = (isset($pays[$key])) ? $pays[$key] : null;
@@ -144,7 +148,10 @@ class ResearchController extends Controller
 
         if($request->ajax())
         {
-            return response(['status' => true, 'patient_id' => $request->patient_id, 'patient_research_id' => $input['patient_research_id']]);
+            return response(['status' => true, 
+                             'patient_id' => $request->patient_id, 
+                             'patient_research_id' => $input['patient_research_id'],
+                             'analyzes_results_id' => $analyzes_results_id]);
         }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);

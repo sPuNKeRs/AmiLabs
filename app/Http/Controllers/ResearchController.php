@@ -53,7 +53,9 @@ class ResearchController extends Controller
     {
         $input = $request->all();
         dd($input);
-        $patient_researh = PatientResearh::create($input);
+        $patient_research = PatientResearh::create($input);
+
+
         $pays = $request->get('pay');
 
         // Сохраняем результаты анализов
@@ -66,13 +68,13 @@ class ResearchController extends Controller
                 'result'=> $result,
                 'pay' => $pay
             ]);
-            $patient_researh->results()->save($analysis_result);
+            $patient_research->results()->save($analysis_result);
         }
 
 
         if($request->ajax())
         {
-            return response(['status'=>true, 'patient_research_id' => $patient_researh->id ]);
+            return response(['status'=>true, 'patient_research_id' => $patient_research->id ]);
         }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);
@@ -101,21 +103,48 @@ class ResearchController extends Controller
     public function updatePatientResearch(PatientResearhRequest $request)
     {
         $input = $request->all();
-        //dd($input);
-        $input['status'] = isset($input['status']) ? $input['status'] : '';
-
-        PatientResearh::findOrFail($request->patient_research_id)->update($input);
-        $pays = $request->get('pay');
-        $analyzes = $request->get('analyzes');
-        foreach($analyzes as $key => $analysis)
+        // Создаем новое исследование
+        if($input['patient_research_id'] == '')
         {
-            $pay = (isset($pays[$key])) ? $pays[$key] : null;
-            ResearchResult::find($key)->update(['result' => $analysis, 'pay'=>$pay ]);
+            //return response('Нет исследования');
+            //dd($input);
+
+            $patient_research = PatientResearh::create($input);
+            $pays = $request->get('pay');
+
+            // Сохраняем результаты анализов
+            foreach($request->get('analyzes') as $key => $result)
+            {
+                $pay = (isset($pays[$key])) ? $pays[$key] : null;
+
+                $analysis_result = new ResearchResult([
+                    'analysis_id' => $key,
+                    'result'=> $result,
+                    'pay' => $pay
+                ]);
+                $patient_research->results()->save($analysis_result);
+            }
+            $input['patient_research_id'] = $patient_research->id;
+        }
+        else
+        {
+            //return response('Есть исследования');
+            //dd($input);
+            PatientResearh::findOrFail($request->patient_research_id)->update($input);
+            $input['status'] = isset($input['status']) ? $input['status'] : '';
+
+            $pays = $request->get('pay');
+            $analyzes = $request->get('analyzes');
+            foreach($analyzes as $key => $analysis)
+            {
+                $pay = (isset($pays[$key])) ? $pays[$key] : null;
+                ResearchResult::find($key)->update(['result' => $analysis, 'pay'=>$pay ]);
+            }
         }
 
         if($request->ajax())
         {
-            return response(['status' => true, 'patient_id' => $request->patient_id]);
+            return response(['status' => true, 'patient_id' => $request->patient_id, 'patient_research_id' => $input['patient_research_id']]);
         }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);

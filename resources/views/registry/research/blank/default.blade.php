@@ -7,15 +7,6 @@
 <!-- Top Bar Nav-->
 @section('top_page_nav')
 <ul class="nav navbar-nav top_page_nav">
-    <li>
-        <a href="#"
-            id="test_btn"
-            class="btn btn-primary btn-circle waves-effect waves-circle waves-float"
-            data-toggle="tooltip"
-            data-placement="bottom">
-                <i class="material-icons">done</i>
-        </a>
-    </li>
     {{-- Кнопка сохранить исследование --}}
     <li>
         <a href="#"
@@ -246,6 +237,21 @@ $(function() {
     // Инициализация переменных
     var token = $('input[name="_token"]').val();
 
+    // Клик по кнопке уведомление
+    $('#save_alert_research').on('click', function(){
+        $('#modal_choose_alert').modal('show');
+    });
+
+    // Клик по кнопке отправить
+    $('#btn-alert').on('click', function(e){
+        saveResearch('notify');
+    });
+
+    // Клик по кнопке Печать исследования
+    $('#save_print_research').on('click', function(e){
+        saveResearch('print');
+    });
+
     // Изменение статуса выдачи исследования
     $('#status').on('change', function(e){
         var status = $( "#status" ).prop( "checked");
@@ -266,6 +272,8 @@ $(function() {
         saveResearch();
         //$('#patient_research_form').submit();
     });
+
+
     // ==================== ФУНКЦИИ ======================
     // Сохранить исследование
     function saveResearch(event){
@@ -306,17 +314,26 @@ $(function() {
         setIdAnalysis();
     });
 
-
-
     // Присвоить ID сохраненным результатам
     function setIdAnalysis(idArray)
     {
-        console.log('--setIdAnalysis--');
-        console.log($('input[name^="analyzes"]').length);
+        if(idArray != null){
+            $('input[name^="analyzes"]').each(function(i){
+                console.log('То что было: ' + $(this).attr('name'));
+                console.log('------');
+                $(this).attr('name', 'analyzes[' + idArray[i] + ']');
+                console.log('То что Стало: ' + $(this).attr('name'));
+                i = i+1;
+            });
 
-        $('input[name^="analyzes"]').each(function(){
-            console.log($(this).val());
-        });
+            $('input[name^="pay"]').each(function(i){
+                console.log('То что было: ' + $(this).attr('name'));
+                console.log('------');
+                $(this).attr('name', 'pay[' + idArray[i] + ']');
+                console.log('То что Стало: ' + $(this).attr('name'));
+                i = i+1;
+            });
+        }
     }
 
     // Печать исследования

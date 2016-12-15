@@ -5,7 +5,7 @@
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
             <a href="javascript:void(0);" class="button-bars"></a>
-            <a class="navbar-brand" href="{{url('/')}}">{{ config('app.name', 'Laravel') }} | @yield('page_title')</a>
+            <a style="max-width: 1105px;" class="navbar-brand" href="{{url('/')}}">{{ config('app.name', 'Laravel') }} | @yield('page_title')</a>
         </div>               
         <div class="collapse navbar-collapse" id="navbar-collapse">
            

@@ -114,6 +114,7 @@ class ResearchController extends Controller
             $pays = $request->get('pay');
 
             $analyzes_results_id = array();
+            //$pays_results_id = array();
 
             // Сохраняем результаты анализов
             foreach($request->get('analyzes') as $key => $result)
@@ -151,7 +152,7 @@ class ResearchController extends Controller
             return response(['status' => true, 
                              'patient_id' => $request->patient_id, 
                              'patient_research_id' => $input['patient_research_id'],
-                             'analyzes_results_id' => $analyzes_results_id]);
+                             'analyzes_results_id' => isset($analyzes_results_id) ? $analyzes_results_id : null ]);
         }
 
         return redirect()->route('registry.patients.research.list', $request->patient_id);

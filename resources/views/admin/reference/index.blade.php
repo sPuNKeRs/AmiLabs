@@ -55,7 +55,7 @@
                 <tr id="type_{{$type->id}}" data-typeid="{{ $type->id }}">
                     <td>{{ $type->name }}</td>
                     <td>{{ $type->description }}</td>
-                    <td>
+                    <td style="vertical-align: middle;">
                         <a href="#" data-typeid="{{ $type->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Редактировать" class="btn action-btn edit-type btn-warning waves-effect">
                           <i class="material-icons">mode_edit</i>
                         </a>
@@ -148,7 +148,7 @@
             //TODO: Переработать код (возможно компилировать вывод на стороне сервера...)
             var action = '<a href="#" data-typeid="'+response.id+'" data-toggle="tooltip" data-placement="bottom" data-original-title="Редактировать" class="btn action-btn edit-type btn-warning waves-effect"><i class="material-icons">mode_edit</i></a>  <a href="#" data-typeid="'+response.id+'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn analyzes-list bg-blue waves-effect"><i class="material-icons">assignment</i></a>  <a href="#" data-typeid="'+response.id+'" data-toggle="tooltip" data-placement="bottom" data-original-title="Удалить" class="btn action-btn delete-type btn-danger waves-effect"><i class="material-icons">delete</i></a>';
 
-            var html ='<tr id="type_'+response.id+'" data-typeid="'+response.id+'"><td>'+response.name+'</td><td>' + response.description + '</td><td>' + action + '</td></tr>';
+            var html ='<tr id="type_'+response.id+'" data-typeid="'+response.id+'"><td>'+response.name+'</td><td>' + response.description + '</td><td style="vertical-align: middle;">' + action + '</td></tr>';
             $('#type_table tbody').append(html);
 
             $('#modal_create').modal('hide');
@@ -258,7 +258,7 @@
         //TODO: Переработать код (возможно компилировать вывод на стороне сервера...)
         var action = '<a href="#" data-typeid="'+response.id+'" data-toggle="tooltip" data-placement="bottom" data-original-title="Редактировать" class="btn action-btn edit-type btn-warning waves-effect"><i class="material-icons">mode_edit</i></a>  <a href="#" data-typeid="'+response.id+'" data-toggle="tooltip" data-placement="bottom" data-original-title="Список анализов" class="btn action-btn analyzes-list bg-blue waves-effect"><i class="material-icons">assignment</i></a>  <a href="#" data-typeid="'+response.id+'" data-toggle="tooltip" data-placement="bottom" data-original-title="Удалить" class="btn action-btn delete-type btn-danger waves-effect"><i class="material-icons">delete</i></a>';
 
-        var html ='<tr id="type_'+response.id+'" data-typeid="'+response.id+'"><td>'+response.name+'</td><td>' + response.description + '</td><td>' + action + '</td></tr>';
+        var html ='<tr id="type_'+response.id+'" data-typeid="'+response.id+'"><td>'+response.name+'</td><td>' + response.description + '</td><td style="vertical-align: middle;">' + action + '</td></tr>';
         $('#type_' + type_id).after(html);
         $('#type_' + type_id).remove();
 

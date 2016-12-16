@@ -104,10 +104,10 @@
         <table class="table table-bordered" cellspacing="5" cellpadding="10" border="1" width="100%">
           <thead>
             <tr>
-              <th>Наименование исследования</th>
-              <th>Результат</th>
-              <th>Ед. изм.</th>
-              <th>Реф. значения</th>
+              <th style="vertical-align: middle;">Наименование исследования</th>
+              <th style="vertical-align: middle;">Результат</th>
+              <th style="vertical-align: middle;">Ед. изм.</th>
+              <th style="vertical-align: middle;">Реф. значения</th>
             </tr>
           </thead>
           <tbody>
@@ -116,10 +116,10 @@
                 @continue
               @endif
               <tr>
-                <td>{{ $result->analysis->name }}</td>
-                <td>{{ $result->result }}</td>
-                <td>{{ $result->analysis->unit }}</td>
-                <td>{{ $result->analysis->r_range }}</td>
+                <td style="vertical-align: middle;">{{ $result->analysis->name }}</td>
+                <td style="vertical-align: middle;">{{ $result->result }}</td>
+                <td style="vertical-align: middle;">{{ $result->analysis->unit }}</td>
+                <td style="vertical-align: middle;">{!! nl2br($result->analysis->r_range) !!}</td>
               </tr>
               @endforeach
           </tbody>

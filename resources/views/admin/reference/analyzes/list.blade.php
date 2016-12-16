@@ -71,8 +71,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $analysis->name }}</td>
                                 <td>{{ $analysis->unit }}</td>
-                                <td>{{ $analysis->r_range }}</td>
-                                <td>
+                                <td>{!! nl2br($analysis->r_range) !!}</td>
+                                <td style="vertical-align: middle;">
                                     <a href="#" data-analysis-id="{{ $analysis->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Редактировать" class="btn action-btn edit-analysis btn-warning waves-effect">
                                         <i class="material-icons">mode_edit</i>
                                     </a>
